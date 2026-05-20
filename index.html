@@ -725,7 +725,73 @@
   </div>
 
 </div>
+<div class="stats-section">
+  <div class="stat-item">
+    <span class="stat-number">50,000+</span>
+    <span class="stat-label">Lines of Code Audited</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">30+</span>
+    <span class="stat-label">Vulnerabilities Found</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">12</span>
+    <span class="stat-label">Highs & Criticals</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">0</span>
+    <span class="stat-label">Post-Audit Exploits</span>
+  </div>
+</div>
 
+<style>
+  .stats-section {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(86, 182, 194, 0.12);
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 1rem;
+    border: 1px solid rgba(86, 182, 194, 0.12);
+    border-radius: 4px;
+    background: rgba(86, 182, 194, 0.03);
+    transition: border-color 0.2s;
+  }
+
+  .stat-item:hover {
+    border-color: rgba(86, 182, 194, 0.3);
+  }
+
+  .stat-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #98acf0;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 600px) {
+    .stat-item {
+      min-width: calc(50% - 0.5rem);
+    }
+  }
+</style>
 
 <style>
   .about-section {
