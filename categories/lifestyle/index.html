@@ -1115,5 +1115,36 @@
 </script>
 
 </body>
+<div id="cursor-bracket"></div>
+
+<script>
+  var bracket = document.getElementById('cursor-bracket');
+
+  document.addEventListener('mousemove', function (e) {
+    bracket.style.left = e.clientX + 'px';
+    bracket.style.top = e.clientY + 'px';
+  });
+
+  document.addEventListener('mousedown', function () {
+    bracket.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    bracket.style.borderColor = '#ffb300';
+  });
+
+  document.addEventListener('mouseup', function () {
+    bracket.style.transform = 'translate(-50%, -50%) scale(1)';
+    bracket.style.borderColor = 'rgba(78, 201, 176, 0.8)';
+  });
+  document.addEventListener('mousedown', function () {
+    bracket.style.transform = 'translate(-50%, -50%) scale(0.85)';
+    bracket.querySelector('::before');
+    bracket.classList.add('clicked');
+  });
+
+  document.addEventListener('mouseup', function () {
+    bracket.style.transform = 'translate(-50%, -50%) scale(1)';
+    bracket.classList.remove('clicked');
+  });
+
+</script>
 
 </html>
