@@ -497,17 +497,6 @@
     <div id="topbar-title">
       DeFiBreacher
     </div>
-
-    <button type="button" id="search-trigger" class="btn btn-link" aria-label="Search">
-      <i class="fas fa-search fa-fw"></i>
-    </button>
-
-    <search id="search" class="align-items-center ms-3 ms-lg-0">
-      <i class="fas fa-search fa-fw"></i>
-      <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off"
-        placeholder="Search...">
-    </search>
-    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button>
   </div>
 </header>
 
@@ -1242,7 +1231,48 @@
   </div>
 
 </div>
+<!-- Tools I Use -->
+<div class="panel-section" style="margin-top: 1.5rem;">
+  <h2 class="panel-heading">// Tools I Use</h2>
+  <div class="tools-grid">
+    <span class="tool-badge">💻 VSCode</span>
+    <span class="tool-badge">⚡ Foundry</span>
+    <span class="tool-badge">🔨 Hardhat</span>
+    <span class="tool-badge">🐍 Slither</span>
+    <span class="tool-badge">🦔 Echidna</span>
+    <span class="tool-badge">🔍 Mythril</span>
+    <span class="tool-badge">🧪 Remix</span>
+    <span class="tool-badge">🌿 Aderyn</span>
+    <span class="tool-badge">🔮 Halmos</span>
+    <span class="tool-badge">⚙️ HEVM</span>
+  </div>
+</div>
 
+<style>
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tool-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background: rgba(86, 182, 194, 0.06);
+    border: 1px solid rgba(86, 182, 194, 0.18);
+    color: #c9d1d9;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+  }
+
+  .tool-badge:hover {
+    background: rgba(86, 182, 194, 0.12);
+    border-color: rgba(86, 182, 194, 0.4);
+    color: #56b6c2;
+  }
+</style>
 <style>
   .custom-panel {
     padding: 0.5rem 0;
