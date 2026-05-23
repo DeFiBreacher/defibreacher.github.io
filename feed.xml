@@ -4,7 +4,7 @@
   <id>https://defibreacher.github.io/</id>
   <title>DeFiBreacher</title>
   <subtitle>Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.</subtitle>
-  <updated>2026-05-23T18:30:50+05:30</updated>
+  <updated>2026-05-23T20:48:44+05:30</updated>
   <author>
     <name>DeFiBreacher</name>
     <uri>https://defibreacher.github.io/</uri>
@@ -17,6 +17,30 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>A Morning Coffee, a Discord DM, and a Compromised PC</title>
+    <link href="https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/" rel="alternate" type="text/html" title="A Morning Coffee, a Discord DM, and a Compromised PC" />
+    <published>2026-05-23T06:30:00+05:30</published>
+  
+    <updated>2026-05-23T06:30:00+05:30</updated>
+  
+    <id>https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/</id>
+    <content type="text/html" src="https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/" />
+    <author>
+      <name>DeFiBreacher</name>
+    </author>
+
+  
+    
+    <category term="Security" />
+    
+  
+
+  <summary>Just like any normal morning, I was sipping coffee, checking emails, and scrolling through my X feed when a Discord notification popped up.  A DM from my friend.  He was sending me screenshots of posts claiming that clicking some random link would send free USDT directly to your account.  That immediately raised some red flags. Why?  First, he doesn’t even use crypto.  Second, the exact same me...</summary>
+
+  </entry>
 
   
   <entry>
