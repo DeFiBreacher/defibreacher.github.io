@@ -30,25 +30,25 @@
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Archives" />
+<meta property="og:title" content="Reading" />
 <meta property="og:locale" content="en" />
 <meta name="description" content="Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing." />
 <meta name="twitter:description" property="og:description" content="Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing." />
-<link rel="canonical" href="https://defibreacher.github.io/archives/" />
-<meta property="og:url" content="https://defibreacher.github.io/archives/" />
+<link rel="canonical" href="https://defibreacher.github.io/reading/" />
+<meta property="og:url" content="https://defibreacher.github.io/reading/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-05-23T21:16:29+05:30" />
-<meta property="article:modified_time" content="2026-05-23T21:16:29+05:30" />
+<meta property="article:published_time" content="2026-05-26T02:47:51+05:30" />
+<meta property="article:modified_time" content="2026-05-26T02:47:51+05:30" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Archives" />
+<meta name="twitter:title" content="Reading" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-23T21:16:29+05:30","datePublished":"2026-05-23T21:16:29+05:30","description":"Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.","headline":"Archives","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/archives/"},"url":"https://defibreacher.github.io/archives/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-05-26T02:47:51+05:30","datePublished":"2026-05-26T02:47:51+05:30","description":"Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.","headline":"Reading","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/reading/"},"url":"https://defibreacher.github.io/reading/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
-  <title>Archives | DeFiBreacher</title>
+  <title> | DeFiBreacher</title>
 
   <!--
   The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
@@ -108,7 +108,12 @@
   
 
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
 
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
   
 
   <!-- Scripts -->
@@ -124,6 +129,13 @@
 <!-- layout specified -->
 
 
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
 
 
 
@@ -166,16 +178,9 @@
 
   
 
-  
-    
-
-    
-
-  
 
 
-
-  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/dayjs@1.11.20/dayjs.min.js,npm/dayjs@1.11.20/locale/en.js,npm/dayjs@1.11.20/plugin/relativeTime.js,npm/dayjs@1.11.20/plugin/localizedFormat.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
 
 
@@ -183,7 +188,7 @@
 
 
 
-<script defer src="/assets/js/dist/misc.min.js"></script>
+<script defer src="/assets/js/dist/page.min.js"></script>
 
 
 
@@ -356,32 +361,32 @@
       </li>
       <!-- .nav-item -->
       
+      <li class="nav-item active">
+        <a href="/reading/" class="nav-link">
+          <i class="fa-fw fas fa-book-open"></i>
+          
+
+          <span>READING</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+      
+      <li class="nav-item">
+        <a href="/ctf/" class="nav-link">
+          <i class="fa-fw fas fa-flag"></i>
+          
+
+          <span>CTF</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+      
       <li class="nav-item">
         <a href="/categories/" class="nav-link">
           <i class="fa-fw fas fa-stream"></i>
           
 
           <span>CATEGORIES</span>
-        </a>
-      </li>
-      <!-- .nav-item -->
-      
-      <li class="nav-item">
-        <a href="/tags/" class="nav-link">
-          <i class="fa-fw fas fa-tags"></i>
-          
-
-          <span>TAGS</span>
-        </a>
-      </li>
-      <!-- .nav-item -->
-      
-      <li class="nav-item active">
-        <a href="/archives/" class="nav-link">
-          <i class="fa-fw fas fa-archive"></i>
-          
-
-          <span>ARCHIVES</span>
         </a>
       </li>
       <!-- .nav-item -->
@@ -469,7 +474,7 @@
       
       
       
-      <span>Archives</span>
+      <span>Reading</span>
       
 
       
@@ -483,7 +488,7 @@
     </button>
 
     <div id="topbar-title">
-      Archives
+      Reading
     </div>
   </div>
 </header>
@@ -491,7 +496,70 @@
       <div class="row flex-grow-1">
         <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
           
-          
+          <!-- Refactor the HTML structure -->
+
+
+
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
 
 
 
@@ -500,75 +568,247 @@
     
     
     <h1 class="dynamic-title">
-      Archives
+      Reading
     </h1>
     <div class="content">
       
+<div id="reading-page" class="pl-xl-3">
 
+  <!-- Newsletters -->
+  <time class="year lead d-block">Newsletters</time>
+  <ul class="list-unstyled reading-list">
 
-
-
-
-
-<div id="archives" class="pl-xl-3">
-  
-    
-
-    
-      
-
-      <time class="year lead d-block">2026</time>
-      <ul class="list-unstyled">
-
-      
-    
-
-    <li>
-      
-      <span class="date day" data-ts="1779498000" data-df="DD">23</span>
-      <span class="date month small text-muted ms-1" data-ts="1779498000" data-df="MMM">
-        May
-      </span>
-      <a href="/posts/morning-coffee-discord-compromised-pc/">A Morning Coffee, a Discord DM, and a Compromised PC</a>
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-newsletter">Newsletter</span>
+        <a href="https://limitlessblog.substack.com" target="_blank" rel="noopener" class="reading-link">
+          Limitless Blogs <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Insightful writing on Web3, security, and tech. A must-read for staying sharp.</p>
     </li>
 
-    
-  
-    
-
-    
-
-    <li>
-      
-      <span class="date day" data-ts="1779105600" data-df="DD">18</span>
-      <span class="date month small text-muted ms-1" data-ts="1779105600" data-df="MMM">
-        May
-      </span>
-      <a href="/posts/lets-crack-gym/">Let's Crack Gym</a>
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-newsletter">Newsletter</span>
+        <a href="https://blockthreat.substack.com" target="_blank" rel="noopener" class="reading-link">
+          BlockThreat <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Weekly blockchain security threat intelligence — exploits, vulnerabilities, and incidents.</p>
     </li>
 
-    
-  
-    
-
-    
-
-    <li>
-      
-      <span class="date day" data-ts="1779022200" data-df="DD">17</span>
-      <span class="date month small text-muted ms-1" data-ts="1779022200" data-df="MMM">
-        May
-      </span>
-      <a href="/posts/how-to-stay-fit-as-a-SR/">Debug Your Body: A Fitness Guide for Tech People</a>
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-newsletter">Newsletter</span>
+        <a href="https://rekt.news" target="_blank" rel="noopener" class="reading-link">
+          Rekt News <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">The graveyard of DeFi. Every major exploit documented and dissected.</p>
     </li>
 
-    </ul>
-  
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-newsletter">Newsletter</span>
+        <a href="https://www.bankless.com" target="_blank" rel="noopener" class="reading-link">
+          Bankless Newsletter <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Crypto, DeFi, and Web3 — the go-to newsletter for staying up to date on the ecosystem.</p>
+    </li>
+
+  </ul>
+
+  <!-- Papers -->
+  <time class="year lead d-block" style="margin-top:2rem;">Papers</time>
+  <ul class="list-unstyled reading-list">
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-paper">Paper</span>
+        <a href="https://ethereum.github.io/yellowpaper/paper.pdf" target="_blank" rel="noopener" class="reading-link">
+          Ethereum Yellow Paper <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">The formal specification of the Ethereum Virtual Machine. Essential reading for any serious EVM security researcher.</p>
+    </li>
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-paper">Paper</span>
+        <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener" class="reading-link">
+          Bitcoin Whitepaper <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Satoshi Nakamoto's original paper. Where it all started. Read it at least once.</p>
+    </li>
+
+  </ul>
+
+  <!-- Blogs & Resources -->
+  <time class="year lead d-block" style="margin-top:2rem;">Blogs &amp; Resources</time>
+  <ul class="list-unstyled reading-list">
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-blog">Blog</span>
+        <a href="https://cmichel.io/how-to-become-a-smart-contract-auditor/" target="_blank" rel="noopener" class="reading-link">
+          How to Become a Smart Contract Auditor — cmichel <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">One of the best guides on getting into smart contract auditing. Written by a top auditor.</p>
+    </li>
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-resource">Resource</span>
+        <a href="https://github.com/devanshbatham/Awesome-Bugbounty-Writeups" target="_blank" rel="noopener" class="reading-link">
+          Awesome Bug Bounty Writeups <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">A curated collection of bug bounty writeups across different platforms and vulnerability types.</p>
+    </li>
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-resource">Resource</span>
+        <a href="https://github.com/OffcierCia/ultimate-defi-research-base#general-information" target="_blank" rel="noopener" class="reading-link">
+          Ultimate DeFi Research Base <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">A massive curated database of DeFi research, security resources, and learning materials.</p>
+    </li>
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-resource">Resource</span>
+        <a href="https://github.com/nascentxyz/simple-security-toolkit" target="_blank" rel="noopener" class="reading-link">
+          Simple Security Toolkit — Nascent <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">A practical security toolkit and checklist for developers and auditors. Straightforward and battle-tested.</p>
+    </li>
+
+  </ul>
+
+  <!-- YouTube -->
+  <time class="year lead d-block" style="margin-top:2rem;">YouTube</time>
+  <ul class="list-unstyled reading-list">
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-youtube">YouTube</span>
+        <a href="https://www.youtube.com/@andyli" target="_blank" rel="noopener" class="reading-link">
+          Andy Li <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Used to do great interviews with top security researchers and auditors. Not active recently but the older content is still worth a listen.</p>
+    </li>
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-youtube">YouTube</span>
+        <a href="https://www.youtube.com/@JohnnyTime/videos" target="_blank" rel="noopener" class="reading-link">
+          JohnnyTime <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Makes content around blockchain and DeFi security. Good channel to follow if you're getting into Web3 security.</p>
+    </li>
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-youtube">YouTube</span>
+        <a href="https://www.youtube.com/@PatrickAlphaC" target="_blank" rel="noopener" class="reading-link">
+          Patrick Collins — PatrickAlphaC <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">Must watch. Makes incredibly informative and useful videos on Solidity, smart contracts, and security. One of the best educators in the space.</p>
+    </li>
+
+  </ul>
+
+  <!-- Courses & Platforms -->
+  <time class="year lead d-block" style="margin-top:2rem;">Courses &amp; Platforms</time>
+  <ul class="list-unstyled reading-list">
+
+    <li class="reading-item">
+      <div class="reading-header">
+        <span class="reading-tag tag-platform">Platform</span>
+        <a href="https://updraft.cyfrin.io" target="_blank" rel="noopener" class="reading-link">
+          Cyfrin Updraft <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+        </a>
+      </div>
+      <p class="reading-desc">A studying platform by Patrick Collins and the Cyfrin team. Very well structured courses on Solidity, security, and auditing. Highly recommended.</p>
+    </li>
+
+  </ul>
+
 </div>
+
+<style>
+  .reading-list { margin-top: 0.5rem; }
+
+  .reading-item {
+    padding: 0.75rem 0.5rem 0.75rem 0.85rem;
+    border-left: 3px solid rgba(86,182,194,0.2);
+    margin-bottom: 0.75rem;
+    border-radius: 0 4px 4px 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .reading-item:hover {
+    background: rgba(128,128,128,0.06);
+    border-left-color: #56b6c2;
+  }
+
+  .reading-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .reading-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tag-newsletter { background: rgba(78,201,176,0.12);  color: #4ec9b0; }
+  .tag-paper      { background: rgba(199,146,234,0.12); color: #c792ea; }
+  .tag-blog       { background: rgba(86,182,194,0.12);  color: #56b6c2; }
+  .tag-resource   { background: rgba(255,179,0,0.12);   color: #ffb300; }
+  .tag-youtube    { background: rgba(224,108,117,0.12); color: #e06c75; }
+  .tag-platform   { background: rgba(78,201,176,0.12);  color: #4ec9b0; }
+
+  .reading-link {
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .reading-link:hover { text-decoration: underline; }
+  .reading-link i { font-size: 0.72rem; opacity: 0.55; }
+
+  .reading-desc {
+    font-size: 0.85rem;
+    color: #8b949e;
+    line-height: 1.6;
+    margin: 0;
+    padding-left: 0.25rem;
+  }
+</style>
+
 
     </div>
   
 </article>
+
 
           
         </main>
