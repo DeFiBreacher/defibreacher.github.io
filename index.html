@@ -388,6 +388,16 @@
       <!-- .nav-item -->
       
       <li class="nav-item">
+        <a href="/bucket-list/" class="nav-link">
+          <i class="fa-fw fas fa-star"></i>
+          
+
+          <span>BUCKET LIST</span>
+        </a>
+      </li>
+      <!-- .nav-item -->
+      
+      <li class="nav-item">
         <a href="/categories/" class="nav-link">
           <i class="fa-fw fas fa-stream"></i>
           
@@ -1097,6 +1107,54 @@
       transform: translateY(0);
     }
   }
+
+  /* Turtle */
+  #turtle-wrap {
+    position: relative;
+    height: 60px;
+    margin: 1rem 0;
+    overflow: visible;
+  }
+
+  #turtle {
+    position: absolute;
+    font-size: 2rem;
+    bottom: 0;
+    left: -50px;
+    cursor: pointer;
+    animation: turtleWalk 12s linear infinite;
+  }
+
+  #turtle.fast {
+    animation: turtleWalk 3s linear infinite;
+  }
+
+  @keyframes turtleWalk {
+    0% {
+      left: -50px;
+    }
+
+    100% {
+      left: 110%;
+    }
+  }
+
+  #turtle-bubble {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111820;
+    border: 1px solid rgba(78, 201, 176, 0.3);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #4ec9b0;
+    white-space: nowrap;
+    z-index: 10;
+    display: none;
+  }
 </style>
 
 <div id="post-list" class="flex-grow-1 px-xl-1">
@@ -1131,7 +1189,6 @@
 
           <div class="post-meta flex-grow-1 d-flex align-items-end">
             <div class="me-auto">
-              <!-- posted date -->
               <i class="far fa-calendar fa-fw me-1"></i>
               <!--
   Date format snippet
@@ -1151,7 +1208,6 @@
 </time>
 
 
-              <!-- categories -->
               
               <i class="far fa-folder-open fa-fw me-1"></i>
               <span class="categories">
@@ -1163,9 +1219,7 @@
 
             
           </div>
-          <!-- .post-meta -->
         </div>
-        <!-- .card-body -->
       </div>
     </a>
   </article>
@@ -1200,7 +1254,6 @@
 
           <div class="post-meta flex-grow-1 d-flex align-items-end">
             <div class="me-auto">
-              <!-- posted date -->
               <i class="far fa-calendar fa-fw me-1"></i>
               <!--
   Date format snippet
@@ -1220,7 +1273,6 @@
 </time>
 
 
-              <!-- categories -->
               
               <i class="far fa-folder-open fa-fw me-1"></i>
               <span class="categories">
@@ -1232,9 +1284,7 @@
 
             
           </div>
-          <!-- .post-meta -->
         </div>
-        <!-- .card-body -->
       </div>
     </a>
   </article>
@@ -1269,7 +1319,6 @@
 
           <div class="post-meta flex-grow-1 d-flex align-items-end">
             <div class="me-auto">
-              <!-- posted date -->
               <i class="far fa-calendar fa-fw me-1"></i>
               <!--
   Date format snippet
@@ -1289,7 +1338,6 @@
 </time>
 
 
-              <!-- categories -->
               
               <i class="far fa-folder-open fa-fw me-1"></i>
               <span class="categories">
@@ -1301,17 +1349,20 @@
 
             
           </div>
-          <!-- .post-meta -->
         </div>
-        <!-- .card-body -->
       </div>
     </a>
   </article>
   
 </div>
-<!-- #post-list -->
 
 
+
+<!-- Turtle -->
+<div id="turtle-wrap">
+  <div id="turtle">🐢</div>
+  <div id="turtle-bubble">If you put this much energy in finding bugs, you would have gotten a crit 💀</div>
+</div>
 
 <script>
   function closePopup(key) {
@@ -1330,6 +1381,27 @@
         this.classList.add('active');
       }
     });
+  });
+
+  var turtleClicks = 0;
+  var turtle = document.getElementById('turtle');
+  var bubble = document.getElementById('turtle-bubble');
+  turtle.addEventListener('click', function () {
+    turtleClicks++;
+    if (turtleClicks === 1) {
+      turtle.style.animation = 'turtleWalk 7s linear infinite';
+    }
+    if (turtleClicks === 2) {
+      turtle.style.animation = 'turtleWalk 3s linear infinite';
+    }
+    if (turtleClicks === 3) {
+      turtle.style.animation = 'turtleWalk 12s linear infinite';
+      bubble.style.display = 'block';
+      setTimeout(function () {
+        bubble.style.display = 'none';
+        turtleClicks = 0;
+      }, 4000);
+    }
   });
 </script>
 
