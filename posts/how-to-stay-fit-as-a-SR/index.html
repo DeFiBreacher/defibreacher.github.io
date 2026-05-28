@@ -334,31 +334,23 @@
       "Bug Bounty Hunter",
       "Hacker"
     ];
-
     var si = 0, sj = 0, sDeleting = false;
-
     function sidebarType() {
       var current = sidebarWords[si];
-
       document.getElementById('sidebar-typed').innerHTML = current.substring(0, sj);
-
       if (!sDeleting) sj++;
       else sj--;
-
       if (!sDeleting && sj === current.length + 1) {
         sDeleting = true;
         setTimeout(sidebarType, 1500);
         return;
       }
-
       if (sDeleting && sj === 0) {
         sDeleting = false;
         si = (si + 1) % sidebarWords.length;
       }
-
       setTimeout(sidebarType, sDeleting ? 25 : 60);
     }
-
     setTimeout(sidebarType, 800);
   </script>
 
@@ -368,22 +360,15 @@
       padding-right: 2px;
       animation: sblink 0.7s step-end infinite;
     }
-
     @keyframes sblink {
-
-      0%,
-      100% {
-        border-color: #56b6c2;
-      }
-
-      50% {
-        border-color: transparent;
-      }
+      0%, 100% { border-color: #56b6c2; }
+      50%       { border-color: transparent; }
     }
   </style>
+
   </header>
   <!-- .profile-wrapper -->
-  <div style="margin-bottom: 1.5rem;"></div> <!-- ← add this line -->
+  <div style="margin-bottom: 1.5rem;"></div>
 
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
@@ -400,7 +385,6 @@
         <a href="/audits/" class="nav-link">
           <i class="fa-fw fas fa-shield-halved"></i>
           
-
           <span>AUDITS</span>
         </a>
       </li>
@@ -410,7 +394,6 @@
         <a href="/reading/" class="nav-link">
           <i class="fa-fw fas fa-book-open"></i>
           
-
           <span>READING</span>
         </a>
       </li>
@@ -420,7 +403,6 @@
         <a href="/ctf/" class="nav-link">
           <i class="fa-fw fas fa-flag"></i>
           
-
           <span>CTF</span>
         </a>
       </li>
@@ -430,7 +412,6 @@
         <a href="/bucket-list/" class="nav-link">
           <i class="fa-fw fas fa-star"></i>
           
-
           <span>BUCKET LIST</span>
         </a>
       </li>
@@ -440,7 +421,6 @@
         <a href="/categories/" class="nav-link">
           <i class="fa-fw fas fa-stream"></i>
           
-
           <span>CATEGORIES</span>
         </a>
       </li>
@@ -449,7 +429,7 @@
     </ul>
   </nav>
 
-  <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
+  <div class="sidebar-bottom d-flex flex-wrap align-items-center w-100">
     
 
     
@@ -473,11 +453,7 @@
     
 
     
-    <a href="javascript:navigator.clipboard.writeText('defibreacher@gmail.com').then(function(){ var
-    t=document.createElement('div');t.innerText='📋 Gmail
-    copied!';t.style='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#56b6c2;color:#fff;padding:8px
-    16px;border-radius:4px;font-size:0.85rem;z-index:9999';document.body.appendChild(t);setTimeout(function(){t.remove()},2000);
-    })" aria-label="email"    >
+    <a href="javascript:navigator.clipboard.writeText('defibreacher@gmail.com').then(function(){ var t=document.createElement('div');t.innerText='📋 Gmail copied!';t.style='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#56b6c2;color:#fff;padding:8px 16px;border-radius:4px;font-size:0.85rem;z-index:9999';document.body.appendChild(t);setTimeout(function(){t.remove()},2000); })" aria-label="email"    >
       <i class="fas fa-envelope"></i>
     </a>
     
@@ -508,6 +484,7 @@
   <!-- .sidebar-bottom -->
 </aside>
 <!-- #sidebar -->
+
 
   <div id="main-wrapper" class="d-flex justify-content-center">
     <div class="container d-flex flex-column px-xxl-5">
@@ -1635,9 +1612,31 @@
     d-flex flex-column justify-content-center text-muted
     flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
   ">
-  <p style="font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; opacity: 0.75;">
-    <em>BREAK. SECURE. FORTIFY </em> 🔒
-  </p>
+  <div style="text-align: center; width: 100%; padding-top: 1rem;">
+    <img src="/assets/img/tagline.png" alt="tagline" id="footer-tagline">
+  </div>
+
+  <style>
+    #footer-tagline {
+      width: 280px;
+      animation: footerFloat 3s ease-in-out infinite;
+      pointer-events: none;
+      display: block;
+      margin: 0 auto;
+    }
+
+    @keyframes footerFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+  </style>
 
 </footer>
         </div>
