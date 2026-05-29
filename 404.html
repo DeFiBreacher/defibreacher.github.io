@@ -788,7 +788,7 @@
     "Test edge cases — zero values, max values, and empty arrays often reveal hidden bugs.",
     "Events don't have to be emitted for state changes to happen. But missing events make monitoring harder.",
     "Initializer functions in upgradeable contracts must be called exactly once and protected.",
-    "Unchecked return values from low-level calls like call() are a silent failure vector."
+    "Okay, Listen to me before its too late; there is a secret hidden in this website, find it. You just have to use you-....."
   ];
 
   var lastQuote = -1;
@@ -833,31 +833,9 @@
     d-flex flex-column justify-content-center text-muted
     flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
   ">
-  <div style="text-align: center; width: 100%; padding-top: 1rem;">
-    <img src="/assets/img/tagline.png" alt="tagline" id="footer-tagline">
-  </div>
-
-  <style>
-    #footer-tagline {
-      width: 280px;
-      animation: footerFloat 3s ease-in-out infinite;
-      pointer-events: none;
-      display: block;
-      margin: 0 auto;
-    }
-
-    @keyframes footerFloat {
-
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-6px);
-      }
-    }
-  </style>
+  <p style="font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; opacity: 0.75;">
+    <em>BREAK. SECURE. FORTIFY.</em> 🔒
+  </p>
 
 </footer>
         </div>
@@ -1766,6 +1744,381 @@
     });
 
   </script>
+  <script src="/assets/js/konami.js"></script>
 </body>
 
-</html>
+</html><!-- Konami Code Easter Egg -->
+<div id="konami-overlay" style="display:none;">
+
+  <!-- Phase 1: Hack Sequence -->
+  <div id="konami-hack" class="konami-phase">
+    <div id="hack-terminal">
+      <div id="hack-lines"></div>
+      <div class="hack-cursor">█</div>
+    </div>
+  </div>
+
+  <!-- Phase 2: Dragon Ball moment -->
+  <div id="konami-dbz" class="konami-phase" style="display:none;">
+    <div id="dbz-wrap">
+      <div id="dbz-scouter">SCOUTER READING...</div>
+      <div id="dbz-counter">0</div>
+      <div id="dbz-line" style="display:none;">
+        <span id="dbz-text"></span>
+      </div>
+      <div id="dbz-scouter-break" style="display:none;">💥 SCOUTER DESTROYED 💥</div>
+    </div>
+    <audio id="dbz-audio" src="/assets/audio/vegeta.mp3" preload="auto"></audio>
+  </div>
+
+  <!-- Phase 3: Message -->
+  <div id="konami-message" class="konami-phase" style="display:none;">
+    <div id="message-wrap">
+      <div class="msg-terminal-header">
+        <span class="t-dot-k red"></span>
+        <span class="t-dot-k yellow"></span>
+        <span class="t-dot-k green"></span>
+        <span style="font-size:0.75rem; color:#8b949e; margin-left:8px; font-family:'JetBrains Mono',monospace;">From
+          Shorya aka DeFiBreacher</span>
+      </div>
+      <div id="message-content">
+        <!-- YOUR MESSAGE GOES HERE -->
+        <p>Man, i love technology!</p>
+        <p>The potential is limitless!</p>
+        <p>Hope you have a good day!</p>
+        <!-- END MESSAGE -->
+      </div>
+      <button id="konami-close">[ close ]</button>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  #konami-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.97);
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .konami-phase {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #hack-terminal {
+    width: 600px;
+    max-width: 90vw;
+    padding: 2rem;
+  }
+
+  #hack-lines .hack-line {
+    font-size: 0.85rem;
+    color: #4ec9b0;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeInLine 0.1s forwards;
+  }
+
+  .hack-line.red {
+    color: #e05252;
+  }
+
+  .hack-line.white {
+    color: #ffffff;
+  }
+
+  .hack-line.dim {
+    color: #586069;
+  }
+
+  @keyframes fadeInLine {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .hack-cursor {
+    color: #4ec9b0;
+    animation: blink 0.7s step-end infinite;
+    font-size: 0.85rem;
+  }
+
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1
+    }
+
+    50% {
+      opacity: 0
+    }
+  }
+
+  #dbz-wrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #dbz-scouter {
+    font-size: 0.9rem;
+    color: #56b6c2;
+    letter-spacing: 0.2em;
+    animation: scanPulse 0.5s ease-in-out infinite;
+  }
+
+  @keyframes scanPulse {
+
+    0%,
+    100% {
+      opacity: 1
+    }
+
+    50% {
+      opacity: 0.4
+    }
+  }
+
+  #dbz-counter {
+    font-size: 5rem;
+    font-weight: 700;
+    color: #ffb300;
+    text-shadow: 0 0 20px #ffb300, 0 0 40px rgba(255, 179, 0, 0.5);
+    line-height: 1;
+  }
+
+  #dbz-line {
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+
+  #dbz-scouter-break {
+    font-size: 1.2rem;
+    color: #e05252;
+    animation: glitchText 0.3s ease-in-out infinite;
+  }
+
+  @keyframes glitchText {
+
+    0%,
+    100% {
+      transform: translate(0)
+    }
+
+    33% {
+      transform: translate(-3px, 1px)
+    }
+
+    66% {
+      transform: translate(3px, -1px)
+    }
+  }
+
+  #message-wrap {
+    width: 640px;
+    max-width: 90vw;
+    background: #0d1117;
+    border: 1px solid rgba(78, 201, 176, 0.25);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(78, 201, 176, 0.1);
+    animation: fadeInMsg 0.5s ease;
+  }
+
+  @keyframes fadeInMsg {
+    from {
+      opacity: 0;
+      transform: translateY(20px)
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  }
+
+  .msg-terminal-header {
+    background: #111820;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid rgba(78, 201, 176, 0.1);
+  }
+
+  .t-dot-k {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .t-dot-k.red {
+    background: #e05252;
+  }
+
+  .t-dot-k.yellow {
+    background: #ffb300;
+  }
+
+  .t-dot-k.green {
+    background: #4ec9b0;
+  }
+
+  #message-content {
+    padding: 2rem;
+    color: #e6edf3;
+    font-size: 0.92rem;
+    line-height: 1.9;
+  }
+
+  #message-content p {
+    margin-bottom: 1rem;
+  }
+
+  #konami-close {
+    display: block;
+    margin: 0 auto 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(78, 201, 176, 0.3);
+    color: #4ec9b0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    padding: 6px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  #konami-close:hover {
+    background: rgba(78, 201, 176, 0.08);
+    border-color: #4ec9b0;
+  }
+</style>
+
+<script>
+  var konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  var konamiIndex = 0;
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === konamiCode[konamiIndex]) {
+      konamiIndex++;
+      if (konamiIndex === konamiCode.length) {
+        konamiIndex = 0;
+        startKonami();
+      }
+    } else {
+      konamiIndex = 0;
+    }
+  });
+
+  function startKonami() {
+    document.getElementById('konami-overlay').style.display = 'flex';
+    startHackSequence();
+  }
+
+  var hackLines = [
+    { text: '> Initializing taking over the protocol...', cls: '', delay: 0 },
+    { text: '> Scanning target: defibreacher.github.io', cls: '', delay: 400 },
+    { text: '> Bypassing firewall... [░░░░░░░░░░] 0%', cls: '', delay: 800 },
+    { text: '> Bypassing firewall... [██████████] 100%', cls: '', delay: 1200 },
+    { text: '> Firewall bypassed.', cls: 'white', delay: 1600 },
+    { text: '> Injecting payload...', cls: '', delay: 2000 },
+    { text: '> ERROR: Payload rejected. The target....THE TARGET is too powerful.', cls: 'red', delay: 2500 },
+    { text: '> Attempting override...', cls: '', delay: 3000 },
+    { text: '> Reading power levels...', cls: 'dim', delay: 3500 },
+    { text: '> WARNING: Power level exceeds measurable range.', cls: 'red', delay: 4000 },
+  ];
+
+  function startHackSequence() {
+    try { document.getElementById('dbz-audio').play(); } catch (e) { }
+    var container = document.getElementById('hack-lines');
+    container.innerHTML = '';
+    hackLines.forEach(function (line) {
+      setTimeout(function () {
+        var div = document.createElement('div');
+        div.className = 'hack-line ' + line.cls;
+        div.textContent = line.text;
+        container.appendChild(div);
+      }, line.delay);
+    });
+    setTimeout(function () {
+      document.getElementById('konami-hack').style.display = 'none';
+      document.getElementById('konami-dbz').style.display = 'flex';
+      startDBZ();
+    }, 5000);
+  }
+
+  function startDBZ() {
+    var counter = document.getElementById('dbz-counter');
+    var target = 9001;
+    var duration = 2000;
+    var start = null;
+
+    function countUp(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      counter.textContent = Math.floor(progress * target).toLocaleString();
+      if (progress < 1) {
+        requestAnimationFrame(countUp);
+      } else {
+        counter.textContent = '9,000+';
+        showVegetaLine();
+      }
+    }
+    requestAnimationFrame(countUp);
+  }
+
+  function showVegetaLine() {
+    document.getElementById('dbz-scouter').style.display = 'none';
+    var lineEl = document.getElementById('dbz-line');
+    var textEl = document.getElementById('dbz-text');
+    lineEl.style.display = 'block';
+    var vegeta = '"What?! 9,000?!\nThere\'s no way that can be right!"';
+    var i = 0;
+    function typeVegeta() {
+      if (i < vegeta.length) {
+        textEl.textContent += vegeta[i];
+        i++;
+        setTimeout(typeVegeta, 40);
+      } else {
+        setTimeout(function () {
+          document.getElementById('dbz-scouter-break').style.display = 'block';
+          setTimeout(function () {
+            document.getElementById('konami-dbz').style.display = 'none';
+            document.getElementById('konami-message').style.display = 'flex';
+          }, 2000);
+        }, 500);
+      }
+    }
+    setTimeout(typeVegeta, 300);
+  }
+
+  document.getElementById('konami-close').addEventListener('click', function () {
+    document.getElementById('konami-overlay').style.display = 'none';
+    document.getElementById('konami-hack').style.display = 'flex';
+    document.getElementById('konami-dbz').style.display = 'none';
+    document.getElementById('konami-message').style.display = 'none';
+    document.getElementById('hack-lines').innerHTML = '';
+    document.getElementById('dbz-counter').textContent = '0';
+    document.getElementById('dbz-text').textContent = '';
+    document.getElementById('dbz-scouter').style.display = 'block';
+    document.getElementById('dbz-line').style.display = 'none';
+    document.getElementById('dbz-scouter-break').style.display = 'none';
+  });
+</script>
