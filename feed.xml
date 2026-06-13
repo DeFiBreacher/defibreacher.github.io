@@ -1,0 +1,95 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://defibreacher.github.io/</id>
+  <title>DeFiBreacher</title>
+  <subtitle>Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.</subtitle>
+  <updated>2026-06-14T00:10:05+05:30</updated>
+  <author>
+    <name>DeFiBreacher</name>
+    <uri>https://defibreacher.github.io/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://defibreacher.github.io/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="https://defibreacher.github.io/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2026 DeFiBreacher </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>A Morning Coffee, a Discord DM, and a Compromised PC</title>
+    <link href="https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/" rel="alternate" type="text/html" title="A Morning Coffee, a Discord DM, and a Compromised PC" />
+    <published>2026-05-23T06:30:00+05:30</published>
+  
+    <updated>2026-05-23T06:30:00+05:30</updated>
+  
+    <id>https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/</id>
+    <content type="text/html" src="https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/" />
+    <author>
+      <name>DeFiBreacher</name>
+    </author>
+
+  
+    
+    <category term="Security" />
+    
+  
+
+  <summary>Just like any normal morning, I was sipping coffee, checking emails, and scrolling through my X feed when a Discord notification popped up.  A DM from my friend.  He was sending me screenshots of posts claiming that clicking some random link would send free USDT directly to your account.  That immediately raised some red flags. Why?  First, he doesn’t even use crypto.  Second, the exact same me...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Let's Crack Gym</title>
+    <link href="https://defibreacher.github.io/posts/lets-crack-gym/" rel="alternate" type="text/html" title="Let&amp;apos;s Crack Gym" />
+    <published>2026-05-18T17:30:00+05:30</published>
+  
+    <updated>2026-05-18T17:30:00+05:30</updated>
+  
+    <id>https://defibreacher.github.io/posts/lets-crack-gym/</id>
+    <content type="text/html" src="https://defibreacher.github.io/posts/lets-crack-gym/" />
+    <author>
+      <name>DeFiBreacher</name>
+    </author>
+
+  
+    
+    <category term="Lifestyle" />
+    
+  
+
+  <summary>Five days a week, no excuses, no skipped sessions. This is my current split.       Before we get into it: the weight you use is completely on you. Don’t feel bad if you lift less than the guy next to you or your friend. Everyone starts somewhere. Everyone has different genetics, different history, different goals. The only person you’re competing with is who you were yesterday. Pick a weight th...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Debug Your Body: A Fitness Guide for Tech People</title>
+    <link href="https://defibreacher.github.io/posts/how-to-stay-fit-as-a-SR/" rel="alternate" type="text/html" title="Debug Your Body: A Fitness Guide for Tech People" />
+    <published>2026-05-17T18:20:00+05:30</published>
+  
+    <updated>2026-05-17T04:10:55+05:30</updated>
+  
+    <id>https://defibreacher.github.io/posts/how-to-stay-fit-as-a-SR/</id>
+    <content type="text/html" src="https://defibreacher.github.io/posts/how-to-stay-fit-as-a-SR/" />
+    <author>
+      <name>DeFiBreacher</name>
+    </author>
+
+  
+    
+    <category term="Lifestyle" />
+    
+  
+
+  <summary>You can write great codebase, audit smart contracts, and takedown systems at 2AM but when was the last time you debugged your own body?  Most tech people treat their health like a legacy codebase: ignore it until it breaks. By then, the damage is already done. And no, coffee cant fix that damage.  This is your guide to fixing that.    1. The Sitting Problem  The average tech person sits for 10–...</summary>
+
+  </entry>
+
+</feed>
+
+
