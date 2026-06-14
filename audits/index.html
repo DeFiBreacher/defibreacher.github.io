@@ -36,13 +36,13 @@
 <meta property="og:url" content="https://defibreacher.github.io/audits/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-06-14T05:01:06+05:30" />
-<meta property="article:modified_time" content="2026-06-14T05:01:06+05:30" />
+<meta property="article:published_time" content="2026-06-14T22:54:48+05:30" />
+<meta property="article:modified_time" content="2026-06-14T22:54:48+05:30" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Audits" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-14T05:01:06+05:30","datePublished":"2026-06-14T05:01:06+05:30","description":"Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.","headline":"Audits","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/audits/"},"url":"https://defibreacher.github.io/audits/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-14T22:54:48+05:30","datePublished":"2026-06-14T22:54:48+05:30","description":"Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.","headline":"Audits","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/audits/"},"url":"https://defibreacher.github.io/audits/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1001,22 +1001,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ── Year label ── */
 .a-year {
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
-  color: #4a5260;
+  color: $teal;
   margin: 1.75rem 0 0.65rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   gap: 10px;
+  text-shadow: 0 0 12px rgba(93, 226, 199, 0.4);
 }
 .a-year::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(86,182,194,0.08);
+  background: linear-gradient(to right, rgba(78,201,176,0.25), transparent);
 }
 
 /* ── Cards ── */
@@ -1026,12 +1027,15 @@ document.addEventListener('DOMContentLoaded', function () {
   border: 1px solid rgba(86,182,194,0.09);
   border-radius: 8px;
   overflow: hidden;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   background: rgba(255,255,255,0.01);
+  border-left: 3px solid transparent;
 }
 .a-card:hover {
-  border-color: rgba(86,182,194,0.22);
+  border-color: rgba(78,201,176,0.25);
+  border-left-color: #4ec9b0;
   background: rgba(78,201,176,0.02);
+  box-shadow: 0 2px 16px rgba(78,201,176,0.05);
 }
 .a-card.filtered-out { display: none !important; }
 
@@ -1063,43 +1067,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ── Date ── */
 .a-date {
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #818181;
+  color: rgba(79, 209, 183, 0.45);
   white-space: nowrap;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
 }
+.a-card:hover .a-date { color: rgba(78,201,176,0.7); }
 
 /* ── Link ── */
 .a-link {
-  font-weight: 500;
-  font-size: 0.96rem;
+  font-weight: 600;
+  font-size: 0.93rem;
   text-decoration: none !important;
   color: #c9d1d9 !important;
   display: inline-flex;
   align-items: center;
   gap: 7px;
   border: none !important;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.03em;
   transition: color 0.15s;
 }
 .a-link:hover { color: #4ec9b0 !important; }
-.a-link .fa-github { font-size: 1.17rem; opacity: 0.45; transition: opacity 0.15s; }
-.a-link:hover .fa-github { opacity: 0.8; }
-.a-link .a-ext { font-size: 0.62rem; opacity: 0.25; transition: opacity 0.15s; }
-.a-link:hover .a-ext { opacity: 0.8; }
+.a-link .fa-github { font-size: 1rem; opacity: 0.4; transition: opacity 0.15s; }
+.a-link:hover .fa-github { opacity: 0.9; color: #4ec9b0; }
+.a-link .a-ext { font-size: 0.52rem; opacity: 0.2; transition: opacity 0.15s; }
+.a-link:hover .a-ext { opacity: 0.7; }
 
 /* ── Description ── */
 .a-desc {
-  font-size: 0.8rem;
-  color: #757b86;
+  font-size: 0.83rem;
+  color: #6b7280;
   line-height: 1.5;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 0.01em;
+  transition: color 0.2s;
 }
+.a-card:hover .a-desc { color: #8b949e; }
 
 /* ── Severity badge ── */
 .a-sev {
@@ -1125,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   border-radius: 5px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(128,128,128,0.12);
-  color: #54627a;
+  color: #476875;
   font-family: 'JetBrains Mono', monospace;
   white-space: nowrap;
   letter-spacing: 0.02em;
