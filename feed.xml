@@ -3,8 +3,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://defibreacher.github.io/</id>
   <title>DeFiBreacher</title>
-  <subtitle>Audit Smart Contract. A minimal, responsive and feature-rich Jekyll theme for technical writing.</subtitle>
-  <updated>2026-06-16T16:31:52+05:30</updated>
+  <subtitle>Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.</subtitle>
+  <updated>2026-06-17T02:35:06+05:30</updated>
   <author>
     <name>DeFiBreacher</name>
     <uri>https://defibreacher.github.io/</uri>
