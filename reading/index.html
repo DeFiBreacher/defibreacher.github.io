@@ -36,14 +36,14 @@
 <meta property="og:url" content="https://defibreacher.github.io/reading/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-06-18T18:59:15+05:30" />
-<meta property="article:modified_time" content="2026-06-18T18:59:15+05:30" />
+<meta property="article:published_time" content="2026-06-19T00:56:53+05:30" />
+<meta property="article:modified_time" content="2026-06-19T00:56:53+05:30" />
 <meta property="og:image" content="https://defibreacher.github.io/assets/img/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image" content="https://defibreacher.github.io/assets/img/avatar.png" />
 <meta name="twitter:title" content="Reading" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-18T18:59:15+05:30","datePublished":"2026-06-18T18:59:15+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Reading","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/reading/"},"url":"https://defibreacher.github.io/reading/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-19T00:56:53+05:30","datePublished":"2026-06-19T00:56:53+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Reading","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/reading/"},"url":"https://defibreacher.github.io/reading/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1207,7 +1207,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   <!-- Quote -->
   <div class="panel-section">
-    <h2 class="panel-heading"><span class="panel-icon">💬 </span> Quote</h2>
+    <h2 class="panel-heading quote-heading"><span class="panel-icon">💬 </span>Quote</h2>
     <div class="quote-box">
       <p class="quote-text" id="quote-text"></p>
       <p class="quote-author" id="quote-author"></p>
@@ -1217,7 +1217,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   <!-- Security Tip -->
   <div class="panel-section">
-    <h2 class="panel-heading"><span class="panel-icon">💬 </span> Security Tip</h2>
+    <h2 class="panel-heading tip-heading"><span class="panel-icon">🔐 </span>Security Tip</h2>
     <div class="tip-box">
       <p class="tip-text" id="tip-text"></p>
     </div>
@@ -1228,17 +1228,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- Tools I Use -->
 <div class="panel-section tools-panel">
-  <h2 class="panel-heading"><span class="panel-icon">🧑🏻‍💻 </span> Tools I Use</h2>
+  <h2 class="panel-heading tools-heading"><span class="panel-icon">🧑🏻‍💻 </span>Tools I Use</h2>
   <div class="tools-grid">
-    <span class="tool-badge">💻 VSCode</span>
-    <span class="tool-badge">⚡ Foundry</span>
-    <span class="tool-badge">🔨 Hardhat</span>
-    <span class="tool-badge">🐍 Slither</span>
-    <span class="tool-badge">🦔 Echidna</span>
-    <span class="tool-badge">🧪 Remix</span>
-    <span class="tool-badge">🌿 Aderyn</span>
-    <span class="tool-badge">🔮 Halmos</span>
-    <span class="tool-badge">⚙️ Rust</span>
+    <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener">💻 VSCode</a>
+    <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener">⚡ Foundry</a>
+    <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener">🔨 Hardhat</a>
+    <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener">🐍 Slither</a>
+    <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener">🦔 Echidna</a>
+    <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener">🧪 Remix</a>
+    <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener">🌿 Aderyn</a>
+    <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener">🔮 Halmos</a>
+    <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener">⚙️ Rust</a>
   </div>
 </div>
 
@@ -1250,17 +1250,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .panel-heading {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  color: #4ec9b0;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 0;
+  justify-content: center;   /* ← center the content */
+  gap: 10px;
+  color: var(--ph-color, #4ec9b0);
 }
-.panel-icon { color: rgba(78, 201, 176, 0.932); }
+
+/* lines on both sides */
+.panel-heading::before,
+.panel-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+
+.panel-heading::before {
+  background: linear-gradient(90deg, transparent, var(--ph-line, rgba(78,201,176,0.25)));
+}
+
+.panel-heading::after {
+  background: linear-gradient(90deg, var(--ph-line, rgba(78,201,176,0.25)), transparent);
+}
+
+/* section variants stay the same */
+.quote-heading  { --ph-color: #56b6c2; --ph-line: rgba(86,182,194,0.3); }
+.tip-heading    { --ph-color: #c792ea; --ph-line: rgba(199,146,234,0.3); }
+.tools-heading  { --ph-color: #4ec9b0; --ph-line: rgba(78,201,176,0.3); }
+
+.panel-icon { color: inherit; opacity: 0.9; }
 
 /* Quote box */
 .quote-box {
@@ -1326,20 +1349,58 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 .tool-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.80rem;
-  padding: 3px 9px;
+  font-size: 0.77rem;
+  padding: 5px 11px;
   border-radius: 4px;
   background: rgba(86,182,194,0.04);
   border: 0.5px solid rgba(86,182,194,0.14);
   color: #ffffffd2;
   letter-spacing: 0.02em;
-  transition: all 0.15s;
-  cursor: default;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
+
+/* shimmer sweep */
+.tool-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(86,182,194,0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.45s ease;
+  pointer-events: none;
+}
+.tool-badge:hover::before {
+  transform: translateX(150%);
+}
+
+/* arrow indicator */
+.tool-badge::after {
+  content: '↗';
+  font-size: 0.58rem;
+  margin-left: 3px;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: all 0.2s ease;
+  display: inline-block;
+  color: #4ec9b0;
+}
+.tool-badge:hover::after {
+  opacity: 0.65;
+  transform: translateY(0);
+}
+
 .tool-badge:hover {
   background: rgba(86,182,194,0.1);
-  border-color: rgba(86,182,194,0.35);
+  border-color: rgba(86,182,194,0.4);
   color: #4ec9b0;
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(78,201,176,0.12), 0 2px 6px rgba(0,0,0,0.25);
 }
 </style>
 
