@@ -2155,7 +2155,8 @@ Promise.all([
           { icon: "📋", label: "View Audit Reports", next: "audits" },
           { icon: "💼", label: "Hire for an Audit", next: "hire" },
           { icon: "📬", label: "Contact Details", next: "contact" }
-        ]
+        ],
+        back: "start"
       },
       audits: {
         bot: "My audit reports are publicly available on GitHub. Each report includes findings, severity ratings and recommendations.",
@@ -2185,16 +2186,17 @@ Promise.all([
       researcher: {
         bot: "Fellow researcher! What's up?",
         options: [
-          { icon: "🤝", label: "Let's work together", next: "collab" },
+          { icon: "🤝", label: "Lets work together", next: "work" },
           { icon: "💬", label: "Just connect", next: "connect" },
           { icon: "📖", label: "Check my posts", next: "posts" }
         ],
-        back: "protocol"
+        back: "start"
       },
-      collab: {
-        bot: "Always down to collaborate on audits, research, or CTFs. Hit me up!",
+      work: {
+        bot: "Let's collaborate! You can reach me here:",
         links: [
-          { label: "Twitter DM", url: "https://twitter.com/DeFiBreacher" },
+          { label: "Email", url: "mailto:defibreacher@gmail.com" },
+          { label: "Twitter", url: "https://twitter.com/DeFiBreacher" },
           { label: "Telegram", url: "https://t.me/DeFiBreacher" }
         ],
         back: "researcher"
