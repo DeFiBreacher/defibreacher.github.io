@@ -36,14 +36,14 @@
 <meta property="og:url" content="https://defibreacher.github.io/reading/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-06-19T00:56:53+05:30" />
-<meta property="article:modified_time" content="2026-06-19T00:56:53+05:30" />
+<meta property="article:published_time" content="2026-06-19T01:23:52+05:30" />
+<meta property="article:modified_time" content="2026-06-19T01:23:52+05:30" />
 <meta property="og:image" content="https://defibreacher.github.io/assets/img/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image" content="https://defibreacher.github.io/assets/img/avatar.png" />
 <meta name="twitter:title" content="Reading" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-19T00:56:53+05:30","datePublished":"2026-06-19T00:56:53+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Reading","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/reading/"},"url":"https://defibreacher.github.io/reading/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-19T01:23:52+05:30","datePublished":"2026-06-19T01:23:52+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Reading","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/reading/"},"url":"https://defibreacher.github.io/reading/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1456,16 +1456,71 @@ Promise.all([
         <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
           
 
-          <!-- The Footer -->
-
-<footer aria-label="Site Info" class="
+          <footer aria-label="Site Info" class="
     d-flex flex-column justify-content-center text-muted
     flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
   ">
-  <p style="font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; opacity: 0.75;">
-    <em>BREAK. SECURE. FORTIFY.</em> 🔒
-  </p>
 
+  <span class="footer-glitch" data-text="BREAK. SECURE. FORTIFY.">BREAK. SECURE. FORTIFY. 🔒</span>
+  <span class="footer-glitch footer-copy" data-text="© 2025 DeFiBreacher">© 2025 DeFiBreacher</span>
+<style>
+  .footer-glitch {
+  position: relative;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  color: #ffffff;
+  display: inline-block;
+}
+
+.footer-glitch::before,
+.footer-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  opacity: 0;
+}
+
+.footer-glitch::before {
+  color: #ff3366;
+  clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+  animation: glitch-top 4s infinite;
+}
+
+.footer-glitch::after {
+  color: #00e5ff;
+  clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+  animation: glitch-bot 4s infinite;
+}
+
+/* offset the right side slightly so they don't fire in sync */
+.footer-copy::before { animation-delay: 1.3s; }
+.footer-copy::after  { animation-delay: 1.3s; }
+
+@keyframes glitch-top {
+  0%,85%,100% { transform: none; opacity: 0; }
+  87%  { transform: translate(-3px,  1px); opacity: 0.85; }
+  89%  { transform: translate( 2px, -1px); opacity: 0.85; }
+  91%  { transform: none; opacity: 0; }
+  94%  { transform: translate(-2px,  0px); opacity: 0.6; }
+  96%  { transform: none; opacity: 0; }
+}
+
+@keyframes glitch-bot {
+  0%,85%,100% { transform: none; opacity: 0; }
+  88%  { transform: translate( 3px, -1px); opacity: 0.85; }
+  90%  { transform: translate(-2px,  1px); opacity: 0.85; }
+  92%  { transform: none; opacity: 0; }
+  95%  { transform: translate( 2px,  0px); opacity: 0.6; }
+  97%  { transform: none; opacity: 0; }
+}
+</style>
 </footer>
         </div>
       </div>
