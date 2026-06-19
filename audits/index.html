@@ -36,14 +36,14 @@
 <meta property="og:url" content="https://defibreacher.github.io/audits/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-06-19T06:00:03+05:30" />
-<meta property="article:modified_time" content="2026-06-19T06:00:03+05:30" />
+<meta property="article:published_time" content="2026-06-19T06:00:55+05:30" />
+<meta property="article:modified_time" content="2026-06-19T06:00:55+05:30" />
 <meta property="og:image" content="https://defibreacher.github.io/assets/img/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image" content="https://defibreacher.github.io/assets/img/avatar.png" />
 <meta name="twitter:title" content="Audits" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-19T06:00:03+05:30","datePublished":"2026-06-19T06:00:03+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Audits","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/audits/"},"url":"https://defibreacher.github.io/audits/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-19T06:00:55+05:30","datePublished":"2026-06-19T06:00:55+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Audits","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/audits/"},"url":"https://defibreacher.github.io/audits/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -274,118 +274,10 @@
     
   </a>
 
-<a class="site-title d-block" href="/">
-  <span id="dfb-wrap" style="position:relative;display:inline-flex;align-items:baseline;white-space:nowrap;">
-
-    <span style="position:relative;display:inline-block;">
-      <span id="de-r" style="position:absolute;top:0;left:0;color:#ff3366;opacity:0;pointer-events:none;">De</span>
-      <span id="de-b" style="position:absolute;top:0;left:0;color:#3366ff;opacity:0;pointer-events:none;">De</span>
-      <span id="de-base" style="color:#59f8d8;position:relative;">De</span>
-    </span>
-
-    <span style="position:relative;display:inline-block;">
-      <span id="fi-r" style="position:absolute;top:0;left:0;color:#ff6600;opacity:0;pointer-events:none;">Fi</span>
-      <span id="fi-b" style="position:absolute;top:0;left:0;color:#aa00ff;opacity:0;pointer-events:none;">Fi</span>
-      <span id="fi-base" style="color:#46cadb;position:relative;">Fi</span>
-    </span>
-
-    <span style="position:relative;display:inline-block;">
-      <span id="br-r" style="position:absolute;top:0;left:0;color:#ff0044;opacity:0;pointer-events:none;">Breacher</span>
-      <span id="br-b" style="position:absolute;top:0;left:0;color:#0044ff;opacity:0;pointer-events:none;">Breacher</span>
-      <span id="br-base" style="color:#ffffff;position:relative;">Breacher</span>
-    </span>
-
-  </span>
-</a>
-
-<script>
-(function(){
-  var SWAP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-
-  var groups = [
-    { r: document.getElementById('de-r'), b: document.getElementById('de-b'), baseEl: document.getElementById('de-base'), text: 'De',       color: '#59f8d8' },
-    { r: document.getElementById('fi-r'), b: document.getElementById('fi-b'), baseEl: document.getElementById('fi-base'), text: 'Fi',       color: '#46cadb' },
-    { r: document.getElementById('br-r'), b: document.getElementById('br-b'), baseEl: document.getElementById('br-base'), text: 'Breacher', color: '#ffffff' }
-  ];
-
-  function resetWord(g) {
-    g.r.style.transform = 'none'; g.r.style.opacity = '0';
-    g.b.style.transform = 'none'; g.b.style.opacity = '0';
-  }
-  groups.forEach(resetWord);
-
-  function glitchWord(g) {
-    var intensity = 6 + Math.random() * 10;
-    var rX = (Math.random()*2-1)*intensity;
-    var rY = (Math.random()*2-1)*(intensity*0.3);
-    var bX = -rX*(0.5+Math.random()*0.5);
-    var bY = (Math.random()*2-1)*(intensity*0.25);
-    g.r.style.transform = 'translate('+rX.toFixed(1)+'px,'+rY.toFixed(1)+'px)';
-    g.b.style.transform = 'translate('+bX.toFixed(1)+'px,'+bY.toFixed(1)+'px)';
-    g.r.style.opacity = (0.5+Math.random()*0.4).toFixed(2);
-    g.b.style.opacity = (0.4+Math.random()*0.4).toFixed(2);
-  }
-
-  function rndChar() {
-    return SWAP_CHARS[Math.floor(Math.random()*SWAP_CHARS.length)];
-  }
-
-  function pickCount(maxLen) {
-    var roll = Math.random();
-    if(roll < 0.60) return 1;
-    if(roll < 0.90) return 2;
-    return Math.min(3, maxLen);
-  }
-
-  function doLetterSwap(g) {
-    var chars = g.text.split('');
-    var count = pickCount(chars.length);
-    var indices = [];
-    var attempts = 0;
-    while(indices.length < count && attempts < 20) {
-      attempts++;
-      var idx = Math.floor(Math.random()*chars.length);
-      if(indices.indexOf(idx) === -1) indices.push(idx);
-    }
-    var html = '';
-    chars.forEach(function(c, i) {
-      if(indices.indexOf(i) !== -1) {
-        html += '<span style="color:#ff3366;opacity:0.95">'+rndChar()+'</span>';
-      } else {
-        html += '<span style="color:'+g.color+'">'+c+'</span>';
-      }
-    });
-    g.baseEl.innerHTML = html;
-    setTimeout(function(){
-      g.baseEl.innerHTML = g.text;
-      g.baseEl.style.color = g.color;
-    }, 60 + Math.random()*100);
-  }
-
-  function runGlitch() {
-    var numWords = Math.random() < 0.5 ? 1 : (Math.random() < 0.7 ? 2 : 3);
-    var targets = groups.slice().sort(function(){ return Math.random()-0.5; }).slice(0, numWords);
-    var bursts = 3 + Math.floor(Math.random()*6);
-    var frame = 0;
-
-    var t = setInterval(function(){
-      frame++;
-      targets.forEach(function(g){
-        if(Math.random() < 0.8) glitchWord(g);
-        else resetWord(g);
-        if(Math.random() < 0.35) doLetterSwap(g);
-      });
-      if(frame >= bursts){
-        clearInterval(t);
-        groups.forEach(resetWord);
-        setTimeout(runGlitch, 800 + Math.random()*2000);
-      }
-    }, 50 + Math.random()*30);
-  }
-
-  setTimeout(runGlitch, 800);
-})();
-</script>
+  <a class="site-title d-block" href="/">
+    <span style="color: #59f8d8;">De</span><span style="color: rgb(70, 202, 219);">Fi</span><span
+      style="color: #ffffff;">Breacher</span>
+  </a>
   <p class="site-subtitle fst-italic mb-0"><span id="sidebar-typed"></span></p>
 
   <script>
