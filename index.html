@@ -99,7 +99,7 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css">
-
+<link rel="stylesheet" href="/assets/css/intro-loader.css">
   <!-- 3rd-party Dependencies -->
 
   
@@ -209,65 +209,375 @@
 
 <body>
   <canvas id="star-canvas"></canvas>
+  <link rel="stylesheet" href="/assets/css/intro-loader.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <script>
-    const canvas = document.getElementById('star-canvas');
-    const ctx = canvas.getContext('2d');
 
-    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+<div id="dfb-intro" aria-hidden="true">
+  <canvas id="dfb-stars"></canvas>
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+  <div id="dfb-wrap">
+    <div id="dfb-book">
+      <div class="dfb-paper" style="display:flex;flex-direction:column;">
+
+        <!-- PAPER FOLD MARKS -->
+        <div class="dfb-fold dfb-fold-h1" aria-hidden="true"></div>
+        <div class="dfb-fold dfb-fold-h2" aria-hidden="true"></div>
+        <div class="dfb-fold dfb-fold-v" aria-hidden="true"></div>
+        <!-- COFFEE STAINS -->
+        <div class="dfb-stain dfb-stain-1" aria-hidden="true"></div>
+        <div class="dfb-stain dfb-stain-2" aria-hidden="true"></div>
+
+        <!-- Paperclip -->
+        <svg class="dfb-clip" width="22" height="58" viewBox="0 0 22 58" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M11 3 C6 3 3 6 3 11 L3 46 C3 51 7 54 11 54 C15 54 19 51 19 46 L19 15 C19 11 16 8 11 8 C7 8 5 11 5 15 L5 44 C5 47 7 49 11 49 C14 49 16 47 16 44 L16 18"
+            stroke="#7a7060" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <!-- ══════════════════════════════════════════
+             HEADER
+        ══════════════════════════════════════════ -->
+        <div class="dfb-header" id="dfb-hdr">
+
+          <!-- Eagle seal -->
+          <svg class="dfb-seal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="#2a2a1a" stroke-width="1.4"/>
+            <circle cx="50" cy="50" r="41" fill="none" stroke="#2a2a1a" stroke-width="0.7"/>
+            <ellipse cx="50" cy="57" rx="15" ry="17" fill="#2a2a1a" opacity="0.72"/>
+            <path d="M35 53 C21 43 11 51 9 45 C15 39 31 47 35 53Z" fill="#2a2a1a" opacity="0.72"/>
+            <path d="M65 53 C79 43 89 51 91 45 C85 39 69 47 65 53Z" fill="#2a2a1a" opacity="0.72"/>
+            <circle cx="50" cy="37" r="8" fill="#2a2a1a" opacity="0.72"/>
+            <path d="M50 41 L46 45 L50 44 L54 45 Z" fill="#2a2a1a" opacity="0.88"/>
+            <rect x="44" y="50" width="12" height="14" rx="1" fill="#d0c9a8" stroke="#2a2a1a" stroke-width="0.7" opacity="0.9"/>
+            <rect x="44" y="50" width="12" height="5" fill="#2a2a1a" opacity="0.55"/>
+            <text x="50" y="29" text-anchor="middle" font-size="5" fill="#2a2a1a" opacity="0.65">★ ★ ★</text>
+            <path id="hdr-arc" d="M 13,50 A 37,37 0 0,1 87,50" fill="none"/>
+            <text font-size="5.2" fill="#2a2a1a" opacity="0.75" font-family="Courier New" letter-spacing="0.8">
+              <textPath href="#hdr-arc" startOffset="8%">DECENTRALIZED GOVERNMENT</textPath>
+            </text>
+            <path id="hdr-arc2" d="M 16,56 A 35,35 0 0,0 84,56" fill="none"/>
+            <text font-size="5.2" fill="#2a2a1a" opacity="0.75" font-family="Courier New" letter-spacing="0.8">
+              <textPath href="#hdr-arc2" startOffset="10%">OFFICE OF INTELLIGENCE</textPath>
+            </text>
+          </svg>
+
+          <div class="dfb-agency-block">
+            <div class="dfb-agency-name">Decentralized Government<br>Intelligence Agency</div>
+            <div class="dfb-agency-div">Web3 Security Intelligence Division</div>
+            <div class="dfb-meta-row">
+              <span>CASE NO: 07-AE-91</span>
+              <span class="dfb-meta-sep">│</span>
+              <span>ARCHIVE: DFS-001</span>
+              <span class="dfb-meta-sep">│</span>
+              <span>FORM 131-A</span>
+            </div>
+          </div>
+
+          <div class="dfb-header-stamps">
+            <div class="dfb-stamp dfb-stamp-ts" id="dfb-ts">
+              <div class="dfb-stamp-inner dfb-stamp-red">
+                <span class="dfb-stamp-txt">Top Secret</span>
+              </div>
+            </div>
+            <div class="dfb-stamp dfb-stamp-decl" id="dfb-decl">
+              <div class="dfb-stamp-inner dfb-stamp-green">
+                <span class="dfb-stamp-txt dfb-stamp-sm">Declassified</span>
+                <span class="dfb-stamp-date">E.O. 13526 · 23 JUN 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLASSIFICATION BANNER -->
+        <div class="dfb-class-banner" id="dfb-cb">
+          <span>▌ CLASSIFICATION: TOP SECRET / SCI &nbsp;·&nbsp; HANDLE VIA COMINT CHANNELS ONLY ▐</span>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             TWO COLUMN BODY
+        ══════════════════════════════════════════ -->
+        <div class="dfb-columns">
+
+          <!-- ──────── LEFT COLUMN ──────── -->
+          <div class="dfb-col-left">
+
+            <div class="dfb-sec-label" id="dfb-sl1">§ 1 &nbsp;·&nbsp; SUBJECT PROFILE</div>
+            <div class="dfb-field-block" id="dfb-profile">
+              <div class="dfb-field">
+                <span class="dfb-fl">Subject</span><span class="dfb-fc">:</span>
+                <span class="dfb-fv dfb-type" data-text="SHORYA S."></span>
+              </div>
+              <div class="dfb-field">
+                <span class="dfb-fl">Alias</span><span class="dfb-fc">:</span>
+                <span class="dfb-fv dfb-type" data-text="DEFIBREACHER"></span>
+              </div>
+              <div class="dfb-field">
+                <span class="dfb-fl">Clearance</span><span class="dfb-fc">:</span>
+                <span class="dfb-fv dfb-type" data-text="LEVEL 5"></span>
+              </div>
+              <div class="dfb-field">
+                <span class="dfb-fl">Op. Status</span><span class="dfb-fc">:</span>
+                <span class="dfb-fv dfb-type" data-text="UNDER OBSERVATION"></span>
+              </div>
+              <div class="dfb-field">
+                <span class="dfb-fl">Nationality</span><span class="dfb-fc">:</span>
+                <span class="dfb-fv"><span class="dfb-redact" style="width:95px"></span></span>
+              </div>
+              <div class="dfb-field">
+                <span class="dfb-fl">Last Known</span><span class="dfb-fc">:</span>
+                <span class="dfb-fv"><span class="dfb-redact" style="width:115px"></span></span>
+              </div>
+            </div>
+
+            <div class="dfb-divider" id="dfb-d1"></div>
+
+            <div class="dfb-sec-label" id="dfb-sl3">§ 2 &nbsp;·&nbsp; TECHNICAL CAPABILITIES</div>
+            <div class="dfb-caps" id="dfb-caps">
+              <div class="dfb-cap-item" id="dfb-c1"><span class="dfb-bullet">▸</span> Smart Contract Security</div>
+              <div class="dfb-cap-item" id="dfb-c2"><span class="dfb-bullet">▸</span> Protocol Auditing</div>
+              <div class="dfb-cap-item" id="dfb-c3"><span class="dfb-bullet">▸</span> Blockchain Forensics</div>
+              <div class="dfb-cap-item" id="dfb-c4"><span class="dfb-bullet">▸</span> Threat Intelligence</div>
+              <div class="dfb-cap-item" id="dfb-c5"><span class="dfb-bullet">▸</span> Incident Response</div>
+            </div>
+
+            <div class="dfb-divider" id="dfb-d3"></div>
+
+            <div class="dfb-sec-label" id="dfb-sl4">§ 3 &nbsp;·&nbsp; THREAT MATRIX</div>
+            <div class="dfb-matrix" id="dfb-matrix">
+              <div class="dfb-mx-row" id="dfb-mx1">
+                <span class="dfb-mx-lbl">Technical Skill</span>
+                <div class="dfb-mx-track"><div class="dfb-mx-bar" data-pct="95"></div></div>
+                <span class="dfb-mx-val">95</span>
+              </div>
+              <div class="dfb-mx-row" id="dfb-mx2">
+                <span class="dfb-mx-lbl">Persistence</span>
+                <div class="dfb-mx-track"><div class="dfb-mx-bar" data-pct="88"></div></div>
+                <span class="dfb-mx-val">88</span>
+              </div>
+              <div class="dfb-mx-row" id="dfb-mx3">
+                <span class="dfb-mx-lbl">Influence</span>
+                <div class="dfb-mx-track"><div class="dfb-mx-bar" data-pct="62"></div></div>
+                <span class="dfb-mx-val">62</span>
+              </div>
+              <div class="dfb-mx-row" id="dfb-mx4">
+                <span class="dfb-mx-lbl">Op. Reach</span>
+                <div class="dfb-mx-track"><div class="dfb-mx-bar" data-pct="55"></div></div>
+                <span class="dfb-mx-val">55</span>
+              </div>
+              <div class="dfb-mx-row" id="dfb-mx5">
+                <span class="dfb-mx-lbl">Recruit Value</span>
+                <div class="dfb-mx-track"><div class="dfb-mx-bar" data-pct="84"></div></div>
+                <span class="dfb-mx-val">84</span>
+              </div>
+            </div>
+
+          </div><!-- /col-left -->
+
+          <!-- ──────── TORN EDGE ──────── -->
+          <div class="dfb-torn-edge" aria-hidden="true">
+            <svg viewBox="0 0 22 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,0 L22,0
+                L20,18 L22,34 L18,52 L22,70 L19,88 L22,106
+                L18,124 L22,142 L19,159 L21,176 L17,194
+                L22,212 L18,229 L21,246 L18,264 L22,280
+                L19,298 L21,315 L18,332 L22,350 L19,367
+                L21,384 L18,400 L0,400 Z"
+                fill="rgba(0,0,0,0.045)" stroke="rgba(0,0,0,0.14)" stroke-width="0.6"/>
+              <path d="M11,0 L10,18 L13,34 L10,52 L12,70 L10,88 L13,106
+                L10,124 L13,142 L10,159 L12,176 L10,194
+                L13,212 L10,229 L13,246 L10,264 L13,280
+                L10,298 L13,315 L10,332 L13,350 L10,367
+                L12,384 L10,400"
+                fill="none" stroke="rgba(0,0,0,0.065)" stroke-width="0.9"/>
+            </svg>
+          </div>
+
+          <!-- ──────── RIGHT COLUMN ──────── -->
+          <div class="dfb-col-right">
+
+            <div class="dfb-sec-label dfb-r-lbl" id="dfb-rsl1">SURVEILLANCE STATUS</div>
+            <div class="dfb-r-block" id="dfb-surv">
+              <div class="dfb-r-field"><span class="dfb-r-key">Monitoring</span><span class="dfb-r-col">:</span><span class="dfb-r-val dfb-val-active">ACTIVE</span></div>
+              <div class="dfb-r-field"><span class="dfb-r-key">Traceability</span><span class="dfb-r-col">:</span><span class="dfb-r-val">LOW</span></div>
+              <div class="dfb-r-field"><span class="dfb-r-key">Encryption</span><span class="dfb-r-col">:</span><span class="dfb-r-val">HIGH</span></div>
+              <div class="dfb-r-field"><span class="dfb-r-key">Risk Index</span><span class="dfb-r-col">:</span><span class="dfb-r-val">MODERATE</span></div>
+            </div>
+
+            <hr class="dfb-r-div" id="dfb-rrd3">
+
+            <div class="dfb-sec-label dfb-r-lbl" id="dfb-rsl4">INTELLIGENCE NOTES</div>
+            <div class="dfb-int-notes" id="dfb-notes">
+              Subject demonstrates advanced understanding of blockchain security systems. Known for identifying vulnerabilities in high-value decentralised infrastructure. Actions contributed to preventing substantial losses across multiple protocols. Further observation recommended.
+            </div>
+
+            <hr class="dfb-r-div" id="dfb-rrd4">
+
+            <div class="dfb-sig-block" id="dfb-sig">
+              <div class="dfb-sig-lbl">Released By:</div>
+              <div class="dfb-sig-name"><span class="dfb-redact" style="width:80px;height:11px;display:inline-block;vertical-align:middle;"></span></div>
+              <div class="dfb-sig-title">Dir., Web3 Intel Division</div>
+              <div class="dfb-form-ref">FORM 131-A &nbsp;·&nbsp; DFS-001 &nbsp;·&nbsp; TS/SCI</div>
+            </div>
+
+            <div class="dfb-barcode" id="dfb-bc">
+              <svg width="108" height="28" viewBox="0 0 108 28" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2"   y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="6"   y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="9"   y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="14"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="17"  y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="21"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="24"  y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="29"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="32"  y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="36"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="39"  y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="44"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="47"  y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="51"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="54"  y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="59"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="62"  y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="66"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="69"  y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="74"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="77"  y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="81"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="84"  y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="89"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="92"  y="2" width="2"  height="20" fill="#1a1a0e"/>
+                <rect x="96"  y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <rect x="99"  y="2" width="3"  height="20" fill="#1a1a0e"/>
+                <rect x="104" y="2" width="1"  height="20" fill="#1a1a0e"/>
+                <text x="54" y="27" text-anchor="middle" font-size="5" font-family="Courier New" fill="#1a1a0e">67X-21-A · DFB-001</text>
+              </svg>
+            </div>
+
+          </div><!-- /col-right -->
+        </div><!-- /columns -->
+
+        <!-- FOOTER -->
+        <div class="dfb-footer" id="dfb-ft">
+          <span>BREACH-PROTOCOL · ACTIVE &nbsp;│&nbsp; TS/SCI &nbsp;│&nbsp; COMINT CHANNELS ONLY</span>
+          <span>PAGE 1 OF ██ &nbsp;│&nbsp; DFB-001-█ &nbsp;│&nbsp; COPY 1 OF 1</span>
+        </div>
+
+      </div><!-- /dfb-paper -->
+    </div><!-- /dfb-book -->
+  </div><!-- /dfb-wrap -->
+
+  <button type="button" class="dfb-skip" id="dfb-skip">[ ESC ] &nbsp; Skip</button>
+</div>
+
+
+<script src="/assets/js/intro-loader.js"></script>
+
+<script>
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+
+  const LAYERS = [
+    { count: 90, rMin: 0.25, rMax: 0.65, sp: 0.018, opMin: 0.08, opMax: 0.28 },
+    { count: 60, rMin: 0.65, rMax: 1.1,  sp: 0.055, opMin: 0.25, opMax: 0.55 },
+    { count: 28, rMin: 1.0,  rMax: 1.7,  sp: 0.10,  opMin: 0.50, opMax: 0.95 }
+  ];
+  const CT = ['white','white','white','cyan','blue'];
+
+  const stars = [];
+  LAYERS.forEach(L => {
+    for (let i = 0; i < L.count; i++) {
+      const a = Math.random() * Math.PI * 2, sp = L.sp * (0.4 + Math.random() * 0.6);
+      stars.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: L.rMin + Math.random() * (L.rMax - L.rMin),
+        baseOp: L.opMin + Math.random() * (L.opMax - L.opMin),
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+        ts: 0.005 + Math.random() * 0.025, to: Math.random() * Math.PI * 2,
+        ct: CT[Math.floor(Math.random() * CT.length)],
+        sparkP: Math.random() * Math.PI * 2
+      });
+    }
+  });
+
+  const shooters = [];
+  let sTick = 0, sInt = 200 + Math.random() * 220;
+  function spawnShooter() {
+    const left = Math.random() > 0.5;
+    shooters.push({
+      x: left ? -50 : W + 50, y: Math.random() * H * 0.65,
+      vx: left ? 9 + Math.random() * 5 : -(9 + Math.random() * 5),
+      vy: (1 + Math.random() * 2.5) * (Math.random() > 0.5 ? 1 : -1),
+      len: 90 + Math.random() * 90, alpha: 0, phase: 'in', maxAlpha: 0.65 + Math.random() * 0.3
+    });
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t++;
+
+    stars.forEach(s => {
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < -5) s.x = W + 5; if (s.x > W + 5) s.x = -5;
+      if (s.y < -5) s.y = H + 5; if (s.y > H + 5) s.y = -5;
+
+      const op = s.baseOp * (0.55 + 0.45 * Math.sin(t * s.ts + s.to));
+      const col = s.ct === 'cyan'  ? `rgba(78,201,176,${op})`  :
+                  s.ct === 'blue'  ? `rgba(180,210,255,${op})` :
+                                     `rgba(255,255,255,${op})`;
+
+      if (s.r > 1.2 && s.ct === 'white') {
+        const sA = op * (0.3 + 0.3 * Math.sin(s.sparkP + t * 0.008));
+        const sL = s.r * 3.5;
+        ctx.save();
+        ctx.strokeStyle = `rgba(255,255,255,${sA})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(s.x - sL, s.y); ctx.lineTo(s.x + sL, s.y);
+        ctx.moveTo(s.x, s.y - sL); ctx.lineTo(s.x, s.y + sL);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = col;
+      ctx.fill();
     });
 
-    const stars = [];
-    const count = 150;
-
-    for (let i = 0; i < count; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.2,
-        opacity: Math.random() * 0.5 + 0.1,
-        twinkleSpeed: Math.random() * 0.02 + 0.005,
-        twinkleOffset: Math.random() * Math.PI * 2,
-        vx: (Math.random() - 0.5) * 0.08,
-        vy: (Math.random() - 0.5) * 0.08,
-      });
+    sTick++;
+    if (sTick >= sInt) { spawnShooter(); sTick = 0; sInt = 160 + Math.random() * 260; }
+    for (let i = shooters.length - 1; i >= 0; i--) {
+      const s = shooters[i];
+      s.x += s.vx; s.y += s.vy;
+      s.phase === 'in'
+        ? (s.alpha = Math.min(s.alpha + 0.06, s.maxAlpha), s.alpha >= s.maxAlpha && (s.phase = 'out'))
+        : (s.alpha -= 0.04);
+      if (s.alpha <= 0) { shooters.splice(i, 1); continue; }
+      const dir = Math.sign(s.vx);
+      const tx = s.x - dir * s.len, ty = s.y - (s.vy / (Math.abs(s.vx) || 1)) * s.len;
+      const g = ctx.createLinearGradient(tx, ty, s.x, s.y);
+      g.addColorStop(0, 'rgba(255,255,255,0)');
+      g.addColorStop(0.7, `rgba(200,230,255,${s.alpha * 0.45})`);
+      g.addColorStop(1, `rgba(255,255,255,${s.alpha})`);
+      ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(s.x, s.y);
+      ctx.strokeStyle = g; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${s.alpha})`; ctx.fill();
     }
 
-    let t = 0;
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      t++;
-
-      stars.forEach(star => {
-        star.x += star.vx;
-        star.y += star.vy;
-
-        if (star.x < 0) star.x = canvas.width;
-        if (star.x > canvas.width) star.x = 0;
-        if (star.y < 0) star.y = canvas.height;
-        if (star.y > canvas.height) star.y = 0;
-
-        const opacity = star.opacity * (0.6 + 0.4 * Math.sin(t * star.twinkleSpeed + star.twinkleOffset));
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-        ctx.fill();
-      });
-
-      requestAnimationFrame(draw);
-    }
-
-    draw();
-  </script>
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
   <!-- The Side Bar -->
 
 <aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-center">
@@ -281,7 +591,7 @@
   </a>
 
 <a class="site-title d-block" href="/">
-  <span id="dfb-wrap" style="position:relative;display:inline-flex;align-items:baseline;white-space:nowrap;">
+  <span id="dfb-title-wrap" style="position:relative;display:inline-flex;align-items:baseline;white-space:nowrap;">
 
     <span style="position:relative;display:inline-block;">
       <span id="de-r" style="position:absolute;top:0;left:0;color:#ff3366;opacity:0;pointer-events:none;">De</span>
@@ -617,10 +927,10 @@
         <i class="fas fa-chevron-down fa-xs" id="theme-chevron"></i>
       </button>
       <div id="theme-dropdown" role="menu">
-        <button class="theme-option" data-theme="default"   role="menuitem"><span class="theme-dot" style="background:#56b6c2;box-shadow:0 0 9px 1px #56b6c2dd;"></span>DFB Style</button>
-        <button class="theme-option" data-theme="dracula"   role="menuitem"><span class="theme-dot" style="background:#bd93f9;box-shadow:0 0 9px 1px #bd93f9dd;"></span>Dracula</button>
-        <button class="theme-option" data-theme="nord"      role="menuitem"><span class="theme-dot" style="background:#88c0d0;box-shadow:0 0 9px 1px #88c0d0dd;"></span>Nord</button>
-        <button class="theme-option" data-theme="gruvbox"   role="menuitem"><span class="theme-dot" style="background:#fabd2f;box-shadow:0 0 9px 1px #fabd2fdd;"></span>Gruvbox</button>
+        <button class="theme-option" data-theme="default"    role="menuitem"><span class="theme-dot" style="background:#56b6c2;box-shadow:0 0 9px 1px #56b6c2dd;"></span>DFB Style</button>
+        <button class="theme-option" data-theme="dracula"    role="menuitem"><span class="theme-dot" style="background:#bd93f9;box-shadow:0 0 9px 1px #bd93f9dd;"></span>Dracula</button>
+        <button class="theme-option" data-theme="nord"       role="menuitem"><span class="theme-dot" style="background:#88c0d0;box-shadow:0 0 9px 1px #88c0d0dd;"></span>Nord</button>
+        <button class="theme-option" data-theme="gruvbox"    role="menuitem"><span class="theme-dot" style="background:#fabd2f;box-shadow:0 0 9px 1px #fabd2fdd;"></span>Gruvbox</button>
         <button class="theme-option" data-theme="catppuccin" role="menuitem"><span class="theme-dot" style="background:#cba6f7;box-shadow:0 0 9px 1px #cba6f7dd;"></span>Catppuccin</button>
         <button class="theme-option" data-theme="tokyonight" role="menuitem"><span class="theme-dot" style="background:#7dcfff;box-shadow:0 0 9px 1px #7dcfffdd;"></span>Tokyo Night</button>
       </div>
@@ -948,11 +1258,42 @@
     #theme-btn-label { display: none; }
     #theme-btn { padding: 4px 8px; }
   }
+
+  /* ══════════════════════════════════════════════════════════════
+     THEME TRANSITION — smooth crossfade on the whole page
+  ══════════════════════════════════════════════════════════════ */
+
+  /* When transitioning, apply smooth colour changes to everything */
+  html.dfb-theme-transitioning *,
+  html.dfb-theme-transitioning *::before,
+  html.dfb-theme-transitioning *::after {
+    transition:
+      background-color 0.45s ease,
+      border-color     0.45s ease,
+      color            0.45s ease,
+      box-shadow       0.45s ease,
+      fill             0.45s ease,
+      stroke           0.45s ease !important;
+  }
+
+  /* But never interfere with animations that should stay snappy */
+  html.dfb-theme-transitioning .glitch-name::before,
+  html.dfb-theme-transitioning .glitch-name::after,
+  html.dfb-theme-transitioning .ping-ring,
+  html.dfb-theme-transitioning .tbi-facet,
+  html.dfb-theme-transitioning .dfb-stamp-ts,
+  html.dfb-theme-transitioning .dfb-stamp-decl {
+    transition: none !important;
+  }
 </style>
 
 <script>
-/* ── Glitch effect ── */
+/* ══════════════════════════════════════════════════════════════
+   DFB THEME SWITCHER — ink-flood ripple edition
+══════════════════════════════════════════════════════════════ */
 (function () {
+
+  /* ── Glitch effect ── */
   function triggerGlitch(el) {
     el.classList.remove('glitching');
     void el.offsetWidth;
@@ -970,167 +1311,125 @@
     }, 2500 + Math.random() * 4000);
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    ['topbarName', 'topbarNameMobile'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      setTimeout(function () { scheduleRandom(el); }, 800 + Math.random() * 1200);
-      el.addEventListener('mouseenter', function () { triggerGlitch(el); });
-    });
-  });
-})();
-
-/* ── Theme Switcher ── */
-(function () {
+  /* ── Theme map ── */
   var themes = {
     default: {
-      '--dfb-bg':           '#080c10',
-      '--dfb-surface':      '#111820',
-      '--dfb-fg':           '#abb2bf',
-      '--dfb-muted':        '#5c6370',
-      '--dfb-accent':       '#56b6c2',
-      '--dfb-accent-dim':   'rgba(86,182,194,0.08)',
-      '--dfb-accent-border':'rgba(86,182,194,0.25)',
-      '--dfb-sidebar':      '#0d1117',
-      '--dfb-topbar':       '#080c10',
-      '--dfb-link':         '#56b6c2',
-      '--dfb-link-hover':   '#7ecfd8',
-      '--dfb-heading':      '#BDE7FF',
-      '--dfb-code':         '#56b6c2',
-      '--dfb-code-bg':      'rgba(86,182,194,0.06)',
-      '--dfb-border':       'rgba(86,182,194,0.12)',
-      '--dfb-card':         '#111820',
+      '--dfb-bg':            '#080c10',
+      '--dfb-surface':       '#111820',
+      '--dfb-fg':            '#abb2bf',
+      '--dfb-muted':         '#5c6370',
+      '--dfb-accent':        '#56b6c2',
+      '--dfb-accent-dim':    'rgba(86,182,194,0.08)',
+      '--dfb-accent-border': 'rgba(86,182,194,0.25)',
+      '--dfb-sidebar':       '#0d1117',
+      '--dfb-topbar':        '#080c10',
+      '--dfb-link':          '#56b6c2',
+      '--dfb-link-hover':    '#7ecfd8',
+      '--dfb-heading':       '#BDE7FF',
+      '--dfb-code':          '#56b6c2',
+      '--dfb-code-bg':       'rgba(86,182,194,0.06)',
+      '--dfb-border':        'rgba(86,182,194,0.12)',
+      '--dfb-card':          '#111820',
+      '--dfb-ripple-color':  '#56b6c2',
     },
     dracula: {
-      '--dfb-bg':           '#1e1f29',
-      '--dfb-surface':      '#282a36',
-      '--dfb-fg':           '#f8f8f2',
-      '--dfb-muted':        '#6272a4',
-      '--dfb-accent':       '#bd93f9',
-      '--dfb-accent-dim':   'rgba(189,147,249,0.1)',
-      '--dfb-accent-border':'rgba(189,147,249,0.3)',
-      '--dfb-sidebar':      '#191a24',
-      '--dfb-topbar':       '#1e1f29',
-      '--dfb-link':         '#8be9fd',
-      '--dfb-link-hover':   '#a8effd',
-      '--dfb-heading':      '#f8f8f2',
-      '--dfb-code':         '#50fa7b',
-      '--dfb-code-bg':      'rgba(80,250,123,0.07)',
-      '--dfb-border':       'rgba(189,147,249,0.15)',
-      '--dfb-card':         '#282a36',
+      '--dfb-bg':            '#1e1f29',
+      '--dfb-surface':       '#282a36',
+      '--dfb-fg':            '#f8f8f2',
+      '--dfb-muted':         '#6272a4',
+      '--dfb-accent':        '#bd93f9',
+      '--dfb-accent-dim':    'rgba(189,147,249,0.1)',
+      '--dfb-accent-border': 'rgba(189,147,249,0.3)',
+      '--dfb-sidebar':       '#191a24',
+      '--dfb-topbar':        '#1e1f29',
+      '--dfb-link':          '#8be9fd',
+      '--dfb-link-hover':    '#a8effd',
+      '--dfb-heading':       '#f8f8f2',
+      '--dfb-code':          '#50fa7b',
+      '--dfb-code-bg':       'rgba(80,250,123,0.07)',
+      '--dfb-border':        'rgba(189,147,249,0.15)',
+      '--dfb-card':          '#282a36',
+      '--dfb-ripple-color':  '#bd93f9',
     },
     nord: {
-      '--dfb-bg':           '#242831',
-      '--dfb-surface':      '#2e3440',
-      '--dfb-fg':           '#eceff4',
-      '--dfb-muted':        '#616e88',
-      '--dfb-accent':       '#88c0d0',
-      '--dfb-accent-dim':   'rgba(136,192,208,0.1)',
-      '--dfb-accent-border':'rgba(136,192,208,0.3)',
-      '--dfb-sidebar':      '#1e242f',
-      '--dfb-topbar':       '#242831',
-      '--dfb-link':         '#88c0d0',
-      '--dfb-link-hover':   '#a3cdd9',
-      '--dfb-heading':      '#eceff4',
-      '--dfb-code':         '#a3be8c',
-      '--dfb-code-bg':      'rgba(163,190,140,0.08)',
-      '--dfb-border':       'rgba(136,192,208,0.15)',
-      '--dfb-card':         '#2e3440',
+      '--dfb-bg':            '#242831',
+      '--dfb-surface':       '#2e3440',
+      '--dfb-fg':            '#eceff4',
+      '--dfb-muted':         '#616e88',
+      '--dfb-accent':        '#88c0d0',
+      '--dfb-accent-dim':    'rgba(136,192,208,0.1)',
+      '--dfb-accent-border': 'rgba(136,192,208,0.3)',
+      '--dfb-sidebar':       '#1e242f',
+      '--dfb-topbar':        '#242831',
+      '--dfb-link':          '#88c0d0',
+      '--dfb-link-hover':    '#a3cdd9',
+      '--dfb-heading':       '#eceff4',
+      '--dfb-code':          '#a3be8c',
+      '--dfb-code-bg':       'rgba(163,190,140,0.08)',
+      '--dfb-border':        'rgba(136,192,208,0.15)',
+      '--dfb-card':          '#2e3440',
+      '--dfb-ripple-color':  '#88c0d0',
     },
     gruvbox: {
-      '--dfb-bg':           '#1d2021',
-      '--dfb-surface':      '#282828',
-      '--dfb-fg':           '#ebdbb2',
-      '--dfb-muted':        '#928374',
-      '--dfb-accent':       '#fabd2f',
-      '--dfb-accent-dim':   'rgba(250,189,47,0.09)',
-      '--dfb-accent-border':'rgba(250,189,47,0.3)',
-      '--dfb-sidebar':      '#161616',
-      '--dfb-topbar':       '#1d2021',
-      '--dfb-link':         '#8ec07c',
-      '--dfb-link-hover':   '#b8bb26',
-      '--dfb-heading':      '#ebdbb2',
-      '--dfb-code':         '#8ec07c',
-      '--dfb-code-bg':      'rgba(142,192,124,0.08)',
-      '--dfb-border':       'rgba(250,189,47,0.15)',
-      '--dfb-card':         '#282828',
+      '--dfb-bg':            '#1d2021',
+      '--dfb-surface':       '#282828',
+      '--dfb-fg':            '#ebdbb2',
+      '--dfb-muted':         '#928374',
+      '--dfb-accent':        '#fabd2f',
+      '--dfb-accent-dim':    'rgba(250,189,47,0.09)',
+      '--dfb-accent-border': 'rgba(250,189,47,0.3)',
+      '--dfb-sidebar':       '#161616',
+      '--dfb-topbar':        '#1d2021',
+      '--dfb-link':          '#8ec07c',
+      '--dfb-link-hover':    '#b8bb26',
+      '--dfb-heading':       '#ebdbb2',
+      '--dfb-code':          '#8ec07c',
+      '--dfb-code-bg':       'rgba(142,192,124,0.08)',
+      '--dfb-border':        'rgba(250,189,47,0.15)',
+      '--dfb-card':          '#282828',
+      '--dfb-ripple-color':  '#fabd2f',
     },
     catppuccin: {
-      '--dfb-bg':           '#181825',
-      '--dfb-surface':      '#1e1e2e',
-      '--dfb-fg':           '#cdd6f4',
-      '--dfb-muted':        '#585b70',
-      '--dfb-accent':       '#cba6f7',
-      '--dfb-accent-dim':   'rgba(203,166,247,0.1)',
-      '--dfb-accent-border':'rgba(203,166,247,0.3)',
-      '--dfb-sidebar':      '#11111b',
-      '--dfb-topbar':       '#181825',
-      '--dfb-link':         '#89dceb',
-      '--dfb-link-hover':   '#a6e3f5',
-      '--dfb-heading':      '#cdd6f4',
-      '--dfb-code':         '#a6e3a1',
-      '--dfb-code-bg':      'rgba(166,227,161,0.07)',
-      '--dfb-border':       'rgba(203,166,247,0.15)',
-      '--dfb-card':         '#1e1e2e',
+      '--dfb-bg':            '#181825',
+      '--dfb-surface':       '#1e1e2e',
+      '--dfb-fg':            '#cdd6f4',
+      '--dfb-muted':         '#585b70',
+      '--dfb-accent':        '#cba6f7',
+      '--dfb-accent-dim':    'rgba(203,166,247,0.1)',
+      '--dfb-accent-border': 'rgba(203,166,247,0.3)',
+      '--dfb-sidebar':       '#11111b',
+      '--dfb-topbar':        '#181825',
+      '--dfb-link':          '#89dceb',
+      '--dfb-link-hover':    '#a6e3f5',
+      '--dfb-heading':       '#cdd6f4',
+      '--dfb-code':          '#a6e3a1',
+      '--dfb-code-bg':       'rgba(166,227,161,0.07)',
+      '--dfb-border':        'rgba(203,166,247,0.15)',
+      '--dfb-card':          '#1e1e2e',
+      '--dfb-ripple-color':  '#cba6f7',
     },
     tokyonight: {
-      '--dfb-bg':           '#16161e',
-      '--dfb-surface':      '#1a1b26',
-      '--dfb-fg':           '#c0caf5',
-      '--dfb-muted':        '#565f89',
-      '--dfb-accent':       '#7dcfff',
-      '--dfb-accent-dim':   'rgba(125,207,255,0.08)',
-      '--dfb-accent-border':'rgba(125,207,255,0.28)',
-      '--dfb-sidebar':      '#13131a',
-      '--dfb-topbar':       '#16161e',
-      '--dfb-link':         '#7dcfff',
-      '--dfb-link-hover':   '#a8deff',
-      '--dfb-heading':      '#c0caf5',
-      '--dfb-code':         '#9ece6a',
-      '--dfb-code-bg':      'rgba(158,206,106,0.07)',
-      '--dfb-border':       'rgba(125,207,255,0.15)',
-      '--dfb-card':         '#1a1b26',
+      '--dfb-bg':            '#16161e',
+      '--dfb-surface':       '#1a1b26',
+      '--dfb-fg':            '#c0caf5',
+      '--dfb-muted':         '#565f89',
+      '--dfb-accent':        '#7dcfff',
+      '--dfb-accent-dim':    'rgba(125,207,255,0.08)',
+      '--dfb-accent-border': 'rgba(125,207,255,0.28)',
+      '--dfb-sidebar':       '#13131a',
+      '--dfb-topbar':        '#16161e',
+      '--dfb-link':          '#7dcfff',
+      '--dfb-link-hover':    '#a8deff',
+      '--dfb-heading':       '#c0caf5',
+      '--dfb-code':          '#9ece6a',
+      '--dfb-code-bg':       'rgba(158,206,106,0.07)',
+      '--dfb-border':        'rgba(125,207,255,0.15)',
+      '--dfb-card':          '#1a1b26',
+      '--dfb-ripple-color':  '#7dcfff',
     }
   };
 
-  function applyTheme(key) {
-    var t = themes[key] || themes['default'];
-    var root = document.documentElement;
-    Object.keys(t).forEach(function(prop) {
-      root.style.setProperty(prop, t[prop]);
-    });
-
-    /* patch Chirpy's hardcoded vars */
-    root.style.setProperty('--main-bg',        t['--dfb-bg'],      'important');
-    root.style.setProperty('--card-bg',         t['--dfb-card'],    'important');
-    root.style.setProperty('--card-header-bg',  t['--dfb-card'],    'important');
-
-    /* sidebar + topbar backgrounds */
-    var sidebar  = document.getElementById('sidebar');
-    var topbar   = document.getElementById('topbar-wrapper');
-    if (sidebar) sidebar.style.setProperty('background', t['--dfb-sidebar'], 'important');
-    if (topbar)  topbar.style.setProperty('background',  t['--dfb-topbar'],  'important');
-
-    /* links */
-    injectOrUpdate('dfb-theme-links',
-      'a { color: ' + t['--dfb-link'] + ' !important; }' +
-      'a:hover { color: ' + t['--dfb-link-hover'] + ' !important; }' +
-      'h1,h2,h3,h4 { color: ' + t['--dfb-heading'] + ' !important; }' +
-      'code { color: ' + t['--dfb-code'] + ' !important; background: ' + t['--dfb-code-bg'] + ' !important; }' +
-      '#topbar-wrapper { background: ' + t['--dfb-topbar'] + ' !important; border-bottom: 1px solid ' + t['--dfb-border'] + ' !important; }' +
-      '#sidebar { background: ' + t['--dfb-sidebar'] + ' !important; border-right: 1px solid ' + t['--dfb-border'] + ' !important; }' +
-      'html:not([data-mode]), html[data-mode=dark] { --main-bg: ' + t['--dfb-bg'] + ' !important; --card-bg: ' + t['--dfb-card'] + ' !important; --card-header-bg: ' + t['--dfb-card'] + ' !important; }'
-    );
-
-    /* update active state on buttons */
-    document.querySelectorAll('.theme-option').forEach(function(btn) {
-      btn.classList.toggle('active', btn.dataset.theme === key);
-    });
-
-    /* save */
-    try { localStorage.setItem('dfb-theme', key); } catch(e) {}
-  }
-
+  /* ── Inject / update <style> tag ── */
   function injectOrUpdate(id, css) {
     var el = document.getElementById(id);
     if (!el) {
@@ -1141,36 +1440,102 @@
     el.textContent = css;
   }
 
-  function toggleDropdown() {
-    var sw = document.getElementById('theme-switcher');
-    sw.classList.toggle('open');
+  /* ── Commit all CSS vars + patch Chirpy ── */
+  function commitTheme(key) {
+    var t    = themes[key] || themes['default'];
+    var root = document.documentElement;
+    Object.keys(t).forEach(function (prop) {
+      root.style.setProperty(prop, t[prop]);
+    });
+
+    root.style.setProperty('--main-bg',       t['--dfb-bg'],   'important');
+    root.style.setProperty('--card-bg',        t['--dfb-card'], 'important');
+    root.style.setProperty('--card-header-bg', t['--dfb-card'], 'important');
+
+    var sidebar = document.getElementById('sidebar');
+    var topbar  = document.getElementById('topbar-wrapper');
+    if (sidebar) sidebar.style.setProperty('background', t['--dfb-sidebar'], 'important');
+    if (topbar)  topbar.style.setProperty('background',  t['--dfb-topbar'],  'important');
+
+    injectOrUpdate('dfb-theme-links',
+      'a { color: '       + t['--dfb-link']        + ' !important; }' +
+      'a:hover { color: ' + t['--dfb-link-hover']   + ' !important; }' +
+      'h1,h2,h3,h4 { color: ' + t['--dfb-heading'] + ' !important; }' +
+      'code { color: '    + t['--dfb-code']         + ' !important; background: ' + t['--dfb-code-bg'] + ' !important; }' +
+      '#topbar-wrapper { background: ' + t['--dfb-topbar']  + ' !important; border-bottom: 1px solid ' + t['--dfb-border'] + ' !important; }' +
+      '#sidebar { background: '        + t['--dfb-sidebar'] + ' !important; border-right: 1px solid '  + t['--dfb-border'] + ' !important; }' +
+      'html:not([data-mode]), html[data-mode=dark] { --main-bg: ' + t['--dfb-bg'] + ' !important; --card-bg: ' + t['--dfb-card'] + ' !important; --card-header-bg: ' + t['--dfb-card'] + ' !important; }'
+    );
+
+    document.querySelectorAll('.theme-option').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.theme === key);
+    });
+
+    try { localStorage.setItem('dfb-theme', key); } catch (e) {}
   }
 
+  /* ── Crossfade theme switch ── */
+  var transitionTimer = null;
+
+  function floodAndSwitch(key) {
+    if (transitionTimer) { clearTimeout(transitionTimer); transitionTimer = null; }
+
+    /* 1. Enable transitions on everything */
+    document.documentElement.classList.add('dfb-theme-transitioning');
+
+    /* 2. Commit new vars — browser interpolates all computed colours */
+    commitTheme(key);
+
+    /* 3. Remove transition class after animation completes */
+    transitionTimer = setTimeout(function () {
+      document.documentElement.classList.remove('dfb-theme-transitioning');
+    }, 500);
+  }
+
+  /* ── Dropdown helpers ── */
+  function toggleDropdown() {
+    document.getElementById('theme-switcher').classList.toggle('open');
+  }
   function closeDropdown() {
     document.getElementById('theme-switcher').classList.remove('open');
   }
 
+  /* ── Boot ── */
   document.addEventListener('DOMContentLoaded', function () {
+
+    /* glitch on name */
+    ['topbarName', 'topbarNameMobile'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      setTimeout(function () { scheduleRandom(el); }, 800 + Math.random() * 1200);
+      el.addEventListener('mouseenter', function () { triggerGlitch(el); });
+    });
+
+    /* theme button opens dropdown */
     var btn = document.getElementById('theme-btn');
-    if (btn) btn.addEventListener('click', function(e) {
+    if (btn) btn.addEventListener('click', function (e) {
       e.stopPropagation();
       toggleDropdown();
     });
 
-    document.querySelectorAll('.theme-option').forEach(function(opt) {
-      opt.addEventListener('click', function() {
-        applyTheme(this.dataset.theme);
+    /* each option fires the crossfade */
+    document.querySelectorAll('.theme-option').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        var key = this.dataset.theme;
         closeDropdown();
+        floodAndSwitch(key);
       });
     });
 
+    /* click outside closes dropdown */
     document.addEventListener('click', closeDropdown);
 
-    /* restore saved theme */
+    /* restore saved theme instantly on load (no ripple) */
     var saved = 'default';
-    try { saved = localStorage.getItem('dfb-theme') || 'default'; } catch(e) {}
-    applyTheme(saved);
+    try { saved = localStorage.getItem('dfb-theme') || 'default'; } catch (e) {}
+    commitTheme(saved);
   });
+
 })();
 </script>
 
