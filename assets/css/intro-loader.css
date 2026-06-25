@@ -397,12 +397,97 @@ html.dfb-intro-lock body { overflow: hidden !important; height: 100%; }
    MOBILE
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 580px) {
-  .dfb-col-right   { width: 148px; padding: 10px 13px 10px 9px; }
-  .dfb-col-left    { padding: 10px 9px 10px 13px; }
-  .dfb-header      { padding: 10px 12px 8px; }
-  .dfb-seal        { width: 46px; height: 46px; }
-  .dfb-agency-name { font-size: 12px; }
-  .dfb-stamp-txt   { font-size: 14px; }
+
+  /* Constrain book height to viewport */
+  #dfb-book {
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 24px);
+    overflow: hidden;
+  }
+
+  .dfb-paper {
+    max-height: calc(100dvh - 24px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .dfb-header      { padding: 9px 11px 8px; gap: 8px; flex-shrink: 0; }
+  .dfb-seal        { width: 38px; height: 38px; }
+  .dfb-agency-name { font-size: 10px; letter-spacing: 0.04em; }
+  .dfb-agency-div  { font-size: 8.5px; margin-top: 3px; }
+  .dfb-meta-row    { font-size: 7.5px; margin-top: 4px; }
+  .dfb-meta-sep    { margin: 0 4px; }
+  .dfb-stamp-txt   { font-size: 12px; letter-spacing: 0.16em; }
+  .dfb-stamp-sm    { font-size: 10px; }
+  .dfb-stamp-date  { font-size: 6.5px; }
+  .dfb-stamp-inner { padding: 4px 10px 3px; }
+  .dfb-clip        { display: none; }
+
+  /* ── CLASSIFICATION BANNER ── */
+  .dfb-class-banner { font-size: 8px; padding: 6px 11px; letter-spacing: 0.07em; flex-shrink: 0; }
+
+  /* ── STACK COLUMNS VERTICALLY ── */
+  .dfb-columns {
+    flex-direction: column;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Hide the decorative torn edge — meaningless when stacked */
+  .dfb-torn-edge { display: none; }
+
+  /* ── LEFT COLUMN ── */
+  .dfb-col-left { padding: 10px 13px 6px; }
+
+  /* Tighten field rows */
+  .dfb-fl           { width: 88px; font-size: 9.5px; }
+  .dfb-fc           { margin: 0 6px; font-size: 11px; }
+  .dfb-fv           { font-size: 11.5px; }
+  .dfb-field        { margin-bottom: 7px; }
+  .dfb-sec-label    { font-size: 9.5px; margin: 12px 0 7px; }
+
+  /* Cap items */
+  .dfb-cap-item { font-size: 11.5px; margin-bottom: 6px; }
+
+  /* Threat matrix */
+  .dfb-mx-lbl  { width: 88px; font-size: 9.5px; }
+  .dfb-mx-val  { font-size: 11px; }
+  .dfb-mx-row  { gap: 8px; margin-bottom: 7px; }
+  .dfb-mx-track { height: 11px; }
+
+  /* Hide lower-priority left sections on very small screens */
+  #dfb-d3, #dfb-sl4, #dfb-matrix { display: none; }
+
+  /* ── RIGHT COLUMN ── */
+  .dfb-col-right {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(0,0,0,0.14);
+    padding: 8px 13px 10px;
+    background: rgba(0,0,0,0.02);
+  }
+
+  .dfb-r-lbl    { font-size: 9px; margin: 8px 0 6px; }
+  .dfb-r-key    { font-size: 9.5px; }
+  .dfb-r-val    { font-size: 9.5px; }
+  .dfb-r-field  { margin-bottom: 6px; }
+  .dfb-int-notes { font-size: 9.5px; line-height: 1.6; }
+
+  /* Hide barcode + sig on mobile — saves space */
+  #dfb-bc, #dfb-sig, #dfb-rrd4 { display: none; }
+
+  /* ── FOOTER ── */
+  .dfb-footer {
+    font-size: 7.5px; padding: 6px 11px;
+    flex-direction: column; gap: 1px;
+    text-align: center; flex-shrink: 0;
+  }
+
+  /* ── STAINS ── unnecessary detail ── */
+  .dfb-stain-1, .dfb-stain-2 { display: none; }
 }
 
 /* ── REDUCED MOTION ── */
