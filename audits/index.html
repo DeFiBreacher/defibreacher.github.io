@@ -38,14 +38,14 @@
 <meta property="og:url" content="https://defibreacher.github.io/audits/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-06-26T18:09:25+05:30" />
-<meta property="article:modified_time" content="2026-06-26T18:09:25+05:30" />
+<meta property="article:published_time" content="2026-06-29T08:13:02+05:30" />
+<meta property="article:modified_time" content="2026-06-29T08:13:02+05:30" />
 <meta property="og:image" content="https://defibreacher.github.io/assets/img/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image" content="https://defibreacher.github.io/assets/img/avatar.png" />
 <meta name="twitter:title" content="Audits" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-26T18:09:25+05:30","datePublished":"2026-06-26T18:09:25+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Audits","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/audits/"},"url":"https://defibreacher.github.io/audits/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-06-29T08:13:02+05:30","datePublished":"2026-06-29T08:13:02+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Audits","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/audits/"},"url":"https://defibreacher.github.io/audits/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -599,28 +599,24 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 
-<header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar">
+<!-- Page transition overlay -->
+<div id="dfb-nav-transition" aria-hidden="true"></div>
+
+<header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar" data-home-url="/">
   <div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100">
     <nav id="breadcrumb" aria-label="Breadcrumb">
-      
-
-      
-      
-      
-      <span>
-        <a href="/">Home</a>
+      <span class="custom-home-title">
+        <span class="cht-tilde">~</span>
+        <span class="cht-name glitch-name cht-home-link" id="topbarName" data-text="Shorya S" role="link" tabindex="0" aria-label="Go to home">Shorya S.</span>
+        <a href="/audits/" class="cht-badge">[Auditor]</a>
+        <span class="cht-avail">
+          <span class="ping-wrap">
+            <span class="ping-ring"></span>
+            <span class="ping-dot"></span>
+          </span>
+          Available For Audits
+        </span>
       </span>
-
-      
-      
-      
-      
-      <span>Audits</span>
-      
-
-      
-      
-      
     </nav>
     <!-- endof #breadcrumb -->
 
@@ -629,7 +625,18 @@
     </button>
 
     <div id="topbar-title">
-      Audits
+      <span class="custom-home-title">
+        <span class="cht-tilde">~</span>
+        <span class="cht-name glitch-name cht-home-link" id="topbarNameMobile" data-text="Shorya S" role="link" tabindex="0" aria-label="Go to home">Shorya S</span>
+        <a href="/tabs/audit-reports/" class="cht-badge">[Auditor]</a>
+        <span class="cht-avail">
+          <span class="ping-wrap">
+            <span class="ping-ring"></span>
+            <span class="ping-dot"></span>
+          </span>
+          Available For Audits
+        </span>
+      </span>
     </div>
 
     <!-- ── Theme Switcher ── -->
@@ -659,6 +666,42 @@
 </header>
 
 <style>
+  /* ── Sticky topbar ── */
+  #topbar-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* ── Name is clickable on non-home pages ── */
+  .cht-home-link {
+    cursor: pointer;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     PAGE TRANSITION OVERLAY
+  ══════════════════════════════════════════════════════════════ */
+  #dfb-nav-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    pointer-events: none;
+    background: #080c10;
+    opacity: 0;
+  }
+
+  #dfb-nav-transition.dfb-nt-running {
+    pointer-events: all;
+    animation: dfb-nt-fade 0.45s ease forwards;
+  }
+
+  @keyframes dfb-nt-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
   /* ── Top bar name layout ── */
   .custom-home-title {
     display: flex;
@@ -981,7 +1024,6 @@
      THEME TRANSITION — smooth crossfade on the whole page
   ══════════════════════════════════════════════════════════════ */
 
-  /* When transitioning, apply smooth colour changes to everything */
   html.dfb-theme-transitioning *,
   html.dfb-theme-transitioning *::before,
   html.dfb-theme-transitioning *::after {
@@ -994,7 +1036,6 @@
       stroke           0.45s ease !important;
   }
 
-  /* But never interfere with animations that should stay snappy */
   html.dfb-theme-transitioning .glitch-name::before,
   html.dfb-theme-transitioning .glitch-name::after,
   html.dfb-theme-transitioning .ping-ring,
@@ -1197,14 +1238,8 @@
 
   function floodAndSwitch(key) {
     if (transitionTimer) { clearTimeout(transitionTimer); transitionTimer = null; }
-
-    /* 1. Enable transitions on everything */
     document.documentElement.classList.add('dfb-theme-transitioning');
-
-    /* 2. Commit new vars — browser interpolates all computed colours */
     commitTheme(key);
-
-    /* 3. Remove transition class after animation completes */
     transitionTimer = setTimeout(function () {
       document.documentElement.classList.remove('dfb-theme-transitioning');
     }, 500);
@@ -1220,6 +1255,43 @@
 
   /* ── Boot ── */
   document.addEventListener('DOMContentLoaded', function () {
+
+    /* ── Name → home transition ── */
+    var homeUrl = (document.getElementById('topbar-wrapper') || {}).dataset.homeUrl || '/';
+
+    /* Normalise a pathname: strip trailing slash, collapse to '' for root */
+    function normPath(p) { return p.replace(/\/+$/, '') || '/'; }
+
+    var isHome = normPath(window.location.pathname) === normPath(homeUrl);
+
+    function navigateHome() {
+      if (isHome) return; /* already here — just glitch, no nav */
+
+      var overlay = document.getElementById('dfb-nav-transition');
+      if (!overlay) { window.location.href = homeUrl; return; }
+
+      /* fire glitch on both name spans */
+      ['topbarName', 'topbarNameMobile'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) triggerGlitch(el);
+      });
+
+      /* small delay so glitch is visible before overlay covers it */
+      setTimeout(function () {
+        overlay.classList.add('dfb-nt-running');
+        /* navigate once fade is complete (450ms) */
+        setTimeout(function () {
+          window.location.href = homeUrl;
+        }, 420);
+      }, 60);
+    }
+
+    document.querySelectorAll('.cht-home-link').forEach(function (el) {
+      el.addEventListener('click', navigateHome);
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigateHome(); }
+      });
+    });
 
     /* glitch on name */
     ['topbarName', 'topbarNameMobile'].forEach(function (id) {
@@ -1248,7 +1320,7 @@
     /* click outside closes dropdown */
     document.addEventListener('click', closeDropdown);
 
-    /* restore saved theme instantly on load (no ripple) */
+    /* restore saved theme instantly on load */
     var saved = 'default';
     try { saved = localStorage.getItem('dfb-theme') || 'default'; } catch (e) {}
     commitTheme(saved);
