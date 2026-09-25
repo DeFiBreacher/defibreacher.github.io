@@ -4,7 +4,7 @@
   <id>https://defibreacher.github.io/</id>
   <title>DeFiBreacher</title>
   <subtitle>Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.</subtitle>
-  <updated>2026-09-25T08:57:44+05:30</updated>
+  <updated>2026-09-25T19:26:32+05:30</updated>
   <author>
     <name>DeFiBreacher</name>
     <uri>https://defibreacher.github.io/</uri>
@@ -20,11 +20,35 @@
 
   
   <entry>
+    <title>Always On-Chain</title>
+    <link href="https://defibreacher.github.io/posts/always-on-chain/" rel="alternate" type="text/html" title="Always On-Chain" />
+    <published>2026-09-25T17:30:00+05:30</published>
+  
+    <updated>2026-09-25T17:30:00+05:30</updated>
+  
+    <id>https://defibreacher.github.io/posts/always-on-chain/</id>
+    <content type="text/html" src="https://defibreacher.github.io/posts/always-on-chain/" />
+    <author>
+      <name>DeFiBreacher</name>
+    </author>
+
+  
+    
+    <category term="Tech" />
+    
+  
+
+  <summary>Most people in tech are building on top of knowledge that’s already outdated. The space moves fast, especially in Web3. A vulnerability class that didn’t exist six months ago is now being exploited across protocols. A research paper that dropped last quarter is already shaping how auditors think. If you’re not actively staying current, you’re falling behind without even realizing it.  This is h...</summary>
+
+  </entry>
+
+  
+  <entry>
     <title>Fork Your Diet</title>
     <link href="https://defibreacher.github.io/posts/fork-your-diet/" rel="alternate" type="text/html" title="Fork Your Diet" />
-    <published>2026-09-21T17:30:00+05:30</published>
+    <published>2026-08-29T17:30:00+05:30</published>
   
-    <updated>2026-09-21T17:30:00+05:30</updated>
+    <updated>2026-08-29T17:30:00+05:30</updated>
   
     <id>https://defibreacher.github.io/posts/fork-your-diet/</id>
     <content type="text/html" src="https://defibreacher.github.io/posts/fork-your-diet/" />

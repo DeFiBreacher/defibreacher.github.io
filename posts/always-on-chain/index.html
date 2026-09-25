@@ -30,26 +30,29 @@
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Reading" />
+<meta property="og:title" content="Always On-Chain" />
 <meta property="og:locale" content="en" />
-<meta name="description" content="Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols." />
-<meta name="twitter:description" property="og:description" content="Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols." />
-<link rel="canonical" href="https://defibreacher.github.io/reading/" />
-<meta property="og:url" content="https://defibreacher.github.io/reading/" />
+<meta name="description" content="Most people in tech are building on top of knowledge that’s already outdated. The space moves fast, especially in Web3. A vulnerability class that didn’t exist six months ago is now being exploited across protocols. A research paper that dropped last quarter is already shaping how auditors think. If you’re not actively staying current, you’re falling behind without even realizing it." />
+<meta name="twitter:description" property="og:description" content="Most people in tech are building on top of knowledge that’s already outdated. The space moves fast, especially in Web3. A vulnerability class that didn’t exist six months ago is now being exploited across protocols. A research paper that dropped last quarter is already shaping how auditors think. If you’re not actively staying current, you’re falling behind without even realizing it." />
+<link rel="canonical" href="https://defibreacher.github.io/posts/always-on-chain/" />
+<meta property="og:url" content="https://defibreacher.github.io/posts/always-on-chain/" />
 <meta property="og:site_name" content="DeFiBreacher" />
+<meta property="og:image" content="https://defibreacher.github.io/assets/img/posts/reading.webp" />
+<meta property="og:image:alt" content="Reading What's On-Chain" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-09-25T19:26:32+05:30" />
-<meta property="article:modified_time" content="2026-09-25T19:26:32+05:30" />
-<meta property="og:image" content="https://defibreacher.github.io/assets/img/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image" content="https://defibreacher.github.io/assets/img/avatar.png" />
-<meta name="twitter:title" content="Reading" />
+<meta property="article:published_time" content="2026-09-25T17:30:00+05:30" />
+<meta property="article:modified_time" content="2026-09-25T17:30:00+05:30" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://defibreacher.github.io/assets/img/posts/reading.webp" />
+<meta name="twitter:image:alt" content="Reading What's On-Chain" />
+<meta name="twitter:title" content="Always On-Chain" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-25T19:26:32+05:30","datePublished":"2026-09-25T19:26:32+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Reading","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/reading/"},"url":"https://defibreacher.github.io/reading/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-25T17:30:00+05:30","datePublished":"2026-09-25T17:30:00+05:30","description":"Most people in tech are building on top of knowledge that’s already outdated. The space moves fast, especially in Web3. A vulnerability class that didn’t exist six months ago is now being exploited across protocols. A research paper that dropped last quarter is already shaping how auditors think. If you’re not actively staying current, you’re falling behind without even realizing it.","headline":"Always On-Chain","image":{"alt":"Reading What's On-Chain","url":"https://defibreacher.github.io/assets/img/posts/reading.webp","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/posts/always-on-chain/"},"url":"https://defibreacher.github.io/posts/always-on-chain/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
-  <title>Reading | DeFiBreacher</title>
+  <title>Always On-Chain | DeFiBreacher</title>
 
   <!--
   The Favicons for Web, Android, Microsoft, and iOS (iPhone and iPad) Apps
@@ -105,6 +108,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css">
   <!-- 3rd-party Dependencies -->
 
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.36.4/dist/tocbot.min.css">
   
 
   
@@ -178,9 +183,44 @@
 
   
 
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
 
 
-  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.20/dayjs.min.js,npm/dayjs@1.11.20/locale/en.js,npm/dayjs@1.11.20/plugin/relativeTime.js,npm/dayjs@1.11.20/plugin/localizedFormat.js,npm/tocbot@4.36.4/dist/tocbot.min.js"></script>
 
 
 
@@ -188,11 +228,15 @@
 
 
 
-<script defer src="/assets/js/dist/page.min.js"></script>
+<script defer src="/assets/js/dist/post.min.js"></script>
 
 
 
 <!-- Pageviews -->
+
+  
+
+  
 
 
 
@@ -488,7 +532,7 @@
       </li>
       <!-- .nav-item -->
       
-      <li class="nav-item active">
+      <li class="nav-item">
         <a href="/reading/" class="nav-link">
           <i class="fa-fw fas fa-book-open"></i>
           
@@ -1361,6 +1405,105 @@
 
 
 
+  
+  
+
+  
+    
+      
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+    
+
+    
+
+    
+      
+    
+
+    <!-- lazy-load images -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+
+        
+        
+      
+    
+
+    <!-- combine -->
+    
+  
+
+  
+
 
 <!-- Add header for code snippets -->
 
@@ -1375,6 +1518,82 @@
   
   
 
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
   
 
   
@@ -1400,435 +1619,409 @@
 
 
 
-<article class="px-1">
+
+
+
+
+
+
+<div id="read-progress"></div>
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>Always On-Chain</h1>
+    
+
+    <div class="post-meta text-muted">
+      <span>
+        Posted
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/modules/components/locale-datetime.js
+-->
+
+
+
+
+<time
   
-    
-    
-    <h1 class="dynamic-title">
-      Reading
-    </h1>
-    <div class="content">
+  data-ts="1790337600"
+  data-df="ll"
+  
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
+>
+  Sep 25, 2026
+</time>
+
+      </span>
+
       
-<div id="reading-page" class="pl-xl-3">
 
-  <!-- Top Picks -->
-  <div class="r-section-title">Top Picks</div>
-  <div class="r-top-grid">
+      
+      
+      
+      
+      
+      <div class="mt-3 mb-3">
+        <a href="/assets/img/posts/reading.webp" class="popup img-link preview-img shimmer"><img src="/assets/img/posts/reading.webp"  alt="Reading What&apos;s On-Chain" width="1200" height="630"  loading="lazy"></a><figcaption class="text-center pt-2 pb-2">Reading What's On-Chain</figcaption></div>
+      
 
-    <a href="https://www.youtube.com/@PatrickAlphaC" target="_blank" rel="noopener" class="r-top-card">
-      <div class="r-top-icon" style="background:rgba(224,108,117,0.1);border-color:rgba(224,108,117,0.2)">
-        <i class="fab fa-youtube" style="color:#e06c75"></i>
-      </div>
-      <div class="r-top-body">
-        <div class="r-top-name">Patrick Collins <i class="fas fa-arrow-up-right-from-square r-ext"></i></div>
-        <div class="r-top-type">YouTube</div>
-      </div>
-      <p class="r-top-desc">Must watch. Best educator for Solidity, smart contracts, and security in the space.</p>
-    </a>
+      <div class="d-flex justify-content-between">
+        <span>
+          
 
-    <a href="https://updraft.cyfrin.io" target="_blank" rel="noopener" class="r-top-card">
-      <div class="r-top-icon" style="background:rgba(78,201,176,0.1);border-color:rgba(78,201,176,0.2)">
-        <i class="fas fa-graduation-cap" style="color:#4ec9b0"></i>
-      </div>
-      <div class="r-top-body">
-        <div class="r-top-name">Cyfrin Updraft <i class="fas fa-arrow-up-right-from-square r-ext"></i></div>
-        <div class="r-top-type">Platform</div>
-      </div>
-      <p class="r-top-desc">Structured courses on Solidity, security, and auditing by Patrick Collins. Highly recommended.</p>
-    </a>
+          By
 
-    <a href="https://rekt.news" target="_blank" rel="noopener" class="r-top-card">
-      <div class="r-top-icon" style="background:rgba(224,82,82,0.1);border-color:rgba(224,82,82,0.2)">
-        <i class="fas fa-skull" style="color:#e05252"></i>
+          <em>
+            
+            <a href="https://x.com/DeFiBreacher">DeFiBreacher</a>
+            
+          </em>
+        </span>
+
+        <div>
+          
+
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="718 words"
+>
+  <em>3 min</em> read</span>
+
+        </div>
       </div>
-      <div class="r-top-body">
-        <div class="r-top-name">Rekt News <i class="fas fa-arrow-up-right-from-square r-ext"></i></div>
-        <div class="r-top-type">Newsletter</div>
-      </div>
-      <p class="r-top-desc">The graveyard of DeFi. Every major exploit documented and dissected.</p>
-    </a>
+    </div>
+  </header>
+
+  
+  <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+    <span class="label text-truncate">Always On-Chain</span>
+    <button type="button" class="toc-trigger btn me-1">
+      <i class="fa-solid fa-list-ul fa-fw"></i>
+    </button>
+  </div>
+
+  <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+    <span class="label ps-2 pe-1">Contents</span>
+    <i class="fa-solid fa-angle-right fa-fw"></i>
+  </button>
+
+  <dialog id="toc-popup" class="p-0">
+    <div class="header d-flex flex-row align-items-center justify-content-between">
+      <div class="label text-truncate py-2 ms-4">Always On-Chain</div>
+      <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+        <i class="fas fa-close"></i>
+      </button>
+    </div>
+    <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+  </dialog>
+  
+
+  <div class="content">
+    <p>Most people in tech are building on top of knowledge that’s already outdated. The space moves fast, especially in Web3. A vulnerability class that didn’t exist six months ago is now being exploited across protocols. A research paper that dropped last quarter is already shaping how auditors think. If you’re not actively staying current, you’re falling behind without even realizing it.</p>
+
+<p>This is how I stay informed and how you can too.</p>
+
+<hr />
+
+<h2 id="why-it-matters-more-in-web3"><span class="me-2">Why It Matters More in Web3</span><a href="#why-it-matters-more-in-web3" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>In traditional tech, being a year behind is manageable. In Web3 it’s not. Attack vectors evolve constantly. New protocols introduce new risk surfaces. The tooling changes. The best auditors and researchers are not the ones who know the most about the past, they’re the ones who know what’s happening right now.</p>
+
+<p>Staying informed is not optional in this space. It’s part of the job.</p>
+
+<hr />
+
+<h2 id="how-i-actually-do-it"><span class="me-2">How I Actually Do It</span><a href="#how-i-actually-do-it" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>I don’t have some complicated system. I just check a few things in the morning and move on with my day.</p>
+
+<p>I go through my emails first. I’m subscribed to a handful of newsletters that actually deliver value. Limitless, BlockThreat, Bankless, and the Immunefi blog are the ones I consistently read. These cover everything from new exploit breakdowns to broader ecosystem updates. Good way to start the day with context before you get into actual work.</p>
+
+<p>After that I check Twitter. I’ve followed a specific set of people, researchers, auditors, protocol teams, people who post actual findings and technical takes. Not price accounts, not engagement farming accounts, just people who share things worth reading. Twitter in Web3 is genuinely useful if you’re ruthless about who you follow. Keep your feed clean and it becomes a real time research feed.</p>
+
+<p>Then Rekt for any major exploit breakdowns if something happened recently. The way they cover incidents is solid and it’s worth reading every time something significant goes down in DeFi.</p>
+
+<p>That’s it. I don’t do all of this every single day. Some days I go through two or three of these, some days just one. The point is consistency over time, not cramming everything daily. Find what works for your schedule and just keep showing up.</p>
+
+<hr />
+
+<h2 id="reading-audit-reports"><span class="me-2">Reading Audit Reports</span><a href="#reading-audit-reports" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>This one I want to emphasize because most people skip it and it’s probably the highest value habit you can build if you’re serious about security.</p>
+
+<p>Go to Solodit. It aggregates findings from Code4rena, Sherlock, Cantina, and other competitive audit platforms. You can filter by severity, vulnerability type, and protocol category. Start reading real findings. Not explanations of vulnerabilities, actual reports of real bugs found in real protocols with real money at stake.</p>
+
+<p>This is how you build pattern recognition. You start seeing the same classes of bugs show up in different contexts. You start understanding how auditors think. You start noticing things in code that you would have missed before.</p>
+
+<p>You don’t need to read fifty reports a week. Read one or two. Actually understand what went wrong and why. That compounds.</p>
+
+<hr />
+
+<h2 id="linkedin"><span class="me-2">LinkedIn</span><a href="#linkedin" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>Skip it. LinkedIn in the Web3 and security space is mostly the same content recycled over and over by people farming likes and engagement. You’ll see the same takes dressed up differently every week. I haven’t find that worth my time.</p>
+
+<hr />
+
+<h2 id="youtube"><span class="me-2">YouTube</span><a href="#youtube" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>YouTube is useful when you’re starting out. There’s good beginner content on Solidity, smart contract development, and how protocols work. I watched a lot of it early on and it helped.</p>
+
+<p>I don’t really use it for learning anymore. Occasionally I’ll watch an interview with a researcher to get a different perspective on how they approach their work, how they think about security, what they’re focused on. Those are worth your time once in a while. But the regular tutorial content I’ve moved past.</p>
+
+<p>If you’re early in your journey, use it. If you’re further along, be selective about what you spend time on there.</p>
+
+<hr />
+
+<h2 id="the-only-rule-that-matters"><span class="me-2">The Only Rule That Matters</span><a href="#the-only-rule-that-matters" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>You don’t have to do all of this every day. Pick one or two sources, spend 20 to 30 minutes, and move on. The goal is to stay connected to what’s happening over time, not to read everything that exists.</p>
+
+<p>Do it consistently and a year from now you’ll have a level of awareness that most people in this space simply don’t have.</p>
+
+<p>Stay On-Chain. Stay Sharp.</p>
 
   </div>
 
-  <!-- Newsletters -->
-  <div class="r-section-title">Newsletters</div>
-  <div class="r-list">
+  <div class="post-tail-wrapper text-muted">
 
-    <a href="https://limitlessblog.substack.com" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(78,201,176,0.08);border-color:rgba(78,201,176,0.15)">
-        <i class="fas fa-envelope" style="color:#4ec9b0"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Limitless Blogs</div>
-        <div class="r-item-desc">Insightful writing on Web3, security, and tech. A must-read for staying sharp.</div>
-      </div>
-      <span class="r-tag tag-newsletter">Newsletter</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
+    
+    <div class="post-tags mt-3 mb-4">
+      
+      <a href="/tags/web3/" class="post-tag">#Web3</a>
+      
+      <a href="/tags/security/" class="post-tag">#Security</a>
+      
+      <a href="/tags/learning/" class="post-tag">#Learning</a>
+      
+      <a href="/tags/research/" class="post-tag">#Research</a>
+      
+    </div>
+    
 
-    <a href="https://blockthreat.substack.com" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(78,201,176,0.08);border-color:rgba(78,201,176,0.15)">
-        <i class="fas fa-shield-halved" style="color:#4ec9b0"></i>
+    <div class="post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2">
+      <div class="license-wrapper">
+        
       </div>
-      <div class="r-item-body">
-        <div class="r-item-name">BlockThreat</div>
-        <div class="r-item-desc">Weekly blockchain security threat intelligence — exploits, vulnerabilities, and incidents.</div>
-      </div>
-      <span class="r-tag tag-newsletter">Newsletter</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
+      <!-- Post sharing snippet -->
 
-    <a href="https://www.bankless.com" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(78,201,176,0.08);border-color:rgba(78,201,176,0.15)">
-        <i class="fas fa-coins" style="color:#4ec9b0"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Bankless Newsletter</div>
-        <div class="r-item-desc">Crypto, DeFi, and Web3 — the go-to newsletter for staying up to date on the ecosystem.</div>
-      </div>
-      <span class="r-tag tag-newsletter">Newsletter</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
 
-  </div>
+    
 
-  <!-- Papers -->
-  <div class="r-section-title">Papers</div>
-  <div class="r-list">
+      
 
-    <a href="https://ethereum.github.io/yellowpaper/paper.pdf" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(199,146,234,0.08);border-color:rgba(199,146,234,0.15)">
-        <i class="fas fa-file-lines" style="color:#c792ea"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Ethereum Yellow Paper</div>
-        <div class="r-item-desc">The formal specification of the Ethereum Virtual Machine. Essential reading for any serious EVM security researcher.</div>
-      </div>
-      <span class="r-tag tag-paper">Paper</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
+      <a href="https://twitter.com/intent/tweet?text=Always%20On-Chain%20-%20DeFiBreacher&url=https%3A%2F%2Fdefibreacher.github.io%2Fposts%2Falways-on-chain%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
 
-    <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(199,146,234,0.08);border-color:rgba(199,146,234,0.15)">
-        <i class="fab fa-bitcoin" style="color:#c792ea"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Bitcoin Whitepaper</div>
-        <div class="r-item-desc">Satoshi Nakamoto's original paper. Where it all started. Read it at least once.</div>
-      </div>
-      <span class="r-tag tag-paper">Paper</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
+      
 
-  </div>
+      <a href="https://t.me/share/url?url=https%3A%2F%2Fdefibreacher.github.io%2Fposts%2Falways-on-chain%2F&text=Always%20On-Chain%20-%20DeFiBreacher" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
 
-  <!-- Blogs & Resources -->
-  <div class="r-section-title">Blogs &amp; Resources</div>
-  <div class="r-list">
-
-    <a href="https://cmichel.io/how-to-become-a-smart-contract-auditor/" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(86,182,194,0.08);border-color:rgba(86,182,194,0.15)">
-        <i class="fas fa-pen-nib" style="color:#56b6c2"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">How to Become a Smart Contract Auditor — cmichel</div>
-        <div class="r-item-desc">One of the best guides on getting into smart contract auditing. Written by a top auditor.</div>
-      </div>
-      <span class="r-tag tag-blog">Blog</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-    <a href="https://joranhonig.nl/" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(86,182,194,0.08);border-color:rgba(86,182,194,0.15)">
-        <i class="fas fa-pen-nib" style="color:#56b6c2"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">The Ultimate Guide to DeFi Hacking — Joran Honig</div>
-        <div class="r-item-desc">Personal wiki that I continuously extend and maintain over time. Different from a blog, the articles will grow and improve over time.</div>
-      </div>
-      <span class="r-tag tag-blog">Blog</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-    <a href="https://github.com/devanshbatham/Awesome-Bugbounty-Writeups" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(255,179,0,0.08);border-color:rgba(255,179,0,0.15)">
-        <i class="fab fa-github" style="color:#ffb300"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Awesome Bug Bounty Writeups</div>
-        <div class="r-item-desc">A curated collection of bug bounty writeups across different platforms and vulnerability types.</div>
-      </div>
-      <span class="r-tag tag-resource">Resource</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-    <a href="https://github.com/OffcierCia/ultimate-defi-research-base#general-information" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(255,179,0,0.08);border-color:rgba(255,179,0,0.15)">
-        <i class="fas fa-database" style="color:#ffb300"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Ultimate DeFi Research Base</div>
-        <div class="r-item-desc">A massive curated database of DeFi research, security resources, and learning materials.</div>
-      </div>
-      <span class="r-tag tag-resource">Resource</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-    <a href="https://github.com/OffcierCia/DeFi-Developer-Road-Map" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(255,179,0,0.08);border-color:rgba(255,179,0,0.15)">
-        <i class="fas fa-database" style="color:#ffb300"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">DeFi Developer Road Map</div>
-        <div class="r-item-desc">Here we collect and discuss the best DeFi &amp; Blockchain researches and tools.</div>
-      </div>
-      <span class="r-tag tag-resource">Resource</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-    <a href="https://github.com/nascentxyz/simple-security-toolkit" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(255,179,0,0.08);border-color:rgba(255,179,0,0.15)">
-        <i class="fas fa-toolbox" style="color:#ffb300"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Simple Security Toolkit — Nascent</div>
-        <div class="r-item-desc">A practical security toolkit and checklist for developers and auditors. Straightforward and battle-tested.</div>
-      </div>
-      <span class="r-tag tag-resource">Resource</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-  </div>
-
-  <!-- YouTube -->
-  <div class="r-section-title">YouTube</div>
-  <div class="r-list">
-
-    <a href="https://www.youtube.com/@andyli" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(224,108,117,0.08);border-color:rgba(224,108,117,0.15)">
-        <i class="fab fa-youtube" style="color:#e06c75"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">Andy Li</div>
-        <div class="r-item-desc">Great interviews with top security researchers and auditors. Older content still worth a listen.</div>
-      </div>
-      <span class="r-tag tag-youtube">YouTube</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-    <a href="https://www.youtube.com/@JohnnyTime/videos" target="_blank" rel="noopener" class="r-item">
-      <div class="r-icon" style="background:rgba(224,108,117,0.08);border-color:rgba(224,108,117,0.15)">
-        <i class="fab fa-youtube" style="color:#e06c75"></i>
-      </div>
-      <div class="r-item-body">
-        <div class="r-item-name">JohnnyTime</div>
-        <div class="r-item-desc">Content around blockchain and DeFi security. Good channel if you're getting into Web3 security.</div>
-      </div>
-      <span class="r-tag tag-youtube">YouTube</span>
-      <i class="fas fa-arrow-up-right-from-square r-ext-sm"></i>
-    </a>
-
-  </div>
-
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
 </div>
 
-<style>
-#reading-page { padding: 0; }
-
-/* Section title */
-.r-section-title {
-  font-size: 0.79rem;
-  font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
-  color: #4ec9b0;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  margin: 1.75rem 0 0.65rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-shadow: 0 0 10px rgba(78,201,176,0.3);
-}
-.r-section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, rgba(78,201,176,0.2), transparent);
-}
-.r-section-title:first-child { margin-top: 0; }
-
-/* Top picks grid */
-.r-top-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 0.25rem;
-}
-
-.r-top-card {
-  border: 0.5px solid rgba(255,255,255,0.06);
-  border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-decoration: none !important;
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-  background: rgba(255,255,255,0.01);
-}
-.r-top-card:hover {
-  border-color: rgba(78,201,176,0.28);
-  background: rgba(78,201,176,0.02);
-  box-shadow: 0 2px 14px rgba(78,201,176,0.06);
-  text-decoration: none !important;
-}
-
-.r-top-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 7px;
-  border: 0.5px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-.r-top-body { display: flex; flex-direction: column; gap: 2px; }
-
-.r-top-name {
-  font-size: 0.94rem;
-  font-weight: 500;
-  color: #abb2bf;
-  letter-spacing: 0.02em;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.r-top-card:hover .r-top-name { color: #4ec9b0; }
-
-.r-top-type {
-  font-size: 0.68rem;
-  color: #4a5260;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.r-top-desc {
-  font-size: 0.78rem;
-  color: #5c6370;
-  line-height: 1.55;
-  margin: 0;
-}
-.r-top-card:hover .r-top-desc { color: #6b7280; }
-
-.r-ext {
-  font-size: 0.52rem;
-  opacity: 0.3;
-  transition: opacity 0.15s;
-}
-.r-top-card:hover .r-ext { opacity: 0.8; }
-
-/* List items */
-.r-list {
-  display: flex;
-  flex-direction: column;
-  border: 0.5px solid rgba(255,255,255,0.06);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 0.25rem;
-}
-
-.r-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 14px;
-  border-bottom: 0.5px solid rgba(139,148,158,0.12);
-  text-decoration: none !important;
-  transition: background 0.15s;
-}
-.r-item:last-child { border-bottom: none; }
-.r-item:hover {
-  background: rgba(78,201,176,0.03);
-  text-decoration: none !important;
-}
-
-.r-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 0.5px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-
-.r-item-body { flex: 1; min-width: 0; }
-
-.r-item-name {
-  font-size: 0.91rem;
-  font-weight: 500;
-  color: #abb2bf;
-  letter-spacing: 0.02em;
-  margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.r-item:hover .r-item-name { color: #4ec9b0; }
-
-.r-item-desc {
-  font-size: 0.75rem;
-  color: #4a5260;
-  line-height: 1.45;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.r-item:hover .r-item-desc { color: #5c6370; }
-
-/* Tags */
-.r-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-.tag-newsletter { background: rgba(78,201,176,0.12);  color: #4ec9b0; }
-.tag-paper      { background: rgba(199,146,234,0.12); color: #c792ea; }
-.tag-blog       { background: rgba(86,182,194,0.12);  color: #56b6c2; }
-.tag-resource   { background: rgba(255,179,0,0.12);   color: #ffb300; }
-.tag-youtube    { background: rgba(224,108,117,0.12); color: #e06c75; }
-.tag-platform   { background: rgba(78,201,176,0.12);  color: #4ec9b0; }
-
-.r-ext-sm {
-  font-size: 0.55rem;
-  color: #3d4450;
-  flex-shrink: 0;
-  transition: color 0.15s;
-}
-.r-item:hover .r-ext-sm { color: #4ec9b0; }
-
-/* Mobile */
-@media (max-width: 640px) {
-  .r-top-grid { grid-template-columns: 1fr; }
-  .r-item-desc { display: none; }
-  .r-item-name { white-space: normal; }
-}
-</style>
-
-
     </div>
-  
+  </div>
+
+  <div class="support-wrapper">
+    <p class="support-label">// support the work</p>
+    <div class="support-buttons">
+      <a href="https://ko-fi.com/defibreacher" target="_blank" rel="noopener" class="support-btn kofi-btn">
+        ☕ Ko-fi
+      </a>
+    </div>
+  </div>
+
 </article>
 
+<style>
+  #read-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: #4ec9b0;
+    z-index: 99999;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 6px rgba(78, 201, 176, 0.6);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .post-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #4ec9b0;
+    background: rgba(78, 201, 176, 0.07);
+    border: 1px solid rgba(78, 201, 176, 0.25);
+    border-radius: 4px;
+    padding: 3px 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .post-tag:hover {
+    background: rgba(78, 201, 176, 0.15);
+    border-color: rgba(78, 201, 176, 0.6);
+    color: #4ec9b0;
+    text-decoration: none;
+  }
+
+  pre {
+    position: relative;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(78, 201, 176, 0.08);
+    border: 1px solid rgba(78, 201, 176, 0.25);
+    border-radius: 4px;
+    color: #4ec9b0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 9px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  pre:hover .copy-btn {
+    opacity: 1;
+  }
+
+  .copy-btn:hover {
+    background: rgba(78, 201, 176, 0.18);
+    border-color: rgba(78, 201, 176, 0.6);
+  }
+
+  .copy-btn.copied {
+    color: #b5e8a0;
+    border-color: rgba(181, 232, 160, 0.4);
+  }
+
+  .support-wrapper {
+    text-align: center;
+    margin: 2.5rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(86, 182, 194, 0.15);
+  }
+
+  .support-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #56b6c2;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .support-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .support-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-decoration: none !important;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+  }
+
+  .kofi-btn {
+    background: transparent;
+    color: #ffde92 !important;
+    border: 1px solid rgba(255, 179, 0, 0.4) !important;
+  }
+
+  .kofi-btn:hover {
+    background: rgba(255, 179, 0, 0.08) !important;
+    border-color: rgba(255, 179, 0, 0.7) !important;
+  }
+</style>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', function () {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('read-progress').style.width = progress + '%';
+  });
+
+  // Copy buttons on code blocks
+  document.querySelectorAll('pre > code').forEach(function (block) {
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'copy';
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(block.innerText).then(function () {
+        btn.textContent = 'copied!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = 'copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+    block.parentElement.appendChild(btn);
+  });
+</script>
 
           
         </main>
@@ -2081,12 +2274,94 @@ Promise.all([
           </div>
 
           
+          
+          
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+          
         </aside>
       </div>
 
       <div class="row">
         <!-- tail -->
         <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+          
+          
+          <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+          <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/posts/fork-your-diet/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>Fork Your Diet</p>
+    </a>
+  
+
+  
+    <div class="btn btn-outline-primary disabled" aria-label="Newer">
+      <p>-</p>
+    </div>
+  
+</nav>
+
           
 
           <footer aria-label="Site Info" class="
@@ -2196,6 +2471,11 @@ Promise.all([
   
 
   <!-- Embedded scripts -->
+
+  
+  
+  <!-- The comments switcher -->
+
 
   
   <!-- Visitor Assistant -->
