@@ -4,7 +4,7 @@
   <id>https://defibreacher.github.io/</id>
   <title>DeFiBreacher</title>
   <subtitle>Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.</subtitle>
-  <updated>2026-07-02T17:08:16+05:30</updated>
+  <updated>2026-09-25T08:51:15+05:30</updated>
   <author>
     <name>DeFiBreacher</name>
     <uri>https://defibreacher.github.io/</uri>
@@ -20,11 +20,35 @@
 
   
   <entry>
+    <title>Fork Your Diet</title>
+    <link href="https://defibreacher.github.io/posts/fork-your-diet/" rel="alternate" type="text/html" title="Fork Your Diet" />
+    <published>2026-09-21T17:30:00+05:30</published>
+  
+    <updated>2026-09-21T17:30:00+05:30</updated>
+  
+    <id>https://defibreacher.github.io/posts/fork-your-diet/</id>
+    <content type="text/html" src="https://defibreacher.github.io/posts/fork-your-diet/" />
+    <author>
+      <name>DeFiBreacher</name>
+    </author>
+
+  
+    
+    <category term="Lifestyle" />
+    
+  
+
+  <summary>Most people spend years training hard and going nowhere because their diet is a mess. They track every workout religiously but eat randomly and then wonder why the scale isn’t moving or why they’re not recovering. Nutrition isn’t complicated. It just requires you to actually pay attention.  This is everything you need to know. No fluff.    What’s Actually in Your Plate  Before macros and micros...</summary>
+
+  </entry>
+
+  
+  <entry>
     <title>A Morning Coffee, a Discord DM, and a Compromised PC</title>
     <link href="https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/" rel="alternate" type="text/html" title="A Morning Coffee, a Discord DM, and a Compromised PC" />
-    <published>2026-05-23T06:30:00+05:30</published>
+    <published>2026-07-23T06:30:00+05:30</published>
   
-    <updated>2026-05-23T06:30:00+05:30</updated>
+    <updated>2026-07-23T06:30:00+05:30</updated>
   
     <id>https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/</id>
     <content type="text/html" src="https://defibreacher.github.io/posts/morning-coffee-discord-compromised-pc/" />
@@ -46,9 +70,9 @@
   <entry>
     <title>Let's Crack Gym</title>
     <link href="https://defibreacher.github.io/posts/lets-crack-gym/" rel="alternate" type="text/html" title="Let&amp;apos;s Crack Gym" />
-    <published>2026-05-18T17:30:00+05:30</published>
+    <published>2026-06-18T17:30:00+05:30</published>
   
-    <updated>2026-05-18T17:30:00+05:30</updated>
+    <updated>2026-06-18T17:30:00+05:30</updated>
   
     <id>https://defibreacher.github.io/posts/lets-crack-gym/</id>
     <content type="text/html" src="https://defibreacher.github.io/posts/lets-crack-gym/" />
