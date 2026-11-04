@@ -1497,10 +1497,12 @@ function catSort(btn, order) {
         <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
           <div class="access">
             <div class="custom-panel">
+  <span class="panel-edge" aria-hidden="true"></span>
+  <div class="panel-scroll">
 
   <!-- Quote -->
   <div class="panel-section">
-    <h2 class="panel-heading quote-heading"><span class="panel-icon">💬 </span>Quote</h2>
+    <h2 class="panel-heading quote-heading">💬 Quote<span class="panel-num">01</span></h2>
     <div class="quote-box">
       <p class="quote-text" id="quote-text"></p>
       <p class="quote-author" id="quote-author"></p>
@@ -1510,82 +1512,178 @@ function catSort(btn, order) {
 
   <!-- Security Tip -->
   <div class="panel-section">
-    <h2 class="panel-heading tip-heading"><span class="panel-icon">🔐 </span>Security Tip</h2>
+    <h2 class="panel-heading tip-heading">🔐 Security Tip<span class="panel-num">02</span></h2>
     <div class="tip-box">
       <p class="tip-text" id="tip-text"></p>
     </div>
     <button class="refresh-btn" onclick="newTip()">↻ new tip</button>
   </div>
 
-</div>
+  <!-- Tools I Use -->
+  <div class="panel-section tools-panel">
+    <h2 class="panel-heading tools-heading">🛠️ Tools I Use<span class="panel-num">03</span></h2>
 
-<!-- Tools I Use -->
-<div class="panel-section tools-panel">
-  <h2 class="panel-heading tools-heading"><span class="panel-icon">🧑🏻‍💻 </span>Tools I Use</h2>
-  <div class="tools-grid">
-    <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener">💻 VSCode</a>
-    <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener">⚡ Foundry</a>
-    <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener">🔨 Hardhat</a>
-    <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener">🐍 Slither</a>
-    <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener">🦔 Echidna</a>
-    <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener">🧪 Remix</a>
-    <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener">🌿 Aderyn</a>
-    <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener">🔮 Halmos</a>
-    <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener">⚙️ Rust</a>
+    <div class="tools-label">Fuzz &amp; test</div>
+    <div class="tools-grid">
+      <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener">⚡ Foundry</a>
+      <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener">🔨 Hardhat</a>
+      <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener">🦔 Echidna</a>
+      <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener">🔮 Halmos</a>
+    </div>
+
+    <div class="tools-label">Static analysis</div>
+    <div class="tools-grid">
+      <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener">🐍 Slither</a>
+      <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener">🌿 Aderyn</a>
+    </div>
+
+    <div class="tools-label">Build</div>
+    <div class="tools-grid">
+      <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener">💻 VSCode</a>
+      <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener">🧪 Remix</a>
+      <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener">⚙️ Rust</a>
+    </div>
   </div>
+
+  </div><!-- /panel-scroll -->
 </div>
 
 <style>
-.custom-panel { padding: 0.5rem 0; }
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
 
-.panel-section { margin-bottom: 1.5rem; }
-.tools-panel { margin-bottom: 0; }
+/* The theme pins .access (the wrapper around this panel) with top: 2rem, which sits
+   under the topbar and cuts off the top of the box. Push it below the topbar instead. */
+#panel-wrapper .access { top: 4.5rem !important; }
 
+/* one panel: corner brackets + soft glow */
+.custom-panel {
+  position: relative;
+  margin: 0.5rem 0 1.5rem;
+  background: radial-gradient(120% 60% at 0% 0%, rgba(78,201,176,0.10), transparent 60%), #0e1419;
+  border: 1px solid rgba(86,182,194,0.16);
+  border-radius: 2px;
+}
+
+/* if the window is shorter than the panel, scroll inside it (nothing gets cut off) */
+.panel-scroll {
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  padding: 4px 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(86,182,194,0.25) transparent;
+}
+
+/* travelling light along the border */
+.panel-edge {
+  position: absolute;
+  inset: -1px;
+  border-radius: 2px;
+  padding: 1px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.75;
+  background: conic-gradient(
+    from var(--a),
+    transparent 0deg 250deg,
+    rgba(78,201,176,0.85) 335deg,
+    #c4f8ec 352deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: panel-edge-spin 8s linear infinite;
+}
+@keyframes panel-edge-spin { to { --a: 360deg; } }
+
+/* corner brackets, gently pulsing (alternating) */
+.custom-panel::before,
+.custom-panel::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 3;
+  border: 2px solid #4ec9b0;
+  animation: panel-bracket 4s ease-in-out infinite;
+}
+.custom-panel::before { left: -2px; top: -2px; border-right: 0; border-bottom: 0; }
+.custom-panel::after  { right: -2px; bottom: -2px; border-left: 0; border-top: 0; animation-delay: 2s; }
+@keyframes panel-bracket {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(78,201,176,0)); opacity: 0.65; }
+  50%      { filter: drop-shadow(0 0 5px rgba(78,201,176,0.9)); opacity: 1; }
+}
+
+
+
+.panel-section { margin: 0; padding: 18px 18px 16px; }
+.panel-section + .panel-section { border-top: 1px solid rgba(86,182,194,0.16); }
+
+/* bigger, centered titles */
 .panel-heading {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  letter-spacing: 0.14em;
-  margin-bottom: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  position: relative;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
   display: flex;
   align-items: center;
-  justify-content: center;   /* ← center the content */
+  justify-content: center;
   gap: 10px;
-  color: var(--ph-color, #4ec9b0);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
 }
-
-/* lines on both sides */
 .panel-heading::before,
-.panel-heading::after {
-  content: '';
-  flex: 1;
-  height: 1px;
+.panel-heading::after { content: none; }
+
+.panel-mark {
+  display: block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--ph-color, #4ec9b0);
+}
+.panel-num {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #5c6370;
 }
 
-.panel-heading::before {
-  background: linear-gradient(90deg, transparent, var(--ph-line, rgba(78,201,176,0.25)));
-}
+.quote-heading { --ph-color: #4ec9b0; }
+.tip-heading   { --ph-color: #c792ea; }
+.tools-heading { --ph-color: #79b8ff; }
 
-.panel-heading::after {
-  background: linear-gradient(90deg, var(--ph-line, rgba(78,201,176,0.25)), transparent);
-}
-
-/* section variants stay the same */
-.quote-heading  { --ph-color: #56b6c2; --ph-line: rgba(86,182,194,0.3); }
-.tip-heading    { --ph-color: #c792ea; --ph-line: rgba(199,146,234,0.3); }
-.tools-heading  { --ph-color: #4ec9b0; --ph-line: rgba(78,201,176,0.3); }
-
-.panel-icon { color: inherit; opacity: 0.9; }
-
-/* Quote box */
+/* Quote */
 .quote-box {
-  background: rgba(86,182,194,0.03);
-  border: 0.5px solid rgba(86,182,194,0.12);
-  border-left: 2px solid #56b6c2;
-  border-radius: 0 6px 6px 0;
-  padding: 0.85rem 1rem;
+  position: relative;
+  border-left: 2px solid #4ec9b0;
+  padding: 0 0 0 12px;
   min-height: 60px;
+}
+.quote-box::before {
+  content: '\201C';
+  position: absolute;
+  right: 0;
+  top: -16px;
+  font-family: Georgia, serif;
+  font-size: 60px;
+  line-height: 1;
+  color: #4ec9b0;
+  opacity: 0.13;
+  pointer-events: none;
 }
 .quote-text {
   font-size: 0.90rem;
@@ -1597,18 +1695,15 @@ function catSort(btn, order) {
 .quote-author {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: #56b6c2;
+  color: #4ec9b0;
   margin: 0;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-/* Tip box */
+/* Tip */
 .tip-box {
-  background: rgba(199,146,234,0.03);
-  border: 0.5px solid rgba(199,146,234,0.12);
   border-left: 2px solid #c792ea;
-  border-radius: 0 6px 6px 0;
-  padding: 0.85rem 1rem;
+  padding: 0 0 0 12px;
   min-height: 60px;
 }
 .tip-text {
@@ -1617,6 +1712,9 @@ function catSort(btn, order) {
   line-height: 1.65;
   margin: 0;
 }
+
+.quote-text, .quote-author, .tip-text { transition: opacity 0.2s; }
+.is-fading { opacity: 0; }
 
 /* Refresh button */
 .refresh-btn {
@@ -1635,6 +1733,16 @@ function catSort(btn, order) {
 .refresh-btn:hover { color: #4ec9b0; }
 
 /* Tools */
+.tools-label {
+  margin: 14px 0 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5c6370;
+}
+.tools-heading + .tools-label { margin-top: 0; }
+
 .tools-grid {
   display: flex;
   flex-wrap: wrap;
@@ -1668,9 +1776,7 @@ function catSort(btn, order) {
   transition: transform 0.45s ease;
   pointer-events: none;
 }
-.tool-badge:hover::before {
-  transform: translateX(150%);
-}
+.tool-badge:hover::before { transform: translateX(150%); }
 
 /* arrow indicator */
 .tool-badge::after {
@@ -1683,10 +1789,7 @@ function catSort(btn, order) {
   display: inline-block;
   color: #4ec9b0;
 }
-.tool-badge:hover::after {
-  opacity: 0.65;
-  transform: translateY(0);
-}
+.tool-badge:hover::after { opacity: 0.65; transform: translateY(0); }
 
 .tool-badge:hover {
   background: rgba(86,182,194,0.1);
@@ -1694,6 +1797,13 @@ function catSort(btn, order) {
   color: #4ec9b0;
   transform: translateY(-1px);
   box-shadow: 0 0 10px rgba(78,201,176,0.12), 0 2px 6px rgba(0,0,0,0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quote-text, .quote-author, .tip-text { transition: none; }
+  .panel-edge,
+  .custom-panel::before,
+  .custom-panel::after { animation: none; }
 }
 </style>
 
@@ -1709,30 +1819,45 @@ function getRandom(arr, last) {
   return idx;
 }
 
-function newQuote() {
+function swapText(els, apply) {
+  els.forEach(function (e) { e.classList.add('is-fading'); });
+  setTimeout(function () {
+    apply();
+    els.forEach(function (e) { e.classList.remove('is-fading'); });
+  }, 200);
+}
+
+function newQuote(instant) {
   if (!quotes.length) return;
   var idx = getRandom(quotes, lastQuote);
   lastQuote = idx;
-  document.getElementById('quote-text').textContent = '\u201c' + quotes[idx].text + '\u201d';
-  document.getElementById('quote-author').textContent = '\u2014 ' + quotes[idx].author;
+  var textEl = document.getElementById('quote-text');
+  var authorEl = document.getElementById('quote-author');
+  function apply() {
+    textEl.textContent = '\u201c' + quotes[idx].text + '\u201d';
+    authorEl.textContent = '\u2014 ' + quotes[idx].author;
+  }
+  if (instant === true) { apply(); } else { swapText([textEl, authorEl], apply); }
 }
 
-function newTip() {
+function newTip(instant) {
   if (!tips.length) return;
   var idx = getRandom(tips, lastTip);
   lastTip = idx;
-  document.getElementById('tip-text').textContent = tips[idx];
+  var tipEl = document.getElementById('tip-text');
+  function apply() { tipEl.textContent = tips[idx]; }
+  if (instant === true) { apply(); } else { swapText([tipEl], apply); }
 }
 
 Promise.all([
-  fetch('/assets/data/quotes.json').then(function(r){ return r.json(); }),
-  fetch('/assets/data/tips.json').then(function(r){ return r.json(); })
-]).then(function(results) {
+  fetch('/assets/data/quotes.json').then(function (r) { return r.json(); }),
+  fetch('/assets/data/tips.json').then(function (r) { return r.json(); })
+]).then(function (results) {
   quotes = results[0];
   tips = results[1];
-  newQuote();
-  newTip();
-}).catch(function() {
+  newQuote(true);
+  newTip(true);
+}).catch(function () {
   document.getElementById('quote-text').textContent = 'Could not load quotes.';
   document.getElementById('tip-text').textContent = 'Could not load tips.';
 });
