@@ -21,8 +21,17 @@
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><!-- Setup Open Graph image -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Apply the saved DFB theme BEFORE first paint (no flash of the wrong colours) -->
+  <script>
+    (function () {
+      var t = 'default';
+      try { t = localStorage.getItem('dfb-theme') || 'default'; } catch (e) {}
+      if (['default', 'dracula', 'nord', 'gruvbox', 'catppuccin', 'tokyonight'].indexOf(t) === -1) t = 'default';
+      document.documentElement.setAttribute('data-dfb-theme', t);
+    })();
+  </script><!-- Setup Open Graph image -->
 <style>
   body { visibility: hidden; }
 </style>
@@ -98,6 +107,11 @@
 
   <!-- Web Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap">
+
+  <!-- DFB fonts (moved here from the SCSS @imports) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,400&display=swap">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css">
@@ -196,6 +210,7 @@
   
 </head>
 
+
 <body>
   <canvas id="star-canvas"></canvas>
 <script>
@@ -206,6 +221,19 @@
   let W = canvas.width = window.innerWidth;
   let H = canvas.height = window.innerHeight;
   window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+
+  /* the "cyan" stars follow the active theme's secondary accent */
+  let starRGB = '78,201,176';
+  function readStarColor() {
+    const c = getComputedStyle(document.documentElement).getPropertyValue('--dfb-accent-2').trim();
+    const m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c);
+    if (!m) return;
+    let h = m[1];
+    if (h.length === 3) h = h.split('').map(x => x + x).join('');
+    starRGB = parseInt(h.slice(0, 2), 16) + ',' + parseInt(h.slice(2, 4), 16) + ',' + parseInt(h.slice(4, 6), 16);
+  }
+  readStarColor();
+  new MutationObserver(readStarColor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-dfb-theme'] });
 
   const LAYERS = [
     { count: 90, rMin: 0.25, rMax: 0.65, sp: 0.018, opMin: 0.08, opMax: 0.28 },
@@ -253,7 +281,7 @@
       if (s.y < -5) s.y = H + 5; if (s.y > H + 5) s.y = -5;
 
       const op = s.baseOp * (0.55 + 0.45 * Math.sin(t * s.ts + s.to));
-      const col = s.ct === 'cyan'  ? `rgba(78,201,176,${op})`  :
+      const col = s.ct === 'cyan'  ? `rgba(${starRGB},${op})`  :
                   s.ct === 'blue'  ? `rgba(180,210,255,${op})` :
                                      `rgba(255,255,255,${op})`;
 
@@ -319,19 +347,19 @@
     <span style="position:relative;display:inline-block;">
       <span id="de-r" style="position:absolute;top:0;left:0;color:#ff3366;opacity:0;pointer-events:none;">De</span>
       <span id="de-b" style="position:absolute;top:0;left:0;color:#3366ff;opacity:0;pointer-events:none;">De</span>
-      <span id="de-base" style="color:#59f8d8;position:relative;">De</span>
+      <span id="de-base" style="color:var(--dfb-brand-1);position:relative;">De</span>
     </span>
 
     <span style="position:relative;display:inline-block;">
       <span id="fi-r" style="position:absolute;top:0;left:0;color:#ff6600;opacity:0;pointer-events:none;">Fi</span>
       <span id="fi-b" style="position:absolute;top:0;left:0;color:#aa00ff;opacity:0;pointer-events:none;">Fi</span>
-      <span id="fi-base" style="color:#46cadb;position:relative;">Fi</span>
+      <span id="fi-base" style="color:var(--dfb-brand-2);position:relative;">Fi</span>
     </span>
 
     <span style="position:relative;display:inline-block;">
       <span id="br-r" style="position:absolute;top:0;left:0;color:#ff0044;opacity:0;pointer-events:none;">Breacher</span>
       <span id="br-b" style="position:absolute;top:0;left:0;color:#0044ff;opacity:0;pointer-events:none;">Breacher</span>
-      <span id="br-base" style="color:#ffffff;position:relative;">Breacher</span>
+      <span id="br-base" style="color:var(--dfb-brand-3);position:relative;">Breacher</span>
     </span>
 
   </span>
@@ -341,10 +369,12 @@
 (function(){
   var SWAP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
 
+  /* colours are CSS vars so the title follows the active theme.
+     The red/blue RGB-split layers stay fixed on purpose (glitch look). */
   var groups = [
-    { r: document.getElementById('de-r'), b: document.getElementById('de-b'), baseEl: document.getElementById('de-base'), text: 'De',       color: '#59f8d8' },
-    { r: document.getElementById('fi-r'), b: document.getElementById('fi-b'), baseEl: document.getElementById('fi-base'), text: 'Fi',       color: '#46cadb' },
-    { r: document.getElementById('br-r'), b: document.getElementById('br-b'), baseEl: document.getElementById('br-base'), text: 'Breacher', color: '#ffffff' }
+    { r: document.getElementById('de-r'), b: document.getElementById('de-b'), baseEl: document.getElementById('de-base'), text: 'De',       color: 'var(--dfb-brand-1)' },
+    { r: document.getElementById('fi-r'), b: document.getElementById('fi-b'), baseEl: document.getElementById('fi-base'), text: 'Fi',       color: 'var(--dfb-brand-2)' },
+    { r: document.getElementById('br-r'), b: document.getElementById('br-b'), baseEl: document.getElementById('br-base'), text: 'Breacher', color: 'var(--dfb-brand-3)' }
   ];
 
   function resetWord(g) {
@@ -447,17 +477,16 @@
 
   <style>
     #sidebar-typed {
-      border-right: 2px solid #56b6c2;
+      border-right: 2px solid var(--dfb-accent);
       padding-right: 2px;
       animation: sblink 0.7s step-end infinite;
     }
     @keyframes sblink {
-      0%, 100% { border-color: #56b6c2; }
+      0%, 100% { border-color: var(--dfb-accent); }
       50%       { border-color: transparent; }
     }
   </style>
 
-  </header>
   <!-- .profile-wrapper -->
   <div style="margin-bottom: 1.5rem;"></div>
 
@@ -553,7 +582,7 @@
     
 
     
-    <a href="javascript:navigator.clipboard.writeText('defibreacher@gmail.com').then(function(){ var t=document.createElement('div');t.innerText='📋 Gmail copied!';t.style='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#56b6c2;color:#fff;padding:8px 16px;border-radius:4px;font-size:0.85rem;z-index:9999';document.body.appendChild(t);setTimeout(function(){t.remove()},2000); })" aria-label="email"    >
+    <a href="javascript:navigator.clipboard.writeText('defibreacher@gmail.com').then(function(){ var t=document.createElement('div');t.innerText='📋 Gmail copied!';t.style='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--dfb-accent);color:var(--dfb-onacc);padding:8px 16px;border-radius:4px;font-size:0.85rem;z-index:9999';document.body.appendChild(t);setTimeout(function(){t.remove()},2000); })" aria-label="email"    >
       <i class="fas fa-envelope"></i>
     </a>
     
@@ -589,8 +618,7 @@
   <div id="main-wrapper" class="d-flex justify-content-center">
     <div class="container d-flex flex-column px-xxl-5">
       <!-- The Top Bar -->
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<!-- fonts (Plus Jakarta Sans, JetBrains Mono, Bebas Neue) are loaded in head.html -->
 
 <!-- Page transition overlay -->
 <div id="dfb-nav-transition" aria-hidden="true"></div>
@@ -681,7 +709,7 @@
     inset: 0;
     z-index: 99999;
     pointer-events: none;
-    background: #080c10;
+    background: var(--dfb-bg, #080c10);
     opacity: 0;
   }
 
@@ -706,7 +734,7 @@
   .cht-tilde {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
-    color: rgba(86, 182, 194, 0.5);
+    color: color-mix(in srgb, var(--dfb-accent) 55%, transparent);
     line-height: 1;
   }
 
@@ -715,7 +743,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 20px;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--dfb-bright, #ffffff);
     letter-spacing: 0.01em;
     line-height: 1;
   }
@@ -741,12 +769,12 @@
   }
 
   .glitch-name::before {
-    color: #56b6c2;
+    color: var(--dfb-accent);
     clip-path: polygon(0 25%, 100% 25%, 100% 50%, 0 50%);
   }
 
   .glitch-name::after {
-    color: #7f77dd;
+    color: var(--dfb-extra);
     clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%);
   }
 
@@ -772,14 +800,16 @@
     100% { opacity: 0; transform: translate(0,    0); }
   }
 
-  /* ── [Auditor] badge ── */
+  /* ── [Auditor] badge ──
+     !important is needed: the global `a { color: ... !important }`
+     in the main SCSS would otherwise override it. */
   .cht-badge {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: #7f77dd;
-    border: 1px solid rgba(127, 119, 221, 0.35);
+    color: var(--dfb-extra) !important;
+    border: 1px solid color-mix(in srgb, var(--dfb-extra) 40%, transparent);
     border-radius: 3px;
     padding: 2px 6px;
     text-transform: uppercase;
@@ -791,8 +821,8 @@
   .cht-badge:hover {
     opacity: 0.75;
     transform: scale(0.97);
-    border-color: rgba(127, 119, 221, 0.6);
-    color: #7f77dd;
+    border-color: color-mix(in srgb, var(--dfb-extra) 70%, transparent);
+    color: var(--dfb-extra) !important;
     text-decoration: none;
   }
 
@@ -803,7 +833,7 @@
     gap: 6px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: #1d9e75;
+    color: var(--dfb-accent-2);
     letter-spacing: 0.08em;
     line-height: 1;
   }
@@ -824,7 +854,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #1d9e75;
+    background: var(--dfb-accent-2);
     opacity: 0.4;
     animation: topbar-ping 1.8s ease-out infinite;
   }
@@ -833,7 +863,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #1d9e75;
+    background: var(--dfb-accent-2);
     position: relative;
     z-index: 1;
   }
@@ -869,9 +899,9 @@
     gap: 6px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
-    color: var(--dfb-accent, #56b6c2);
+    color: var(--dfb-accent);
     background: transparent;
-    border: 1px solid var(--dfb-accent-border, rgba(86,182,194,0.25));
+    border: 1px solid var(--dfb-accent-border);
     border-radius: 5px;
     padding: 4px 10px;
     cursor: pointer;
@@ -881,8 +911,8 @@
   }
 
   #theme-btn:hover {
-    background: var(--dfb-accent-dim, rgba(86,182,194,0.08));
-    border-color: var(--dfb-accent, #56b6c2);
+    background: var(--dfb-accent-dim);
+    border-color: var(--dfb-accent);
   }
 
   /* ── Palette icon ── */
@@ -890,7 +920,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: var(--dfb-accent, #56b6c2);
+    color: var(--dfb-accent);
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
   }
 
@@ -925,8 +955,8 @@
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
-    background: var(--dfb-surface, #111820);
-    border: 1px solid var(--dfb-accent-border, rgba(86,182,194,0.2));
+    background: var(--dfb-surface);
+    border: 1px solid var(--dfb-accent-border);
     border-radius: 8px;
     overflow: hidden;
     z-index: 9999;
@@ -953,7 +983,7 @@
     padding: 8px 14px;
     background: transparent;
     border: none;
-    color: #abb2bf;
+    color: var(--dfb-fg);
     font-family: 'JetBrains Mono', monospace;
     font-size: 11.5px;
     cursor: pointer;
@@ -964,8 +994,8 @@
 
   .theme-option:hover,
   .theme-option.active {
-    background: rgba(86,182,194,0.07);
-    color: #ffffff;
+    background: var(--dfb-accent-dim);
+    color: var(--dfb-bright);
   }
 
   /* ── Staggered item entrance ── */
@@ -991,7 +1021,7 @@
   }
 
   .theme-option.active {
-    color: var(--dfb-accent, #56b6c2);
+    color: var(--dfb-accent);
   }
 
   .theme-dot {
@@ -1041,9 +1071,14 @@
 
 <script>
 /* ══════════════════════════════════════════════════════════════
-   DFB THEME SWITCHER — ink-flood ripple edition
+   DFB THEME SWITCHER
+   All colours live in the SCSS theme maps. This script only sets
+   <html data-dfb-theme="..."> (head.html also sets it before first
+   paint, so there is no flash on load).
 ══════════════════════════════════════════════════════════════ */
 (function () {
+
+  var THEMES = ['default', 'dracula', 'nord', 'gruvbox', 'catppuccin', 'tokyonight'];
 
   /* ── Glitch effect ── */
   function triggerGlitch(el) {
@@ -1063,161 +1098,10 @@
     }, 2500 + Math.random() * 4000);
   }
 
-  /* ── Theme map ── */
-  var themes = {
-    default: {
-      '--dfb-bg':            '#080c10',
-      '--dfb-surface':       '#111820',
-      '--dfb-fg':            '#abb2bf',
-      '--dfb-muted':         '#5c6370',
-      '--dfb-accent':        '#56b6c2',
-      '--dfb-accent-dim':    'rgba(86,182,194,0.08)',
-      '--dfb-accent-border': 'rgba(86,182,194,0.25)',
-      '--dfb-sidebar':       '#0d1117',
-      '--dfb-topbar':        '#080c10',
-      '--dfb-link':          '#56b6c2',
-      '--dfb-link-hover':    '#7ecfd8',
-      '--dfb-heading':       '#BDE7FF',
-      '--dfb-code':          '#56b6c2',
-      '--dfb-code-bg':       'rgba(86,182,194,0.06)',
-      '--dfb-border':        'rgba(86,182,194,0.12)',
-      '--dfb-card':          '#111820',
-      '--dfb-ripple-color':  '#56b6c2',
-    },
-    dracula: {
-      '--dfb-bg':            '#1e1f29',
-      '--dfb-surface':       '#282a36',
-      '--dfb-fg':            '#f8f8f2',
-      '--dfb-muted':         '#6272a4',
-      '--dfb-accent':        '#bd93f9',
-      '--dfb-accent-dim':    'rgba(189,147,249,0.1)',
-      '--dfb-accent-border': 'rgba(189,147,249,0.3)',
-      '--dfb-sidebar':       '#191a24',
-      '--dfb-topbar':        '#1e1f29',
-      '--dfb-link':          '#8be9fd',
-      '--dfb-link-hover':    '#a8effd',
-      '--dfb-heading':       '#f8f8f2',
-      '--dfb-code':          '#50fa7b',
-      '--dfb-code-bg':       'rgba(80,250,123,0.07)',
-      '--dfb-border':        'rgba(189,147,249,0.15)',
-      '--dfb-card':          '#282a36',
-      '--dfb-ripple-color':  '#bd93f9',
-    },
-    nord: {
-      '--dfb-bg':            '#242831',
-      '--dfb-surface':       '#2e3440',
-      '--dfb-fg':            '#eceff4',
-      '--dfb-muted':         '#616e88',
-      '--dfb-accent':        '#88c0d0',
-      '--dfb-accent-dim':    'rgba(136,192,208,0.1)',
-      '--dfb-accent-border': 'rgba(136,192,208,0.3)',
-      '--dfb-sidebar':       '#1e242f',
-      '--dfb-topbar':        '#242831',
-      '--dfb-link':          '#88c0d0',
-      '--dfb-link-hover':    '#a3cdd9',
-      '--dfb-heading':       '#eceff4',
-      '--dfb-code':          '#a3be8c',
-      '--dfb-code-bg':       'rgba(163,190,140,0.08)',
-      '--dfb-border':        'rgba(136,192,208,0.15)',
-      '--dfb-card':          '#2e3440',
-      '--dfb-ripple-color':  '#88c0d0',
-    },
-    gruvbox: {
-      '--dfb-bg':            '#1d2021',
-      '--dfb-surface':       '#282828',
-      '--dfb-fg':            '#ebdbb2',
-      '--dfb-muted':         '#928374',
-      '--dfb-accent':        '#fabd2f',
-      '--dfb-accent-dim':    'rgba(250,189,47,0.09)',
-      '--dfb-accent-border': 'rgba(250,189,47,0.3)',
-      '--dfb-sidebar':       '#161616',
-      '--dfb-topbar':        '#1d2021',
-      '--dfb-link':          '#8ec07c',
-      '--dfb-link-hover':    '#b8bb26',
-      '--dfb-heading':       '#ebdbb2',
-      '--dfb-code':          '#8ec07c',
-      '--dfb-code-bg':       'rgba(142,192,124,0.08)',
-      '--dfb-border':        'rgba(250,189,47,0.15)',
-      '--dfb-card':          '#282828',
-      '--dfb-ripple-color':  '#fabd2f',
-    },
-    catppuccin: {
-      '--dfb-bg':            '#181825',
-      '--dfb-surface':       '#1e1e2e',
-      '--dfb-fg':            '#cdd6f4',
-      '--dfb-muted':         '#585b70',
-      '--dfb-accent':        '#cba6f7',
-      '--dfb-accent-dim':    'rgba(203,166,247,0.1)',
-      '--dfb-accent-border': 'rgba(203,166,247,0.3)',
-      '--dfb-sidebar':       '#11111b',
-      '--dfb-topbar':        '#181825',
-      '--dfb-link':          '#89dceb',
-      '--dfb-link-hover':    '#a6e3f5',
-      '--dfb-heading':       '#cdd6f4',
-      '--dfb-code':          '#a6e3a1',
-      '--dfb-code-bg':       'rgba(166,227,161,0.07)',
-      '--dfb-border':        'rgba(203,166,247,0.15)',
-      '--dfb-card':          '#1e1e2e',
-      '--dfb-ripple-color':  '#cba6f7',
-    },
-    tokyonight: {
-      '--dfb-bg':            '#16161e',
-      '--dfb-surface':       '#1a1b26',
-      '--dfb-fg':            '#c0caf5',
-      '--dfb-muted':         '#565f89',
-      '--dfb-accent':        '#7dcfff',
-      '--dfb-accent-dim':    'rgba(125,207,255,0.08)',
-      '--dfb-accent-border': 'rgba(125,207,255,0.28)',
-      '--dfb-sidebar':       '#13131a',
-      '--dfb-topbar':        '#16161e',
-      '--dfb-link':          '#7dcfff',
-      '--dfb-link-hover':    '#a8deff',
-      '--dfb-heading':       '#c0caf5',
-      '--dfb-code':          '#9ece6a',
-      '--dfb-code-bg':       'rgba(158,206,106,0.07)',
-      '--dfb-border':        'rgba(125,207,255,0.15)',
-      '--dfb-card':          '#1a1b26',
-      '--dfb-ripple-color':  '#7dcfff',
-    }
-  };
-
-  /* ── Inject / update <style> tag ── */
-  function injectOrUpdate(id, css) {
-    var el = document.getElementById(id);
-    if (!el) {
-      el = document.createElement('style');
-      el.id = id;
-      document.head.appendChild(el);
-    }
-    el.textContent = css;
-  }
-
-  /* ── Commit all CSS vars + patch Chirpy ── */
+  /* ── Apply a theme ── */
   function commitTheme(key) {
-    var t    = themes[key] || themes['default'];
-    var root = document.documentElement;
-    Object.keys(t).forEach(function (prop) {
-      root.style.setProperty(prop, t[prop]);
-    });
-
-    root.style.setProperty('--main-bg',       t['--dfb-bg'],   'important');
-    root.style.setProperty('--card-bg',        t['--dfb-card'], 'important');
-    root.style.setProperty('--card-header-bg', t['--dfb-card'], 'important');
-
-    var sidebar = document.getElementById('sidebar');
-    var topbar  = document.getElementById('topbar-wrapper');
-    if (sidebar) sidebar.style.setProperty('background', t['--dfb-sidebar'], 'important');
-    if (topbar)  topbar.style.setProperty('background',  t['--dfb-topbar'],  'important');
-
-    injectOrUpdate('dfb-theme-links',
-      'a { color: '       + t['--dfb-link']        + ' !important; }' +
-      'a:hover { color: ' + t['--dfb-link-hover']   + ' !important; }' +
-      'h1,h2,h3,h4 { color: ' + t['--dfb-heading'] + ' !important; }' +
-      'code { color: '    + t['--dfb-code']         + ' !important; background: ' + t['--dfb-code-bg'] + ' !important; }' +
-      '#topbar-wrapper { background: ' + t['--dfb-topbar']  + ' !important; border-bottom: 1px solid ' + t['--dfb-border'] + ' !important; }' +
-      '#sidebar { background: '        + t['--dfb-sidebar'] + ' !important; border-right: 1px solid '  + t['--dfb-border'] + ' !important; }' +
-      'html:not([data-mode]), html[data-mode=dark] { --main-bg: ' + t['--dfb-bg'] + ' !important; --card-bg: ' + t['--dfb-card'] + ' !important; --card-header-bg: ' + t['--dfb-card'] + ' !important; }'
-    );
+    if (THEMES.indexOf(key) === -1) key = 'default';
+    document.documentElement.setAttribute('data-dfb-theme', key);
 
     document.querySelectorAll('.theme-option').forEach(function (btn) {
       btn.classList.toggle('active', btn.dataset.theme === key);
@@ -1229,7 +1113,7 @@
   /* ── Crossfade theme switch ── */
   var transitionTimer = null;
 
-  function floodAndSwitch(key) {
+  function switchTheme(key) {
     if (transitionTimer) { clearTimeout(transitionTimer); transitionTimer = null; }
     document.documentElement.classList.add('dfb-theme-transitioning');
     commitTheme(key);
@@ -1252,13 +1136,13 @@
     /* ── Name → home transition ── */
     var homeUrl = (document.getElementById('topbar-wrapper') || {}).dataset.homeUrl || '/';
 
-    /* Normalise a pathname: strip trailing slash, collapse to '' for root */
+    /* Normalise a pathname: strip trailing slash, collapse to '/' for root */
     function normPath(p) { return p.replace(/\/+$/, '') || '/'; }
 
     var isHome = normPath(window.location.pathname) === normPath(homeUrl);
 
     function navigateHome() {
-      if (isHome) return; /* already here — just glitch, no nav */
+      if (isHome) return; /* already here: just glitch, no nav */
 
       var overlay = document.getElementById('dfb-nav-transition');
       if (!overlay) { window.location.href = homeUrl; return; }
@@ -1306,17 +1190,16 @@
       opt.addEventListener('click', function () {
         var key = this.dataset.theme;
         closeDropdown();
-        floodAndSwitch(key);
+        switchTheme(key);
       });
     });
 
     /* click outside closes dropdown */
     document.addEventListener('click', closeDropdown);
 
-    /* restore saved theme instantly on load */
-    var saved = 'default';
-    try { saved = localStorage.getItem('dfb-theme') || 'default'; } catch (e) {}
-    commitTheme(saved);
+    /* mark the active option (the attribute itself was already set in head.html) */
+    var current = document.documentElement.getAttribute('data-dfb-theme') || 'default';
+    commitTheme(current);
   });
 
 })();
@@ -1634,6 +1517,7 @@ function catSort(btn, order) {
 </div>
 
 <style>
+/* All colours come from the active theme (--dfb-* vars set in the main SCSS). */
 @property --a {
   syntax: '<angle>';
   inherits: false;
@@ -1648,8 +1532,10 @@ function catSort(btn, order) {
 .custom-panel {
   position: relative;
   margin: 0.5rem 0 1.5rem;
-  background: radial-gradient(120% 60% at 0% 0%, rgba(78,201,176,0.10), transparent 60%), #0e1419;
-  border: 1px solid rgba(86,182,194,0.16);
+  background:
+    radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--dfb-accent-2) 11%, transparent), transparent 60%),
+    var(--dfb-surface);
+  border: 1px solid var(--dfb-border);
   border-radius: 2px;
 }
 
@@ -1659,7 +1545,7 @@ function catSort(btn, order) {
   overflow-y: auto;
   padding: 4px 0;
   scrollbar-width: thin;
-  scrollbar-color: rgba(86,182,194,0.25) transparent;
+  scrollbar-color: color-mix(in srgb, var(--dfb-accent) 30%, transparent) transparent;
 }
 
 /* travelling light along the border */
@@ -1674,8 +1560,8 @@ function catSort(btn, order) {
   background: conic-gradient(
     from var(--a),
     transparent 0deg 250deg,
-    rgba(78,201,176,0.85) 335deg,
-    #c4f8ec 352deg,
+    color-mix(in srgb, var(--dfb-accent-2) 85%, transparent) 335deg,
+    color-mix(in srgb, var(--dfb-accent-2) 35%, #fff) 352deg,
     transparent 360deg
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -1694,22 +1580,24 @@ function catSort(btn, order) {
   height: 14px;
   pointer-events: none;
   z-index: 3;
-  border: 2px solid #4ec9b0;
+  border: 2px solid var(--dfb-accent-2);
   animation: panel-bracket 4s ease-in-out infinite;
 }
 .custom-panel::before { left: -2px; top: -2px; border-right: 0; border-bottom: 0; }
 .custom-panel::after  { right: -2px; bottom: -2px; border-left: 0; border-top: 0; animation-delay: 2s; }
 @keyframes panel-bracket {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(78,201,176,0)); opacity: 0.65; }
-  50%      { filter: drop-shadow(0 0 5px rgba(78,201,176,0.9)); opacity: 1; }
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); opacity: 0.65; }
+  50%      { filter: drop-shadow(0 0 5px var(--dfb-accent-2)); opacity: 1; }
 }
 
 
 
 .panel-section { margin: 0; padding: 18px 18px 16px; }
-.panel-section + .panel-section { border-top: 1px solid rgba(86,182,194,0.16); }
+.panel-section + .panel-section { border-top: 1px solid var(--dfb-border); }
 
-/* bigger, centered titles */
+/* bigger, centered titles.
+   The ID selector below beats the main SCSS rule `#panel-wrapper .panel-heading`
+   (muted grey for Chirpy's own panel headings), so these headings keep their colour. */
 .panel-heading {
   position: relative;
   margin: 0 0 16px;
@@ -1726,6 +1614,9 @@ function catSort(btn, order) {
   text-transform: uppercase;
   text-align: center;
 }
+#panel-wrapper .custom-panel .panel-heading {
+  color: var(--dfb-heading) !important;
+}
 .panel-heading::before,
 .panel-heading::after { content: none; }
 
@@ -1734,7 +1625,7 @@ function catSort(btn, order) {
   flex: none;
   width: 8px;
   height: 8px;
-  background: var(--ph-color, #4ec9b0);
+  background: var(--ph-color, var(--dfb-accent-2));
 }
 .panel-num {
   position: absolute;
@@ -1744,17 +1635,17 @@ function catSort(btn, order) {
   font-size: 9.5px;
   font-weight: 400;
   letter-spacing: 0.1em;
-  color: #5c6370;
+  color: var(--dfb-muted);
 }
 
-.quote-heading { --ph-color: #4ec9b0; }
-.tip-heading   { --ph-color: #c792ea; }
-.tools-heading { --ph-color: #79b8ff; }
+.quote-heading { --ph-color: var(--dfb-accent-2); }
+.tip-heading   { --ph-color: var(--dfb-extra); }
+.tools-heading { --ph-color: var(--dfb-tag-a); }
 
 /* Quote */
 .quote-box {
   position: relative;
-  border-left: 2px solid #4ec9b0;
+  border-left: 2px solid var(--dfb-accent-2);
   padding: 0 0 0 12px;
   min-height: 60px;
 }
@@ -1766,13 +1657,13 @@ function catSort(btn, order) {
   font-family: Georgia, serif;
   font-size: 60px;
   line-height: 1;
-  color: #4ec9b0;
-  opacity: 0.13;
+  color: var(--dfb-accent-2);
+  opacity: 0.16;
   pointer-events: none;
 }
 .quote-text {
   font-size: 0.90rem;
-  color: #c9d1d9;
+  color: color-mix(in srgb, var(--dfb-fg) 60%, var(--dfb-bright));
   line-height: 1.65;
   font-style: italic;
   margin-bottom: 0.5rem;
@@ -1780,20 +1671,20 @@ function catSort(btn, order) {
 .quote-author {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: #4ec9b0;
+  color: var(--dfb-accent-2);
   margin: 0;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* Tip */
 .tip-box {
-  border-left: 2px solid #c792ea;
+  border-left: 2px solid var(--dfb-extra);
   padding: 0 0 0 12px;
   min-height: 60px;
 }
 .tip-text {
   font-size: 0.89rem;
-  color: #c9d1d9;
+  color: color-mix(in srgb, var(--dfb-fg) 60%, var(--dfb-bright));
   line-height: 1.65;
   margin: 0;
 }
@@ -1805,7 +1696,7 @@ function catSort(btn, order) {
 .refresh-btn {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.69rem;
-  color: #808897;
+  color: var(--dfb-muted);
   background: none;
   border: none;
   cursor: pointer;
@@ -1815,7 +1706,7 @@ function catSort(btn, order) {
   letter-spacing: 0.05em;
   display: block;
 }
-.refresh-btn:hover { color: #4ec9b0; }
+.refresh-btn:hover { color: var(--dfb-accent-2); }
 
 /* Tools */
 .tools-label {
@@ -1824,7 +1715,7 @@ function catSort(btn, order) {
   font-size: 9px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #5c6370;
+  color: var(--dfb-muted);
 }
 .tools-heading + .tools-label { margin-top: 0; }
 
@@ -1833,14 +1724,15 @@ function catSort(btn, order) {
   flex-wrap: wrap;
   gap: 5px;
 }
+/* !important on colour: the main SCSS forces `a { color: ... !important }` */
 .tool-badge {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.71rem;
   padding: 5px 11px;
   border-radius: 4px;
-  background: rgba(86,182,194,0.04);
-  border: 0.5px solid rgba(86,182,194,0.14);
-  color: #ffffffd2;
+  background: color-mix(in srgb, var(--dfb-accent) 6%, transparent);
+  border: 0.5px solid color-mix(in srgb, var(--dfb-accent) 22%, transparent);
+  color: color-mix(in srgb, var(--dfb-bright) 82%, transparent) !important;
   letter-spacing: 0.02em;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -1856,7 +1748,7 @@ function catSort(btn, order) {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(86,182,194,0.12) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, color-mix(in srgb, var(--dfb-accent) 16%, transparent) 50%, transparent 60%);
   transform: translateX(-100%);
   transition: transform 0.45s ease;
   pointer-events: none;
@@ -1872,16 +1764,16 @@ function catSort(btn, order) {
   transform: translateY(2px);
   transition: all 0.2s ease;
   display: inline-block;
-  color: #4ec9b0;
+  color: var(--dfb-accent-2);
 }
 .tool-badge:hover::after { opacity: 0.65; transform: translateY(0); }
 
 .tool-badge:hover {
-  background: rgba(86,182,194,0.1);
-  border-color: rgba(86,182,194,0.4);
-  color: #4ec9b0;
+  background: color-mix(in srgb, var(--dfb-accent) 13%, transparent);
+  border-color: color-mix(in srgb, var(--dfb-accent) 50%, transparent);
+  color: var(--dfb-accent-2) !important;
   transform: translateY(-1px);
-  box-shadow: 0 0 10px rgba(78,201,176,0.12), 0 2px 6px rgba(0,0,0,0.25);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--dfb-accent-2) 14%, transparent), 0 2px 6px rgba(0,0,0,0.25);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2084,7 +1976,7 @@ Promise.all([
         </div>
       </div>
       <button onclick="toggleAssistant()"
-        style="background:none;border:none;color:#8b949e;cursor:pointer;font-size:1rem;">✕</button>
+        style="background:none;border:none;color:var(--dfb-muted);cursor:pointer;font-size:1rem;">✕</button>
     </div>
     <div class="asst-body" id="asst-body"></div>
   </div>
@@ -2097,8 +1989,8 @@ Promise.all([
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      background: #111820;
-      border: 1px solid rgba(78, 201, 176, 0.4);
+      background: var(--dfb-surface);
+      border: 1px solid var(--dfb-accent-2-hover);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2106,12 +1998,12 @@ Promise.all([
       z-index: 9998;
       font-size: 1.4rem;
       transition: all 0.2s;
-      box-shadow: 0 0 15px rgba(78, 201, 176, 0.15);
+      box-shadow: 0 0 15px color-mix(in srgb, var(--dfb-accent-2) 15%, transparent);
     }
 
     #assistant-bubble:hover {
-      border-color: rgba(78, 201, 176, 0.8);
-      box-shadow: 0 0 20px rgba(78, 201, 176, 0.25);
+      border-color: color-mix(in srgb, var(--dfb-accent-2) 80%, transparent);
+      box-shadow: 0 0 20px color-mix(in srgb, var(--dfb-accent-2) 28%, transparent);
     }
 
     #assistant-panel {
@@ -2119,8 +2011,8 @@ Promise.all([
       bottom: 5.5rem;
       right: 2rem;
       width: 320px;
-      background: #0d1117;
-      border: 1px solid rgba(86, 182, 194, 0.2);
+      background: var(--dfb-surface-2);
+      border: 1px solid var(--dfb-accent-border);
       border-radius: 8px;
       z-index: 9997;
       display: none;
@@ -2134,8 +2026,8 @@ Promise.all([
     }
 
     .asst-header {
-      background: #111820;
-      border-bottom: 1px solid rgba(86, 182, 194, 0.15);
+      background: var(--dfb-surface);
+      border-bottom: 1px solid var(--dfb-border);
       padding: 12px 16px;
       display: flex;
       align-items: center;
@@ -2146,7 +2038,7 @@ Promise.all([
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #4ec9b0;
+      background: var(--dfb-accent-2);
       animation: asstPulse 2s infinite;
     }
 
@@ -2164,13 +2056,13 @@ Promise.all([
 
     .asst-title {
       font-size: 13px;
-      color: #e6edf3;
+      color: var(--dfb-bright);
       font-weight: 600;
     }
 
     .asst-sub {
       font-size: 11px;
-      color: #8b949e;
+      color: var(--dfb-muted);
     }
 
     .asst-body {
@@ -2192,24 +2084,24 @@ Promise.all([
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(78, 201, 176, 0.1);
-      border: 1px solid rgba(78, 201, 176, 0.3);
+      background: var(--dfb-accent-2-dim);
+      border: 1px solid var(--dfb-accent-2-border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 17px;
-      color: #4ec9b0;
+      color: var(--dfb-accent-2);
       flex-shrink: 0;
       font-weight: 700;
     }
 
     .asst-bubble {
-      background: #111820;
-      border: 1px solid rgba(86, 182, 194, 0.12);
+      background: var(--dfb-surface);
+      border: 1px solid var(--dfb-border);
       border-radius: 0 8px 8px 8px;
       padding: 9px 11px;
       font-size: 12px;
-      color: #c9d1d9;
+      color: var(--dfb-fg);
       line-height: 1.6;
       max-width: 240px;
     }
@@ -2219,10 +2111,10 @@ Promise.all([
     }
 
     .asst-user .asst-bubble {
-      background: rgba(78, 201, 176, 0.08);
-      border-color: rgba(78, 201, 176, 0.2);
+      background: color-mix(in srgb, var(--dfb-accent-2) 8%, transparent);
+      border-color: color-mix(in srgb, var(--dfb-accent-2) 22%, transparent);
       border-radius: 8px 0 8px 8px;
-      color: #e6edf3;
+      color: var(--dfb-bright);
     }
 
     .asst-opts {
@@ -2234,12 +2126,12 @@ Promise.all([
 
     .asst-opt {
       background: transparent;
-      border: 1px solid rgba(86, 182, 194, 0.25);
+      border: 1px solid var(--dfb-accent-border);
       border-radius: 4px;
       padding: 7px 10px;
       font-size: 11px;
       font-family: 'JetBrains Mono', monospace;
-      color: #4ec9b0;
+      color: var(--dfb-accent-2);
       cursor: pointer;
       text-align: left;
       transition: all 0.2s;
@@ -2249,13 +2141,13 @@ Promise.all([
     }
 
     .asst-opt:hover {
-      background: rgba(78, 201, 176, 0.08);
-      border-color: rgba(78, 201, 176, 0.5);
+      background: var(--dfb-accent-2-dim);
+      border-color: var(--dfb-accent-2-hover);
     }
 
     .asst-back {
       font-size: 10px;
-      color: #8b949e;
+      color: var(--dfb-muted);
       background: none;
       border: none;
       cursor: pointer;
@@ -2266,38 +2158,38 @@ Promise.all([
     }
 
     .asst-back:hover {
-      color: #4ec9b0;
+      color: var(--dfb-accent-2);
     }
 
     .asst-link {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: rgba(78, 201, 176, 0.08);
-      border: 1px solid rgba(78, 201, 176, 0.2);
+      background: color-mix(in srgb, var(--dfb-accent-2) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--dfb-accent-2) 22%, transparent);
       border-radius: 4px;
       padding: 3px 9px;
-      color: #4ec9b0;
+      color: var(--dfb-accent-2);
       font-size: 11px;
       text-decoration: none;
       margin: 2px 2px;
     }
 
     .asst-link:hover {
-      background: rgba(78, 201, 176, 0.18);
+      background: color-mix(in srgb, var(--dfb-accent-2) 18%, transparent);
     }
 
     #thought-bubble {
       position: absolute;
       bottom: 58px;
       right: 0;
-      background: #111820;
-      border: 1px solid rgba(78, 201, 176, 0.3);
+      background: var(--dfb-surface);
+      border: 1px solid color-mix(in srgb, var(--dfb-accent-2) 32%, transparent);
       border-radius: 12px 12px 12px 0;
       padding: 6px 10px;
       font-size: 11px;
       font-family: 'JetBrains Mono', monospace;
-      color: #4ec9b0;
+      color: var(--dfb-accent-2);
       white-space: nowrap;
       animation: thoughtPop 3s ease-in-out infinite;
     }
@@ -2310,7 +2202,7 @@ Promise.all([
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: rgba(78, 201, 176, 0.3);
+      background: color-mix(in srgb, var(--dfb-accent-2) 32%, transparent);
     }
 
     @keyframes thoughtPop {
@@ -2491,7 +2383,7 @@ Promise.all([
       navigator.clipboard.writeText(email).then(function () {
         var t = document.createElement('div');
         t.innerText = '📋 Gmail copied!';
-        t.style.cssText = 'position:fixed;bottom:6rem;right:2rem;background:#4ec9b0;color:#0d1117;padding:8px 14px;border-radius:4px;font-size:0.78rem;font-family:JetBrains Mono,monospace;z-index:99999;font-weight:600;';
+        t.style.cssText = 'position:fixed;bottom:6rem;right:2rem;background:var(--dfb-accent-2);color:var(--dfb-onacc);padding:8px 14px;border-radius:4px;font-size:0.78rem;font-family:JetBrains Mono,monospace;z-index:99999;font-weight:600;';
         document.body.appendChild(t);
         setTimeout(function () { t.remove(); }, 2000);
       });
@@ -2501,7 +2393,8 @@ Promise.all([
   <script>document.body.style.visibility = 'visible';</script>
 </body>
 
-</html><!-- Konami Code Easter Egg -->
+</html>
+<!-- Konami Code Easter Egg -->
 <div id="konami-overlay" style="display:none;">
 
   <!-- Phase 1: Hack Sequence -->
@@ -2532,7 +2425,7 @@ Promise.all([
         <span class="t-dot-k red"></span>
         <span class="t-dot-k yellow"></span>
         <span class="t-dot-k green"></span>
-        <span style="font-size:0.75rem; color:#8b949e; margin-left:8px; font-family:'JetBrains Mono',monospace;">From
+        <span style="font-size:0.75rem; color:var(--dfb-muted); margin-left:8px; font-family:'JetBrains Mono',monospace;">From
           Shorya aka DeFiBreacher</span>
       </div>
       <div id="message-content">
@@ -2576,22 +2469,22 @@ Promise.all([
 
   #hack-lines .hack-line {
     font-size: 0.85rem;
-    color: #4ec9b0;
+    color: var(--dfb-accent-2);
     line-height: 1.8;
     opacity: 0;
     animation: fadeInLine 0.1s forwards;
   }
 
   .hack-line.red {
-    color: #e05252;
+    color: var(--dfb-tag-b);
   }
 
   .hack-line.white {
-    color: #ffffff;
+    color: var(--dfb-bright);
   }
 
   .hack-line.dim {
-    color: #586069;
+    color: var(--dfb-muted);
   }
 
   @keyframes fadeInLine {
@@ -2601,7 +2494,7 @@ Promise.all([
   }
 
   .hack-cursor {
-    color: #4ec9b0;
+    color: var(--dfb-accent-2);
     animation: blink 0.7s step-end infinite;
     font-size: 0.85rem;
   }
@@ -2628,7 +2521,7 @@ Promise.all([
 
   #dbz-scouter {
     font-size: 0.9rem;
-    color: #56b6c2;
+    color: var(--dfb-accent);
     letter-spacing: 0.2em;
     animation: scanPulse 0.5s ease-in-out infinite;
   }
@@ -2648,14 +2541,14 @@ Promise.all([
   #dbz-counter {
     font-size: 5rem;
     font-weight: 700;
-    color: #ffb300;
-    text-shadow: 0 0 20px #ffb300, 0 0 40px rgba(255, 179, 0, 0.5);
+    color: var(--dfb-gold);
+    text-shadow: 0 0 20px var(--dfb-gold), 0 0 40px color-mix(in srgb, var(--dfb-gold) 50%, transparent);
     line-height: 1;
   }
 
   #dbz-line {
     font-size: 1.4rem;
-    color: #ffffff;
+    color: var(--dfb-bright);
     text-align: center;
     max-width: 500px;
     line-height: 1.6;
@@ -2664,7 +2557,7 @@ Promise.all([
 
   #dbz-scouter-break {
     font-size: 1.2rem;
-    color: #e05252;
+    color: var(--dfb-tag-b);
     animation: glitchText 0.3s ease-in-out infinite;
   }
 
@@ -2687,11 +2580,11 @@ Promise.all([
   #message-wrap {
     width: 640px;
     max-width: 90vw;
-    background: #0d1117;
-    border: 1px solid rgba(78, 201, 176, 0.25);
+    background: var(--dfb-surface-2);
+    border: 1px solid var(--dfb-accent-2-border);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 0 40px rgba(78, 201, 176, 0.1);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--dfb-accent-2) 12%, transparent);
     animation: fadeInMsg 0.5s ease;
   }
 
@@ -2708,12 +2601,12 @@ Promise.all([
   }
 
   .msg-terminal-header {
-    background: #111820;
+    background: var(--dfb-surface);
     padding: 10px 16px;
     display: flex;
     align-items: center;
     gap: 6px;
-    border-bottom: 1px solid rgba(78, 201, 176, 0.1);
+    border-bottom: 1px solid var(--dfb-border);
   }
 
   .t-dot-k {
@@ -2723,20 +2616,20 @@ Promise.all([
   }
 
   .t-dot-k.red {
-    background: #e05252;
+    background: var(--dfb-tag-b);
   }
 
   .t-dot-k.yellow {
-    background: #ffb300;
+    background: var(--dfb-gold);
   }
 
   .t-dot-k.green {
-    background: #4ec9b0;
+    background: var(--dfb-accent-2);
   }
 
   #message-content {
     padding: 2rem;
-    color: #e6edf3;
+    color: var(--dfb-bright);
     font-size: 0.92rem;
     line-height: 1.9;
   }
@@ -2749,8 +2642,8 @@ Promise.all([
     display: block;
     margin: 0 auto 1.5rem;
     background: transparent;
-    border: 1px solid rgba(78, 201, 176, 0.3);
-    color: #4ec9b0;
+    border: 1px solid var(--dfb-accent-2-border);
+    color: var(--dfb-accent-2);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.82rem;
     padding: 6px 20px;
@@ -2760,8 +2653,8 @@ Promise.all([
   }
 
   #konami-close:hover {
-    background: rgba(78, 201, 176, 0.08);
-    border-color: #4ec9b0;
+    background: var(--dfb-accent-2-dim);
+    border-color: var(--dfb-accent-2);
   }
 </style>
 
