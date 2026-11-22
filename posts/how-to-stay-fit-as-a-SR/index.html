@@ -1727,6 +1727,8 @@
 
 </article>
 
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&family=Space+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
+
 <style>
   #read-progress {
     position: fixed;
@@ -1846,6 +1848,167 @@
   }
 </style>
 
+<style>
+  /* ── Post typography (accent follows the theme via --dfb-accent) ── */
+  article {
+    --pb-ac: var(--dfb-accent, #4ec9b0);
+    --pb-line: color-mix(in srgb, var(--pb-ac) 22%, transparent);
+    --pb-body: 'Literata', Georgia, serif;
+    --pb-head: 'Space Grotesk', system-ui, sans-serif;
+    --pb-mono: 'JetBrains Mono', monospace;
+  }
+
+  /* Title + meta line */
+  article .ph h1 {
+    font-family: var(--pb-head) !important;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    font-size: clamp(2rem, 5vw, 2.9rem);
+  }
+  article .ph-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem 0.85rem;
+    font-family: var(--pb-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  article .ph-meta .ph-sep {
+    display: inline-block;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.4;
+    font-size: 0;
+  }
+  article .ph-meta .ph-by a { color: var(--pb-ac); font-weight: 600; }
+  article .ph-meta .ph-cat {
+    padding: 0.35em 0.8em;
+    border: 1px solid var(--pb-line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pb-ac) 8%, transparent);
+    color: var(--pb-ac);
+  }
+
+  /* Body */
+  article .content {
+    font-family: var(--pb-body) !important;
+    font-size: 1.08rem;
+    line-height: 1.82;
+    font-optical-sizing: auto;
+    hyphens: auto;
+    text-wrap: pretty;
+    counter-reset: pbs;
+  }
+  article .content > p:first-of-type {
+    font-size: 1.24rem;
+    line-height: 1.68;
+    color: var(--heading-color, inherit);
+  }
+  article .content strong { font-weight: 600; }
+
+  /* Headings: mono section number + short accent line */
+  article .content h2,
+  article .content h3,
+  article .content h4 {
+    font-family: var(--pb-head) !important;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  article .content h2 {
+    counter-increment: pbs;
+    font-weight: 600;
+    font-size: 1.65rem;
+    margin-top: 2.6rem;
+  }
+  article .content h2::before {
+    content: counter(pbs, decimal-leading-zero);
+    display: block;
+    margin-bottom: 0.55rem;
+    font-family: var(--pb-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--pb-ac);
+  }
+  article .content h2::after {
+    content: "";
+    display: block;
+    width: 0; height: 2px;
+    margin-top: 0.7rem;
+    background: linear-gradient(90deg, var(--pb-ac), transparent);
+    transition: width 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+  }
+  article .content h2.pb-in::after,
+  article .content.pb-static h2::after { width: 64px; }
+  article .content h3 { font-weight: 600; font-size: 1.2rem; margin-top: 2rem; }
+
+  /* Section dividers */
+  article .content hr {
+    border: 0;
+    height: 1px;
+    opacity: 0.6;
+    margin: 2.4rem 0;
+    background: linear-gradient(90deg, transparent, var(--pb-ac), transparent);
+  }
+  article .content hr + h2 { margin-top: 2rem; }
+
+  /* Links: underline fills in on hover */
+  article .content a:not(.anchor):not(.img-link):not(.popup) {
+    border-bottom: 0;
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    transition: background-size 0.3s, color 0.2s;
+  }
+  article .content a:not(.anchor):not(.img-link):not(.popup):hover {
+    background-size: 100% 100%;
+  }
+
+  /* Pull-quote (plain blockquotes only; Chirpy prompts are left alone) */
+  article .content blockquote:not([class*="prompt-"]) {
+    position: relative;
+    border-left: 0;
+    padding: 0.4rem 0 0.4rem 2.2rem;
+    font-style: italic;
+    font-size: 1.28rem;
+    line-height: 1.55;
+    color: var(--heading-color, inherit);
+  }
+  article .content blockquote:not([class*="prompt-"])::before {
+    content: "\201C";
+    position: absolute;
+    left: 0; top: -0.35rem;
+    font-family: var(--pb-head);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--pb-ac);
+    opacity: 0.55;
+  }
+
+  /* Inline code pill */
+  article .content :not(pre) > code {
+    font-family: var(--pb-mono);
+    font-size: 0.86em;
+    border-radius: 5px;
+    border: 1px solid var(--pb-line);
+    padding: 0.1em 0.42em;
+  }
+
+  /* Gentle reveal on scroll (classes added by script, so no-JS stays visible) */
+  article .content > .pb-rv { opacity: 0; transform: translateY(8px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  article .content > .pb-rv.pb-in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    article .content > .pb-rv { opacity: 1; transform: none; transition: none; }
+    article .content h2::after { width: 64px; transition: none; }
+  }
+</style>
+
 <script>
   // Scroll progress bar
   window.addEventListener('scroll', function () {
@@ -1872,8 +2035,24 @@
     });
     block.parentElement.appendChild(btn);
   });
-</script>
 
+  // Gentle fade-up of post blocks as they scroll into view
+  (function () {
+    var content = document.querySelector('article .content');
+    if (!content) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) { content.classList.add('pb-static'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('pb-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    Array.prototype.slice.call(content.children).forEach(function (el) {
+      el.classList.add('pb-rv');
+      io.observe(el);
+    });
+  })();
+</script>
 
           
         </main>
