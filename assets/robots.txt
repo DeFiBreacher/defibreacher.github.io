@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /norobots/
+Disallow: /secret/
+
+Sitemap: https://defibreacher.github.io/sitemap.xml

@@ -35,6 +35,7 @@
 <style>
   body { visibility: hidden; }
 </style>
+  <noscript><style>body { visibility: visible !important; }</style></noscript>
   
 
   <!-- Begin Jekyll SEO tag v2.9.0 -->
@@ -55,6 +56,14 @@
 {"@context":"https://schema.org","@type":"WebPage","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Learning","url":"https://defibreacher.github.io/tags/learning/"}</script>
 <!-- End Jekyll SEO tag -->
 
+
+  <!-- Crawling hints: allow big image previews, and let any page opt out with `noindex: true` in its front matter -->
+  
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  
+
+  <!-- Feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="DeFiBreacher" href="/feed.xml">
 
   <title>Learning | DeFiBreacher</title>
 
@@ -111,7 +120,8 @@
   <!-- DFB fonts (moved here from the SCSS @imports) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+  
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css">
@@ -210,9 +220,9 @@
   
 </head>
 
-
 <body>
-  <canvas id="star-canvas"></canvas>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <canvas id="star-canvas" aria-hidden="true"></canvas>
 <script>
   const canvas = document.getElementById('star-canvas');
   const ctx = canvas.getContext('2d');
@@ -270,6 +280,7 @@
     });
   }
 
+  const REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   let t = 0;
   function draw() {
     ctx.clearRect(0, 0, W, H);
@@ -325,7 +336,7 @@
       ctx.fillStyle = `rgba(255,255,255,${s.alpha})`; ctx.fill();
     }
 
-    requestAnimationFrame(draw);
+    if (!REDUCE) requestAnimationFrame(draw);
   }
   draw();
 </script>
@@ -336,12 +347,12 @@
   <a href="/" id="avatar" class="rounded-circle"
     style="overflow: hidden; display: flex; align-items: center; justify-content: center; margin: 5px auto;">
     
-    <img src="/assets/img/avatar.png" alt="avatar"
+    <img src="/assets/img/avatar.png" alt="DeFiBreacher avatar" width="120" height="120"
       style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style='display:none'">
     
   </a>
 
-<a class="site-title d-block" href="/">
+<a class="site-title d-block" href="/" aria-label="DeFiBreacher">
   <span id="dfb-title-wrap" style="position:relative;display:inline-flex;align-items:baseline;white-space:nowrap;">
 
     <span style="position:relative;display:inline-block;">
@@ -446,7 +457,7 @@
   setTimeout(runGlitch, 800);
 })();
 </script>
-  <p class="site-subtitle fst-italic mb-0"><span id="sidebar-typed"></span></p>
+  <p class="site-subtitle fst-italic mb-0"><span class="visually-hidden">Web3 Security Researcher and Smart Contract Auditor</span><span id="sidebar-typed" aria-hidden="true"></span></p>
 
   <script>
     var sidebarWords = [
@@ -473,6 +484,22 @@
       setTimeout(sidebarType, sDeleting ? 25 : 60);
     }
     setTimeout(sidebarType, 800);
+  </script>
+
+  <script>
+    /* email icon: a real mailto: link (crawlable), but a click copies the address like before */
+    function dfbCopyEmail(a) {
+      var addr = (a.getAttribute('href') || '').replace('mailto:', '');
+      if (!navigator.clipboard) return true;           /* no clipboard API: fall back to the mail app */
+      navigator.clipboard.writeText(addr).then(function () {
+        var t = document.createElement('div');
+        t.innerText = '📋 Gmail copied!';
+        t.style = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--dfb-accent);color:var(--dfb-onacc);padding:8px 16px;border-radius:4px;font-size:0.85rem;z-index:9999';
+        document.body.appendChild(t);
+        setTimeout(function () { t.remove(); }, 2000);
+      });
+      return false;
+    }
   </script>
 
   <style>
@@ -564,7 +591,7 @@
     
 
     
-    <a href="https://github.com/DeFiBreacher" aria-label="github"  
+    <a href="https://github.com/DeFiBreacher" aria-label="github"   
       target="_blank"    
       rel="noopener noreferrer" >
       <i class="fab fa-github"></i>
@@ -573,7 +600,7 @@
     
 
     
-    <a href="https://twitter.com/DeFiBreacher" aria-label="twitter"  
+    <a href="https://x.com/DeFiBreacher" aria-label="twitter"   
       target="_blank"    
       rel="noopener noreferrer" >
       <i class="fa-brands fa-x-twitter"></i>
@@ -582,7 +609,7 @@
     
 
     
-    <a href="javascript:navigator.clipboard.writeText('defibreacher@gmail.com').then(function(){ var t=document.createElement('div');t.innerText='📋 Gmail copied!';t.style='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--dfb-accent);color:var(--dfb-onacc);padding:8px 16px;border-radius:4px;font-size:0.85rem;z-index:9999';document.body.appendChild(t);setTimeout(function(){t.remove()},2000); })" aria-label="email"    >
+    <a href="mailto:defibreacher@gmail.com" aria-label="email" onclick="return dfbCopyEmail(this);"    >
       <i class="fas fa-envelope"></i>
     </a>
     
@@ -591,7 +618,7 @@
     
 
     
-    <a href="https://medium.com/@DeFiBreacher" aria-label="medium"  
+    <a href="https://medium.com/@DeFiBreacher" aria-label="medium"   
       target="_blank"    
       rel="noopener noreferrer" >
       <i class="fab fa-medium"></i>
@@ -602,7 +629,7 @@
     
 
     
-    <a href="https://t.me/DefiBreacher" aria-label="telegram"  
+    <a href="https://t.me/DefiBreacher" aria-label="telegram"   
       target="_blank"    
       rel="noopener noreferrer" >
       <i class="fab fa-telegram"></i>
@@ -628,7 +655,7 @@
     <nav id="breadcrumb" aria-label="Breadcrumb">
       <span class="custom-home-title">
         <span class="cht-tilde">~</span>
-        <span class="cht-name glitch-name cht-home-link" id="topbarName" data-text="Shorya S" role="link" tabindex="0" aria-label="Go to home">Shorya S.</span>
+        <a href="/" class="cht-name glitch-name cht-home-link" id="topbarName" data-text="Shorya S" title="Go to home">Shorya S.</a>
         <a href="/audits/" class="cht-badge">[Auditor]</a>
         <span class="cht-avail">
           <span class="ping-wrap">
@@ -648,8 +675,8 @@
     <div id="topbar-title">
       <span class="custom-home-title">
         <span class="cht-tilde">~</span>
-        <span class="cht-name glitch-name cht-home-link" id="topbarNameMobile" data-text="Shorya S" role="link" tabindex="0" aria-label="Go to home">Shorya S</span>
-        <a href="/tabs/audit-reports/" class="cht-badge">[Auditor]</a>
+        <a href="/" class="cht-name glitch-name cht-home-link" id="topbarNameMobile" data-text="Shorya S" title="Go to home">Shorya S</a>
+        <a href="/audits/" class="cht-badge">[Auditor]</a>
         <span class="cht-avail">
           <span class="ping-wrap">
             <span class="ping-ring"></span>
@@ -662,7 +689,7 @@
 
     <!-- ── Theme Switcher ── -->
     <div id="theme-switcher" aria-label="Theme switcher">
-      <button id="theme-btn" aria-label="Switch theme" title="Switch theme">
+      <button type="button" id="theme-btn" aria-label="Switch theme" aria-haspopup="menu" title="Switch theme">
         <svg class="theme-btn-icon" viewBox="0 0 24 24" aria-hidden="true">
           <polygon points="12,3 20,8 20,16 12,21 4,16 4,8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
           <polygon class="tbi-facet" points="12,3 20,8 12,12.5 4,8" fill="#56b6c2"/>
@@ -746,6 +773,14 @@
     color: var(--dfb-bright, #ffffff);
     letter-spacing: 0.01em;
     line-height: 1;
+  }
+
+  /* the name is a real link now (crawlable); keep it looking like plain text */
+  a.cht-name, a.cht-name:hover {
+    color: var(--dfb-bright, #ffffff) !important;
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+    background: none !important;
   }
 
   .glitch-name {
@@ -1164,9 +1199,10 @@
     }
 
     document.querySelectorAll('.cht-home-link').forEach(function (el) {
-      el.addEventListener('click', navigateHome);
-      el.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigateHome(); }
+      el.addEventListener('click', function (e) {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;   /* let "open in new tab" work */
+        e.preventDefault();
+        navigateHome();
       });
     });
 
@@ -1207,7 +1243,7 @@
 
 
       <div class="row flex-grow-1">
-        <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+        <main id="main-content" tabindex="-1" aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
           
           
 
@@ -1242,6 +1278,7 @@
   
     class="text-muted small text-nowrap"
   
+  datetime="2026-09-25T17:30:00+05:30"
   data-ts="1790337600"
   data-df="ll"
   
@@ -1269,46 +1306,46 @@
 
   <!-- Quote -->
   <div class="panel-section">
-    <h2 class="panel-heading quote-heading">💬 Quote<span class="panel-num">01</span></h2>
+    <div class="panel-heading quote-heading">💬 Quote<span class="panel-num">01</span></div>
     <div class="quote-box">
       <p class="quote-text" id="quote-text"></p>
       <p class="quote-author" id="quote-author"></p>
     </div>
-    <button class="refresh-btn" onclick="newQuote()">↻ new quote</button>
+    <button class="refresh-btn" type="button" onclick="newQuote()">↻ new quote</button>
   </div>
 
   <!-- Security Tip -->
   <div class="panel-section">
-    <h2 class="panel-heading tip-heading">🔐 Security Tip<span class="panel-num">02</span></h2>
+    <div class="panel-heading tip-heading">🔐 Security Tip<span class="panel-num">02</span></div>
     <div class="tip-box">
       <p class="tip-text" id="tip-text"></p>
     </div>
-    <button class="refresh-btn" onclick="newTip()">↻ new tip</button>
+    <button class="refresh-btn" type="button" onclick="newTip()">↻ new tip</button>
   </div>
 
   <!-- Tools I Use -->
   <div class="panel-section tools-panel">
-    <h2 class="panel-heading tools-heading">🛠️ Tools I Use<span class="panel-num">03</span></h2>
+    <div class="panel-heading tools-heading">🛠️ Tools I Use<span class="panel-num">03</span></div>
 
     <div class="tools-label">Fuzz &amp; test</div>
     <div class="tools-grid">
-      <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener">⚡ Foundry</a>
-      <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener">🔨 Hardhat</a>
-      <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener">🦔 Echidna</a>
-      <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener">🔮 Halmos</a>
+      <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener noreferrer">⚡ Foundry</a>
+      <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener noreferrer">🔨 Hardhat</a>
+      <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener noreferrer">🦔 Echidna</a>
+      <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener noreferrer">🔮 Halmos</a>
     </div>
 
     <div class="tools-label">Static analysis</div>
     <div class="tools-grid">
-      <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener">🐍 Slither</a>
-      <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener">🌿 Aderyn</a>
+      <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener noreferrer">🐍 Slither</a>
+      <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener noreferrer">🌿 Aderyn</a>
     </div>
 
     <div class="tools-label">Build</div>
     <div class="tools-grid">
-      <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener">💻 VSCode</a>
-      <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener">🧪 Remix</a>
-      <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener">⚙️ Rust</a>
+      <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">💻 VSCode</a>
+      <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener noreferrer">🧪 Remix</a>
+      <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer">⚙️ Rust</a>
     </div>
   </div>
 
@@ -1760,7 +1797,7 @@ Promise.all([
 
   
   <!-- Visitor Assistant -->
-  <div id="assistant-bubble" onclick="toggleAssistant()" title="Chat">
+  <div id="assistant-bubble" role="button" tabindex="0" aria-label="Open chat assistant" aria-expanded="false" onclick="toggleAssistant()" title="Chat">
     <span id="bubble-icon">🤵🏻</span>
     <div id="thought-bubble">Need help?</div>
   </div>
@@ -1774,13 +1811,16 @@ Promise.all([
           <div class="asst-sub">Researcher's Assistant</div>
         </div>
       </div>
-      <button onclick="toggleAssistant()"
+      <button onclick="toggleAssistant()" aria-label="Close assistant"
         style="background:none;border:none;color:var(--dfb-muted);cursor:pointer;font-size:1rem;">✕</button>
     </div>
     <div class="asst-body" id="asst-body"></div>
   </div>
 
   <style>
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 100000; padding: 8px 14px; background: var(--dfb-surface); color: var(--dfb-accent-2); border-radius: 0 0 6px 0; }
+    .skip-link:focus { left: 0; }
+
     #assistant-bubble {
       position: fixed;
       bottom: 2rem;
@@ -2054,7 +2094,7 @@ Promise.all([
         bot: "Available for smart contract security reviews — EVM, Solana, DeFi. Reach out to discuss scope and timeline.",
         links: [
           { label: "Email", url: "mailto:defibreacher@gmail.com" },
-          { label: "Twitter DM", url: "https://twitter.com/DeFiBreacher" }
+          { label: "Twitter DM", url: "https://x.com/DeFiBreacher" }
         ],
         back: "protocol"
       },
@@ -2062,7 +2102,7 @@ Promise.all([
         bot: "Here's where you can reach me:",
         links: [
           { label: "Email", url: "mailto:defibreacher@gmail.com" },
-          { label: "Twitter", url: "https://twitter.com/DeFiBreacher" },
+          { label: "Twitter", url: "https://x.com/DeFiBreacher" },
           { label: "Telegram", url: "https://t.me/DeFiBreacher" }
         ],
         back: "protocol"
@@ -2080,7 +2120,7 @@ Promise.all([
         bot: "Let's collaborate! You can reach me here:",
         links: [
           { label: "Email", url: "mailto:defibreacher@gmail.com" },
-          { label: "Twitter", url: "https://twitter.com/DeFiBreacher" },
+          { label: "Twitter", url: "https://x.com/DeFiBreacher" },
           { label: "Telegram", url: "https://t.me/DeFiBreacher" }
         ],
         back: "researcher"
@@ -2088,7 +2128,7 @@ Promise.all([
       connect: {
         bot: "Find me here — active on Twitter and Telegram.",
         links: [
-          { label: "Twitter", url: "https://twitter.com/DeFiBreacher" },
+          { label: "Twitter", url: "https://x.com/DeFiBreacher" },
           { label: "Telegram", url: "https://t.me/DeFiBreacher" },
           { label: "GitHub", url: "https://github.com/DeFiBreacher" }
         ],
@@ -2117,8 +2157,16 @@ Promise.all([
       }
     };
 
+    (function () {
+      var b = document.getElementById('assistant-bubble');
+      b.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleAssistant(); }
+      });
+    })();
+
     function toggleAssistant() {
       asstOpen = !asstOpen;
+      document.getElementById('assistant-bubble').setAttribute('aria-expanded', String(asstOpen));
       var panel = document.getElementById('assistant-panel');
       var icon = document.getElementById('bubble-icon');
       if (asstOpen) {
@@ -2150,7 +2198,8 @@ Promise.all([
           var email = l.url.replace('mailto:', '');
           linksHtml += '<a href="javascript:void(0)" class="asst-link" onclick="copyEmail(\'' + email + '\')">' + l.label + '</a>';
         } else {
-          linksHtml += '<a href="' + l.url + '" class="asst-link" target="_blank">' + l.label + '</a>';
+          var ext = /^https?:/.test(l.url);
+          linksHtml += '<a href="' + l.url + '" class="asst-link"' + (ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + l.label + '</a>';
         }
       });
       var optsHtml = '';
@@ -2188,11 +2237,6 @@ Promise.all([
       });
     }
   </script>
-  <script src="/assets/js/konami.js"></script>
-  <script>document.body.style.visibility = 'visible';</script>
-</body>
-
-</html>
 <!-- Konami Code Easter Egg -->
 <div id="konami-overlay" style="display:none;">
 
@@ -2214,7 +2258,7 @@ Promise.all([
       </div>
       <div id="dbz-scouter-break" style="display:none;">💥 SCOUTER DESTROYED 💥</div>
     </div>
-    <audio id="dbz-audio" src="/assets/audio/vegeta.mp3" preload="auto"></audio>
+    <audio id="dbz-audio" src="/assets/audio/vegeta.mp3" preload="none"></audio>
   </div>
 
   <!-- Phase 3: Message -->
@@ -2568,4 +2612,10 @@ Promise.all([
     document.getElementById('dbz-scouter-break').style.display = 'none';
   });
 </script>
+
+  <script src="/assets/js/konami.js"></script>
+  <script>document.body.style.visibility = 'visible';</script>
+</body>
+
+</html>
 
