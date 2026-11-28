@@ -48,14 +48,14 @@
 <meta property="og:url" content="https://defibreacher.github.io/categories/" />
 <meta property="og:site_name" content="DeFiBreacher" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2026-11-28T11:09:27+05:30" />
-<meta property="article:modified_time" content="2026-11-28T11:09:27+05:30" />
+<meta property="article:published_time" content="2026-11-28T13:01:00+05:30" />
+<meta property="article:modified_time" content="2026-11-28T13:01:00+05:30" />
 <meta property="og:image" content="https://defibreacher.github.io/assets/img/avatar.png" /><meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image" content="https://defibreacher.github.io/assets/img/avatar.png" />
 <meta name="twitter:title" content="Categories" />
 <meta name="twitter:site" content="@DeFiBreacher" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-11-28T11:09:27+05:30","datePublished":"2026-11-28T11:09:27+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Categories","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/categories/"},"url":"https://defibreacher.github.io/categories/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-11-28T13:01:00+05:30","datePublished":"2026-11-28T13:01:00+05:30","description":"Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.","headline":"Categories","mainEntityOfPage":{"@type":"WebPage","@id":"https://defibreacher.github.io/categories/"},"url":"https://defibreacher.github.io/categories/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -197,16 +197,44 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <canvas id="star-canvas" aria-hidden="true"></canvas>
+  <style>
+    /* ── Sky behind the stars, one per theme ──
+       Each is the theme's own two colours, darkened and blended into near-black.
+       The canvas sits behind the page content, so this only shows where the stars show. */
+    #star-canvas {
+      background:
+        radial-gradient(ellipse 70% 60% at 10% 0%, var(--sky-a) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 60% at 100% 100%, var(--sky-b) 0%, transparent 70%),
+        var(--sky-base);
+    }
+    html:not([data-dfb-theme]), html[data-dfb-theme='default'] { --sky-a: #0a1226; --sky-b: #051618; --sky-base: #020407; } /* navy + teal   */
+    html[data-dfb-theme='dracula']    { --sky-a: #1a1233; --sky-b: #220f22; --sky-base: #0b0a11; } /* purple + pink */
+    html[data-dfb-theme='nord']       { --sky-a: #142034; --sky-b: #0f2027; --sky-base: #0a0d13; } /* polar blue + frost */
+    html[data-dfb-theme='gruvbox']    { --sky-a: #241b0b; --sky-b: #121a0f; --sky-base: #0b0a08; } /* amber + olive */
+    html[data-dfb-theme='catppuccin'] { --sky-a: #1c1536; --sky-b: #221224; --sky-base: #0b0a13; } /* mauve + pink  */
+    html[data-dfb-theme='tokyonight'] { --sky-a: #111a3a; --sky-b: #1a1236; --sky-base: #07080f; } /* blue + violet */
+
+    /* footer has a solid background by default; let the sky run under it */
+    footer { background-color: transparent !important; }
+  </style>
 <script>
   const canvas = document.getElementById('star-canvas');
   const ctx = canvas.getContext('2d');
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '0';
 
-  let W = canvas.width = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
-  window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+  const REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* the "cyan" stars follow the active theme's secondary accent */
+  /* sharp stars on high-density screens (capped at 2x for speed) */
+  let DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let W = window.innerWidth, H = window.innerHeight;
+
+  /* the "cyan" stars, constellation lines and shooting-star tails follow the theme's secondary accent */
   let starRGB = '78,201,176';
   function readStarColor() {
     const c = getComputedStyle(document.documentElement).getPropertyValue('--dfb-accent-2').trim();
@@ -217,59 +245,184 @@
     starRGB = parseInt(h.slice(0, 2), 16) + ',' + parseInt(h.slice(2, 4), 16) + ',' + parseInt(h.slice(4, 6), 16);
   }
   readStarColor();
-  new MutationObserver(readStarColor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-dfb-theme'] });
+  new MutationObserver(() => { readStarColor(); if (REDUCE) draw(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-dfb-theme'] });
 
+  /* 3 depth layers: far = many, tiny, slow; near = few, bright, faster */
   const LAYERS = [
-    { count: 90, rMin: 0.25, rMax: 0.65, sp: 0.018, opMin: 0.08, opMax: 0.28 },
-    { count: 60, rMin: 0.65, rMax: 1.1,  sp: 0.055, opMin: 0.25, opMax: 0.55 },
-    { count: 28, rMin: 1.0,  rMax: 1.7,  sp: 0.10,  opMin: 0.50, opMax: 0.95 }
+    { count: 120, rMin: 0.25, rMax: 0.6,  sp: 0.015, opMin: 0.10, opMax: 0.32 },
+    { count: 60,  rMin: 0.6,  rMax: 1.05, sp: 0.045, opMin: 0.28, opMax: 0.58 },
+    { count: 28,  rMin: 1.0,  rMax: 1.7,  sp: 0.085, opMin: 0.55, opMax: 0.95 }
   ];
-  const CT = ['white','white','white','cyan','blue'];
+  /* star colours: mostly white, some theme-cyan, cool blue and warm */
+  const CT = ['white', 'white', 'white', 'white', 'cyan', 'blue', 'blue', 'warm'];
+
+  /* star clusters: a few natural clumps instead of an even spread */
+  const CLUSTERS = Array.from({ length: 4 }, () => ({ x: Math.random(), y: Math.random() }));
 
   const stars = [];
-  LAYERS.forEach(L => {
+  LAYERS.forEach((L, li) => {
     for (let i = 0; i < L.count; i++) {
       const a = Math.random() * Math.PI * 2, sp = L.sp * (0.4 + Math.random() * 0.6);
+      let x = Math.random() * W, y = Math.random() * H;
+      if (li < 2 && Math.random() < 0.35) {
+        const c = CLUSTERS[i % CLUSTERS.length];
+        const rr = Math.abs(Math.random() + Math.random() - 1) * 90, aa = Math.random() * Math.PI * 2;
+        x = c.x * W + Math.cos(aa) * rr;
+        y = c.y * H + Math.sin(aa) * rr * 0.7;
+      }
+      /* richer colours: rare amber and pale-red stars */
+      let ct = CT[Math.floor(Math.random() * CT.length)];
+      if (Math.random() < 0.05) ct = Math.random() < 0.6 ? 'amber' : 'red';
       stars.push({
-        x: Math.random() * W, y: Math.random() * H,
+        x, y,
         r: L.rMin + Math.random() * (L.rMax - L.rMin),
         baseOp: L.opMin + Math.random() * (L.opMax - L.opMin),
         vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
-        ts: 0.005 + Math.random() * 0.025, to: Math.random() * Math.PI * 2,
-        ct: CT[Math.floor(Math.random() * CT.length)],
-        sparkP: Math.random() * Math.PI * 2
+        ts: 0.004 + Math.random() * 0.016, to: Math.random() * Math.PI * 2,
+        ct, sparkP: Math.random() * Math.PI * 2,
+        near: li === 2, flash: 0
       });
     }
   });
 
+  function starColor(ct, op) {
+    return ct === 'cyan'  ? `rgba(${starRGB},${op})`   :
+           ct === 'blue'  ? `rgba(190,215,255,${op})`  :
+           ct === 'warm'  ? `rgba(255,234,208,${op})`  :
+           ct === 'amber' ? `rgba(255,196,120,${op})`  :
+           ct === 'red'   ? `rgba(255,160,140,${op})`  :
+                            `rgba(255,255,255,${op})`;
+  }
+
+  /* soft glow sprite, drawn once and reused */
+  const glow = document.createElement('canvas');
+  glow.width = glow.height = 64;
+  (function () {
+    const g = glow.getContext('2d');
+    const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, 'rgba(255,255,255,0.9)');
+    rg.addColorStop(0.25, 'rgba(220,235,255,0.35)');
+    rg.addColorStop(1, 'rgba(220,235,255,0)');
+    g.fillStyle = rg;
+    g.fillRect(0, 0, 64, 64);
+  })();
+
+  /* very faint milky dust band (bottom-left to top-right), drawn once per resize */
+  const dust = document.createElement('canvas');
+  function buildDust() {
+    dust.width = Math.round(W * DPR);
+    dust.height = Math.round(H * DPR);
+    const d = dust.getContext('2d');
+    d.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const n = Math.round((W * H) / 1400);
+    for (let i = 0; i < n; i++) {
+      const t = Math.random();
+      const spread = (Math.random() + Math.random() + Math.random() - 1.5) * H * 0.16;
+      d.globalAlpha = 0.04 + Math.random() * 0.14;
+      d.fillStyle = '#dfeeff';
+      d.beginPath();
+      d.arc(t * W * 1.2 - W * 0.1, H * 0.88 - t * H * 0.76 + spread, 0.2 + Math.random() * 0.45, 0, Math.PI * 2);
+      d.fill();
+    }
+  }
+
+  /* constellation lines: join a few nearby bright stars; rebuilt every ~12s
+     because the stars drift, and each line fades as its stars move apart */
+  const LINK_MAX = 190;
+  let links = [];
+  function buildLinks() {
+    const bright = stars.filter(s => s.near);
+    links = [];
+    const used = new Set();
+    for (let i = 0; i < bright.length && links.length < 9; i++) {
+      let best = null, bd = LINK_MAX;
+      for (let j = 0; j < bright.length; j++) {
+        if (i === j) continue;
+        const d = Math.hypot(bright[i].x - bright[j].x, bright[i].y - bright[j].y);
+        const key = i < j ? i + '-' + j : j + '-' + i;
+        if (d < bd && !used.has(key)) { bd = d; best = j; }
+      }
+      if (best !== null) {
+        used.add(i < best ? i + '-' + best : best + '-' + i);
+        links.push({ a: bright[i], b: bright[best], p: Math.random() * Math.PI * 2, life: 0 });
+      }
+    }
+  }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    buildDust();
+    buildLinks();
+    if (REDUCE) draw();
+  }
+
+  /* better shooting stars: glowing head, longer soft tail, a bit less often */
   const shooters = [];
-  let sTick = 0, sInt = 200 + Math.random() * 220;
+  let sTick = 0, sInt = 300 + Math.random() * 260;
   function spawnShooter() {
     const left = Math.random() > 0.5;
     shooters.push({
-      x: left ? -50 : W + 50, y: Math.random() * H * 0.65,
-      vx: left ? 9 + Math.random() * 5 : -(9 + Math.random() * 5),
+      x: left ? -60 : W + 60, y: Math.random() * H * 0.65,
+      vx: left ? 7 + Math.random() * 3 : -(7 + Math.random() * 3),
       vy: (1 + Math.random() * 2.5) * (Math.random() > 0.5 ? 1 : -1),
-      len: 90 + Math.random() * 90, alpha: 0, phase: 'in', maxAlpha: 0.65 + Math.random() * 0.3
+      len: 150 + Math.random() * 90, alpha: 0, phase: 'in', maxAlpha: 0.65 + Math.random() * 0.3
     });
   }
 
-  const REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   let t = 0;
   function draw() {
     ctx.clearRect(0, 0, W, H);
     t++;
 
+    /* dust band */
+    ctx.globalAlpha = 1;
+    ctx.drawImage(dust, 0, 0, W, H);
+
+    /* constellation lines */
+    if (t % 720 === 0) buildLinks();
+    ctx.lineWidth = 0.6;
+    links.forEach(l => {
+      const d = Math.hypot(l.a.x - l.b.x, l.a.y - l.b.y);
+      if (d > LINK_MAX) return;
+      l.life = Math.min(1, l.life + 0.01); /* fade in after each rebuild */
+      const a = (0.09 + 0.06 * Math.sin(t * 0.01 + l.p)) * (1 - d / LINK_MAX) * l.life;
+      ctx.strokeStyle = `rgba(${starRGB},${a})`;
+      ctx.beginPath();
+      ctx.moveTo(l.a.x, l.a.y);
+      ctx.lineTo(l.b.x, l.b.y);
+      ctx.stroke();
+    });
+
     stars.forEach(s => {
-      s.x += s.vx; s.y += s.vy;
-      if (s.x < -5) s.x = W + 5; if (s.x > W + 5) s.x = -5;
-      if (s.y < -5) s.y = H + 5; if (s.y > H + 5) s.y = -5;
+      if (!REDUCE) {
+        s.x += s.vx; s.y += s.vy;
+        if (s.x < -5) s.x = W + 5; if (s.x > W + 5) s.x = -5;
+        if (s.y < -5) s.y = H + 5; if (s.y > H + 5) s.y = -5;
+      }
 
-      const op = s.baseOp * (0.55 + 0.45 * Math.sin(t * s.ts + s.to));
-      const col = s.ct === 'cyan'  ? `rgba(${starRGB},${op})`  :
-                  s.ct === 'blue'  ? `rgba(180,210,255,${op})` :
-                                     `rgba(255,255,255,${op})`;
+      /* smoother, calmer twinkle */
+      let op = s.baseOp * (0.68 + 0.32 * Math.sin(t * s.ts + s.to));
 
+      /* scintillation: now and then a star briefly flashes brighter */
+      if (!REDUCE) {
+        if (s.flash <= 0 && Math.random() < 0.00025) s.flash = 1;
+        if (s.flash > 0) { op = Math.min(1, op + s.flash * 0.6); s.flash -= 0.03; }
+      }
+
+      /* soft glow on the brighter stars (and on a flashing star) */
+      if (s.r >= 1.0 || s.flash > 0.3) {
+        const gs = s.r * 9;
+        ctx.globalAlpha = op * 0.28;
+        ctx.drawImage(glow, s.x - gs / 2, s.y - gs / 2, gs, gs);
+        ctx.globalAlpha = 1;
+      }
+
+      /* 4-point sparkle on the biggest white stars (kept from the original) */
       if (s.r > 1.2 && s.ct === 'white') {
         const sA = op * (0.3 + 0.3 * Math.sin(s.sparkP + t * 0.008));
         const sL = s.r * 3.5;
@@ -285,34 +438,44 @@
 
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = col;
+      ctx.fillStyle = starColor(s.ct, op);
       ctx.fill();
     });
 
+    if (REDUCE) return;
+
+    /* shooting stars */
     sTick++;
-    if (sTick >= sInt) { spawnShooter(); sTick = 0; sInt = 160 + Math.random() * 260; }
+    if (sTick >= sInt) { spawnShooter(); sTick = 0; sInt = 300 + Math.random() * 260; }
     for (let i = shooters.length - 1; i >= 0; i--) {
       const s = shooters[i];
       s.x += s.vx; s.y += s.vy;
       s.phase === 'in'
-        ? (s.alpha = Math.min(s.alpha + 0.06, s.maxAlpha), s.alpha >= s.maxAlpha && (s.phase = 'out'))
-        : (s.alpha -= 0.04);
+        ? (s.alpha = Math.min(s.alpha + 0.04, s.maxAlpha), s.alpha >= s.maxAlpha && (s.phase = 'out'))
+        : (s.alpha -= 0.022);
       if (s.alpha <= 0) { shooters.splice(i, 1); continue; }
       const dir = Math.sign(s.vx);
       const tx = s.x - dir * s.len, ty = s.y - (s.vy / (Math.abs(s.vx) || 1)) * s.len;
       const g = ctx.createLinearGradient(tx, ty, s.x, s.y);
       g.addColorStop(0, 'rgba(255,255,255,0)');
-      g.addColorStop(0.7, `rgba(200,230,255,${s.alpha * 0.45})`);
+      g.addColorStop(0.7, `rgba(${starRGB},${s.alpha * 0.4})`);
       g.addColorStop(1, `rgba(255,255,255,${s.alpha})`);
       ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(s.x, s.y);
-      ctx.strokeStyle = g; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.strokeStyle = g; ctx.lineWidth = 1.8; ctx.stroke();
+      const gs = 16;
+      ctx.globalAlpha = s.alpha;
+      ctx.drawImage(glow, s.x - gs / 2, s.y - gs / 2, gs, gs);
+      ctx.globalAlpha = 1;
       ctx.beginPath(); ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255,255,255,${s.alpha})`; ctx.fill();
     }
 
-    if (!REDUCE) requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   }
-  draw();
+
+  window.addEventListener('resize', resize);
+  resize();
+  if (!REDUCE) draw();
 </script>
   <!-- The Side Bar -->
 
@@ -324,6 +487,7 @@
     <img src="/assets/img/avatar.png" alt="DeFiBreacher avatar" width="120" height="120"
       style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style='display:none'">
     
+    <span class="avatar-shine" aria-hidden="true"></span>
   </a>
 
 <a class="site-title d-block" href="/" aria-label="DeFiBreacher">
@@ -628,7 +792,6 @@
   <div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100">
     <nav id="breadcrumb" aria-label="Breadcrumb">
       <span class="custom-home-title">
-        <span class="cht-tilde">~</span>
         <a href="/" class="cht-name glitch-name cht-home-link" id="topbarName" data-text="Shorya S" title="Go to home">Shorya S.</a>
         <a href="/audits/" class="cht-badge">[Auditor]</a>
         <span class="cht-avail">
@@ -648,7 +811,6 @@
 
     <div id="topbar-title">
       <span class="custom-home-title">
-        <span class="cht-tilde">~</span>
         <a href="/" class="cht-name glitch-name cht-home-link" id="topbarNameMobile" data-text="Shorya S" title="Go to home">Shorya S</a>
         <a href="/audits/" class="cht-badge">[Auditor]</a>
         <span class="cht-avail">
@@ -732,29 +894,56 @@
     white-space: nowrap;
   }
 
-  .cht-tilde {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: color-mix(in srgb, var(--dfb-accent) 55%, transparent);
-    line-height: 1;
+  /* Chirpy adds a '›' after every span inside #breadcrumb (its crumb
+     separator). That was the '>' showing before the name; switch it off here. */
+  #breadcrumb .custom-home-title span::after {
+    content: none !important;
+    padding: 0 !important;
   }
 
   /* ── Name with glitch ── */
   .cht-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 800;
-    color: var(--dfb-bright, #ffffff);
     letter-spacing: 0.01em;
-    line-height: 1;
+    line-height: 1.1;
   }
 
-  /* the name is a real link now (crawlable); keep it looking like plain text */
-  a.cht-name, a.cht-name:hover {
+  /* Name: "Soft" logo flow. Toned logo mint -> cyan -> white drifting
+     through the letters; built from theme vars so every theme gets its own.
+     text-fill-color is used (not just color) so no hover/focus/visited
+     link colour from Chirpy or the main SCSS can paint over it. */
+  #topbar-wrapper a.cht-name,
+  #topbar-wrapper a.cht-name:hover,
+  #topbar-wrapper a.cht-name:focus,
+  #topbar-wrapper a.cht-name:active,
+  #topbar-wrapper a.cht-name:visited {
     color: var(--dfb-bright, #ffffff) !important;
+    -webkit-text-fill-color: transparent !important;
     text-decoration: none !important;
     border-bottom: 0 !important;
-    background: none !important;
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--dfb-brand-1) 65%, var(--dfb-bright)),
+      color-mix(in srgb, var(--dfb-brand-2) 70%, var(--dfb-bright)),
+      var(--dfb-bright),
+      color-mix(in srgb, var(--dfb-brand-1) 65%, var(--dfb-bright))
+    ) !important;
+    background-color: transparent !important;
+    background-size: 300% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--dfb-brand-1) 18%, transparent));
+    animation: cht-name-flow 12s linear infinite;
+  }
+
+  @keyframes cht-name-flow {
+    to { background-position: 300% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #topbar-wrapper a.cht-name { animation: none; }
   }
 
   .glitch-name {
@@ -777,13 +966,17 @@
     letter-spacing: inherit;
   }
 
+  /* glitch slices keep their own solid colours (the name's transparent
+     text fill would otherwise make them invisible) */
   .glitch-name::before {
     color: var(--dfb-accent);
+    -webkit-text-fill-color: var(--dfb-accent);
     clip-path: polygon(0 25%, 100% 25%, 100% 50%, 0 50%);
   }
 
   .glitch-name::after {
     color: var(--dfb-extra);
+    -webkit-text-fill-color: var(--dfb-extra);
     clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%);
   }
 
@@ -891,8 +1084,7 @@
     }
     .cht-avail { display: none; }
     .cht-badge { font-size: 8px; padding: 2px 5px; }
-    .cht-name  { font-size: 14px; }
-    .cht-tilde { display: none; }
+    .cht-name  { font-size: 17px; }
   }
 
   /* ── Theme Switcher ── */
@@ -1257,7 +1449,7 @@
 
       
 
-      <div class="cat-card" id="h_0">
+      <div class="cat-card" id="h_0" data-cat="lifestyle" style="--i:0">
         <div class="cat-card-header">
           <div class="cat-card-icon" aria-hidden="true">
             <i class="far fa-folder fa-fw"></i>
@@ -1270,11 +1462,18 @@
             </div>
           </div>
           
-          <a class="cat-toggle" href="/categories/lifestyle/" aria-label="View Lifestyle posts">
+          <a class="cat-toggle cat-go" href="/categories/lifestyle/" aria-label="View Lifestyle posts">
             <i class="fas fa-angle-right fa-fw"></i>
           </a>
           
         </div>
+
+        
+        <div class="cat-latest">
+          <span>Latest</span>
+          <a href="/posts/fork-your-diet/">Fork Your Diet</a>
+        </div>
+        
 
         
       </div>
@@ -1295,7 +1494,7 @@
 
       
 
-      <div class="cat-card" id="h_1">
+      <div class="cat-card" id="h_1" data-cat="security" style="--i:1">
         <div class="cat-card-header">
           <div class="cat-card-icon" aria-hidden="true">
             <i class="far fa-folder fa-fw"></i>
@@ -1308,11 +1507,18 @@
             </div>
           </div>
           
-          <a class="cat-toggle" href="/categories/security/" aria-label="View Security posts">
+          <a class="cat-toggle cat-go" href="/categories/security/" aria-label="View Security posts">
             <i class="fas fa-angle-right fa-fw"></i>
           </a>
           
         </div>
+
+        
+        <div class="cat-latest">
+          <span>Latest</span>
+          <a href="/posts/morning-coffee-discord-compromised-pc/">A Morning Coffee, a Discord DM, and a Compromised PC</a>
+        </div>
+        
 
         
       </div>
@@ -1333,7 +1539,7 @@
 
       
 
-      <div class="cat-card" id="h_2">
+      <div class="cat-card" id="h_2" data-cat="tech" style="--i:2">
         <div class="cat-card-header">
           <div class="cat-card-icon" aria-hidden="true">
             <i class="far fa-folder fa-fw"></i>
@@ -1346,11 +1552,18 @@
             </div>
           </div>
           
-          <a class="cat-toggle" href="/categories/tech/" aria-label="View Tech posts">
+          <a class="cat-toggle cat-go" href="/categories/tech/" aria-label="View Tech posts">
             <i class="fas fa-angle-right fa-fw"></i>
           </a>
           
         </div>
+
+        
+        <div class="cat-latest">
+          <span>Latest</span>
+          <a href="/posts/always-on-chain/">Always On-Chain</a>
+        </div>
+        
 
         
       </div>
@@ -1363,12 +1576,17 @@
 </div>
 
 <script>
+/* sub-categories open and close smoothly */
 function toggleSubcats(listId, btn) {
-  const list = document.getElementById(listId);
-  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  var list = document.getElementById(listId);
+  var expanded = btn.getAttribute('aria-expanded') === 'true';
   btn.setAttribute('aria-expanded', String(!expanded));
-  list.style.display = expanded ? 'none' : '';
+  list.setAttribute('aria-expanded', String(!expanded));
   btn.querySelector('i').style.transform = expanded ? 'rotate(-90deg)' : '';
+  list.style.maxHeight = list.scrollHeight + 'px';
+  void list.offsetHeight;
+  list.style.maxHeight = expanded ? '0px' : list.scrollHeight + 'px';
+  list.classList.toggle('is-closed', expanded);
 }
 </script>
 
@@ -1383,51 +1601,65 @@ function toggleSubcats(listId, btn) {
         <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
           <div class="access">
             <div class="custom-panel">
-  <span class="panel-edge" aria-hidden="true"></span>
   <div class="panel-scroll">
 
   <!-- Quote -->
-  <div class="panel-section">
-    <div class="panel-heading quote-heading">💬 Quote<span class="panel-num">01</span></div>
+  <div class="panel-section quote-section" style="--i:0">
+    <div class="panel-heading quote-heading">
+      <span class="panel-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h4v4c0 3-1.5 5-4 6M14 7h4v4c0 3-1.5 5-4 6"/></svg></span>
+      <span class="panel-title">Quote</span><span class="panel-num">01</span>
+    </div>
     <div class="quote-box">
       <p class="quote-text" id="quote-text"></p>
       <p class="quote-author" id="quote-author"></p>
     </div>
-    <button class="refresh-btn" type="button" onclick="newQuote()">↻ new quote</button>
+    <div class="panel-foot">
+      <button class="refresh-btn" type="button" onclick="newQuote()"><i aria-hidden="true">↻</i> new quote</button>
+      <svg class="panel-ring" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="f" cx="10" cy="10" r="8" pathLength="1"/></svg>
+    </div>
   </div>
 
   <!-- Security Tip -->
-  <div class="panel-section">
-    <div class="panel-heading tip-heading">🔐 Security Tip<span class="panel-num">02</span></div>
+  <div class="panel-section tip-section" style="--i:1">
+    <div class="panel-heading tip-heading">
+      <span class="panel-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M12 9v4M12 16h.01"/></svg></span>
+      <span class="panel-title">Security Tip</span><span class="panel-num">02</span>
+    </div>
     <div class="tip-box">
       <p class="tip-text" id="tip-text"></p>
     </div>
-    <button class="refresh-btn" type="button" onclick="newTip()">↻ new tip</button>
+    <div class="panel-foot">
+      <button class="refresh-btn" type="button" onclick="newTip()"><i aria-hidden="true">↻</i> new tip</button>
+      <svg class="panel-ring" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="f" cx="10" cy="10" r="8" pathLength="1"/></svg>
+    </div>
   </div>
 
   <!-- Tools I Use -->
-  <div class="panel-section tools-panel">
-    <div class="panel-heading tools-heading">🛠️ Tools I Use<span class="panel-num">03</span></div>
+  <div class="panel-section tools-panel" style="--i:2">
+    <div class="panel-heading tools-heading">
+      <span class="panel-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span>
+      <span class="panel-title">Tools I Use</span><span class="panel-num">03</span>
+    </div>
 
     <div class="tools-label">Fuzz &amp; test</div>
-    <div class="tools-grid">
-      <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener noreferrer">⚡ Foundry</a>
-      <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener noreferrer">🔨 Hardhat</a>
-      <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener noreferrer">🦔 Echidna</a>
-      <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener noreferrer">🔮 Halmos</a>
+    <div class="tools-grid g1">
+      <a class="tool-badge" href="https://getfoundry.sh/" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">⚡</span> Foundry</a>
+      <a class="tool-badge" href="https://hardhat.org/" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">🔨</span> Hardhat</a>
+      <a class="tool-badge" href="https://github.com/crytic/echidna" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">🦔</span> Echidna</a>
+      <a class="tool-badge" href="https://github.com/a16z/halmos" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">🔮</span> Halmos</a>
     </div>
 
     <div class="tools-label">Static analysis</div>
-    <div class="tools-grid">
-      <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener noreferrer">🐍 Slither</a>
-      <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener noreferrer">🌿 Aderyn</a>
+    <div class="tools-grid g2">
+      <a class="tool-badge" href="https://github.com/crytic/slither" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">🐍</span> Slither</a>
+      <a class="tool-badge" href="https://github.com/Cyfrin/aderyn" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">🌿</span> Aderyn</a>
     </div>
 
     <div class="tools-label">Build</div>
-    <div class="tools-grid">
-      <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">💻 VSCode</a>
-      <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener noreferrer">🧪 Remix</a>
-      <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer">⚙️ Rust</a>
+    <div class="tools-grid g3">
+      <a class="tool-badge" href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">💻</span> VSCode</a>
+      <a class="tool-badge" href="https://remix.ethereum.org/" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">🧪</span> Remix</a>
+      <a class="tool-badge" href="https://www.rust-lang.org/" target="_blank" rel="noopener noreferrer"><span class="tb-emoji" aria-hidden="true">⚙️</span> Rust</a>
     </div>
   </div>
 
@@ -1436,269 +1668,294 @@ function toggleSubcats(listId, btn) {
 
 <style>
 /* All colours come from the active theme (--dfb-* vars set in the main SCSS). */
-@property --a {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
 
 /* The theme pins .access (the wrapper around this panel) with top: 2rem, which sits
    under the topbar and cuts off the top of the box. Push it below the topbar instead. */
 #panel-wrapper .access { top: 4.5rem !important; }
 
-/* one panel: corner brackets + soft glow */
-.custom-panel {
-  position: relative;
-  margin: 0.5rem 0 1.5rem;
-  background:
-    radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--dfb-accent-2) 11%, transparent), transparent 60%),
-    var(--dfb-surface);
-  border: 1px solid var(--dfb-border);
-  border-radius: 2px;
-}
+.custom-panel { margin: 0.5rem 0 1.5rem; }
 
-/* if the window is shorter than the panel, scroll inside it (nothing gets cut off) */
+/* if the window is shorter than the panels, scroll inside (nothing gets cut off) */
 .panel-scroll {
   max-height: calc(100vh - 8rem);
   overflow-y: auto;
-  padding: 4px 0;
+  padding: 2px 2px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--dfb-accent) 30%, transparent) transparent;
 }
 
-/* travelling light along the border */
-.panel-edge {
-  position: absolute;
-  inset: -1px;
-  border-radius: 2px;
-  padding: 1px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.75;
-  background: conic-gradient(
-    from var(--a),
-    transparent 0deg 250deg,
-    color-mix(in srgb, var(--dfb-accent-2) 85%, transparent) 335deg,
-    color-mix(in srgb, var(--dfb-accent-2) 35%, #fff) 352deg,
-    transparent 360deg
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: panel-edge-spin 8s linear infinite;
+/* ── three glass cards, each with its own soft colour ── */
+.panel-section {
+  position: relative;
+  margin: 0;
+  padding: 18px 18px 14px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--dfb-surface) 55%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  backdrop-filter: blur(10px) saturate(130%);
+  border: 1px solid color-mix(in srgb, #fff 7%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 5%, transparent);
+  animation: panel-rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
 }
-@keyframes panel-edge-spin { to { --a: 360deg; } }
-
-/* corner brackets, gently pulsing (alternating) */
-.custom-panel::before,
-.custom-panel::after {
+.panel-section::after {
   content: '';
   position: absolute;
-  width: 14px;
-  height: 14px;
+  inset: 0;
+  border-radius: inherit;
   pointer-events: none;
-  z-index: 3;
-  border: 2px solid var(--dfb-accent-2);
-  animation: panel-bracket 4s ease-in-out infinite;
+  background: radial-gradient(circle 120px at 0% 0%, color-mix(in srgb, var(--k) 13%, transparent), transparent 70%);
 }
-.custom-panel::before { left: -2px; top: -2px; border-right: 0; border-bottom: 0; }
-.custom-panel::after  { right: -2px; bottom: -2px; border-left: 0; border-top: 0; animation-delay: 2s; }
-@keyframes panel-bracket {
-  0%, 100% { filter: drop-shadow(0 0 0 transparent); opacity: 0.65; }
-  50%      { filter: drop-shadow(0 0 5px var(--dfb-accent-2)); opacity: 1; }
+.panel-section > * { position: relative; z-index: 1; }
+@keyframes panel-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
 }
+.quote-section { --k: var(--dfb-accent-2); }
+.tip-section   { --k: var(--dfb-extra); }
+.tools-panel   { --k: var(--dfb-accent); }
 
-
-
-.panel-section { margin: 0; padding: 18px 18px 16px; }
-.panel-section + .panel-section { border-top: 1px solid var(--dfb-border); }
-
-/* bigger, centered titles.
-   The ID selector below beats the main SCSS rule `#panel-wrapper .panel-heading`
-   (muted grey for Chirpy's own panel headings), so these headings keep their colour. */
+/* headings: icon tile + title, number on the right.
+   The ID selector beats the main SCSS rule `#panel-wrapper .panel-heading`. */
 .panel-heading {
   position: relative;
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   padding: 0;
   border: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 11.5px;
   font-weight: 800;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  text-align: center;
 }
-#panel-wrapper .custom-panel .panel-heading {
-  color: var(--dfb-heading) !important;
-}
+#panel-wrapper .custom-panel .panel-heading { color: var(--k) !important; }
 .panel-heading::before,
 .panel-heading::after { content: none; }
-
-.panel-mark {
-  display: block;
-  flex: none;
-  width: 8px;
-  height: 8px;
-  background: var(--ph-color, var(--dfb-accent-2));
+.panel-ico {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--k);
+  background: color-mix(in srgb, var(--k) 13%, transparent);
+  border: 1px solid color-mix(in srgb, var(--k) 28%, transparent);
 }
+.panel-ico svg { width: 14px; height: 14px; display: block; }
 .panel-num {
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
   font-size: 9.5px;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--dfb-muted);
 }
 
-.quote-heading { --ph-color: var(--dfb-accent-2); }
-.tip-heading   { --ph-color: var(--dfb-extra); }
-.tools-heading { --ph-color: var(--dfb-tag-a); }
-
-/* Quote */
+/* ── Quote ── */
 .quote-box {
   position: relative;
-  border-left: 2px solid var(--dfb-accent-2);
-  padding: 0 0 0 12px;
-  min-height: 60px;
+  min-height: 96px;
 }
 .quote-box::before {
   content: '\201C';
   position: absolute;
-  right: 0;
-  top: -16px;
+  right: -4px;
+  top: 8px;
   font-family: Georgia, serif;
-  font-size: 60px;
+  font-size: 86px;
   line-height: 1;
-  color: var(--dfb-accent-2);
-  opacity: 0.16;
+  color: color-mix(in srgb, var(--k) 14%, transparent);
   pointer-events: none;
 }
 .quote-text {
-  font-size: 0.90rem;
-  color: color-mix(in srgb, var(--dfb-fg) 60%, var(--dfb-bright));
-  line-height: 1.65;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--dfb-bright);
+  line-height: 1.6;
   font-style: italic;
+  font-weight: 500;
   margin-bottom: 0.5rem;
 }
 .quote-author {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--dfb-accent-2);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--k);
   margin: 0;
-  opacity: 0.9;
 }
 
-/* Tip */
+/* ── Tip ── */
 .tip-box {
-  border-left: 2px solid var(--dfb-extra);
-  padding: 0 0 0 12px;
-  min-height: 60px;
+  display: flex;
+  gap: 10px;
+  min-height: 46px;
+}
+.tip-box::before {
+  content: '';
+  width: 3px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--k), color-mix(in srgb, var(--k) 20%, transparent));
 }
 .tip-text {
-  font-size: 0.89rem;
-  color: color-mix(in srgb, var(--dfb-fg) 60%, var(--dfb-bright));
-  line-height: 1.65;
+  font-size: 0.88rem;
+  color: var(--dfb-bright);
+  line-height: 1.6;
   margin: 0;
 }
 
-.quote-text, .quote-author, .tip-text { transition: opacity 0.2s; }
-.is-fading { opacity: 0; }
+/* new text fades in with a soft blur */
+.quote-text, .quote-author, .tip-text { transition: opacity 0.35s, transform 0.35s, filter 0.35s; }
+.is-fading { opacity: 0; transform: translateY(6px); filter: blur(3px); }
 
-/* Refresh button */
+/* ── footer: refresh button + ring showing time to the next one ── */
+.panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px dashed color-mix(in srgb, #fff 8%, transparent);
+}
 .refresh-btn {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.69rem;
+  font-weight: 600;
   color: var(--dfb-muted);
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px 0;
-  margin-top: 5px;
-  transition: color 0.2s;
   letter-spacing: 0.05em;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
 }
-.refresh-btn:hover { color: var(--dfb-accent-2); }
+.refresh-btn:hover { color: var(--k); }
+.refresh-btn i { display: inline-block; font-style: normal; transition: transform 0.5s; }
+.refresh-btn.spin i { transform: rotate(-360deg); }
+.panel-ring { width: 16px; height: 16px; }
+.panel-ring circle { fill: none; stroke-width: 3; }
+.panel-ring .t { stroke: color-mix(in srgb, var(--k) 15%, transparent); }
+.panel-ring .f {
+  stroke: var(--k);
+  stroke-linecap: round;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
 
-/* Tools */
+/* ── Tools ── */
 .tools-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 14px 0 7px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 9.5px;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--dfb-muted);
 }
+.tools-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, #fff 10%, transparent), transparent);
+}
 .tools-heading + .tools-label { margin-top: 0; }
 
-.tools-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-/* !important on colour: the main SCSS forces `a { color: ... !important }` */
+.tools-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+.tools-grid.g1 { --gc: var(--dfb-accent-2); }
+.tools-grid.g2 { --gc: var(--dfb-extra); }
+.tools-grid.g3 { --gc: var(--dfb-accent); }
+
+/* colours locked with text-fill-color so nothing else on the site can repaint them */
 .tool-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.71rem;
-  padding: 5px 11px;
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--dfb-accent) 6%, transparent);
-  border: 0.5px solid color-mix(in srgb, var(--dfb-accent) 22%, transparent);
-  color: color-mix(in srgb, var(--dfb-bright) 82%, transparent) !important;
-  letter-spacing: 0.02em;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
   position: relative;
   overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, color-mix(in srgb, #fff 5%, transparent), color-mix(in srgb, #fff 1.5%, transparent));
+  border: 1px solid color-mix(in srgb, #fff 10%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent);
+  color: var(--dfb-fg) !important;
+  -webkit-text-fill-color: var(--dfb-fg) !important;
+  text-decoration: none !important;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.25s, background 0.25s, box-shadow 0.25s;
 }
 
-/* shimmer sweep */
+/* emoji */
+.tb-emoji {
+  display: inline-block;
+  font-size: 0.8rem;
+  line-height: 1;
+  transition: transform 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+/* soft light that sweeps across once on hover */
 .tool-badge::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, color-mix(in srgb, var(--dfb-accent) 16%, transparent) 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.45s ease;
   pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, color-mix(in srgb, var(--gc) 18%, transparent) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
 }
-.tool-badge:hover::before { transform: translateX(150%); }
 
-/* arrow indicator */
+/* little external-link arrow, appears on hover */
 .tool-badge::after {
-  content: '↗';
-  font-size: 0.58rem;
-  margin-left: 3px;
-  opacity: 0;
-  transform: translateY(2px);
-  transition: all 0.2s ease;
+  content: '\2197';
   display: inline-block;
-  color: var(--dfb-accent-2);
+  font-size: 0.62rem;
+  margin-left: -2px;
+  width: 0;
+  opacity: 0;
+  transform: translate(-2px, 2px);
+  color: var(--gc);
+  -webkit-text-fill-color: var(--gc);
+  transition: opacity 0.2s, transform 0.25s, width 0.25s, margin 0.25s;
 }
-.tool-badge:hover::after { opacity: 0.65; transform: translateY(0); }
 
 .tool-badge:hover {
-  background: color-mix(in srgb, var(--dfb-accent) 13%, transparent);
-  border-color: color-mix(in srgb, var(--dfb-accent) 50%, transparent);
-  color: var(--dfb-accent-2) !important;
   transform: translateY(-1px);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--dfb-accent-2) 14%, transparent), 0 2px 6px rgba(0,0,0,0.25);
+  border-color: color-mix(in srgb, var(--gc) 45%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gc) 12%, transparent), color-mix(in srgb, var(--gc) 4%, transparent));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 8%, transparent), 0 4px 12px -6px color-mix(in srgb, var(--gc) 55%, transparent);
+  color: var(--dfb-bright) !important;
+  -webkit-text-fill-color: var(--dfb-bright) !important;
 }
+.tool-badge:hover::before { transform: translateX(150%); }
+.tool-badge:hover::after { opacity: 0.9; width: 0.7em; margin-left: 0; transform: none; }
+.tool-badge:hover .tb-emoji { transform: scale(1.15) rotate(-6deg); }
+.tool-badge:focus-visible { outline: 2px solid var(--gc); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .quote-text, .quote-author, .tip-text { transition: none; }
-  .panel-edge,
-  .custom-panel::before,
-  .custom-panel::after { animation: none; }
+  .panel-section { animation: none; }
+  .quote-text, .quote-author, .tip-text, .refresh-btn i, .tb-emoji, .tool-badge, .tool-badge::before, .tool-badge::after { transition: none; }
+  .panel-ring { display: none; }
 }
 </style>
 
@@ -1719,7 +1976,16 @@ function swapText(els, apply) {
   setTimeout(function () {
     apply();
     els.forEach(function (e) { e.classList.remove('is-fading'); });
-  }, 200);
+  }, 350);
+}
+
+function spinBtn(sel) {
+  var b = document.querySelector(sel);
+  if (!b) return;
+  b.classList.remove('spin');
+  void b.offsetWidth;
+  b.classList.add('spin');
+  setTimeout(function () { b.classList.remove('spin'); }, 520);
 }
 
 function newQuote(instant) {
@@ -1729,10 +1995,11 @@ function newQuote(instant) {
   var textEl = document.getElementById('quote-text');
   var authorEl = document.getElementById('quote-author');
   function apply() {
-    textEl.textContent = '\u201c' + quotes[idx].text + '\u201d';
-    authorEl.textContent = '\u2014 ' + quotes[idx].author;
+    textEl.textContent = '“' + quotes[idx].text + '”';
+    authorEl.textContent = '— ' + quotes[idx].author;
   }
-  if (instant === true) { apply(); } else { swapText([textEl, authorEl], apply); }
+  if (instant === true) { apply(); } else { spinBtn('.quote-section .refresh-btn'); swapText([textEl, authorEl], apply); }
+  if (window.dfbPanelReset) window.dfbPanelReset('quote');
 }
 
 function newTip(instant) {
@@ -1741,8 +2008,38 @@ function newTip(instant) {
   lastTip = idx;
   var tipEl = document.getElementById('tip-text');
   function apply() { tipEl.textContent = tips[idx]; }
-  if (instant === true) { apply(); } else { swapText([tipEl], apply); }
+  if (instant === true) { apply(); } else { spinBtn('.tip-section .refresh-btn'); swapText([tipEl], apply); }
+  if (window.dfbPanelReset) window.dfbPanelReset('tip');
 }
+
+/* auto-rotate: a new quote every ~14s and a new tip every ~16s.
+   Pauses while the mouse is over that card or the tab is hidden;
+   the small ring shows the time left. Off for reduced-motion users. */
+(function () {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var slots = {
+    quote: { sec: document.querySelector('.quote-section'), next: newQuote, ms: 14000, t: 0, hover: false },
+    tip:   { sec: document.querySelector('.tip-section'),   next: newTip,   ms: 16000, t: 0, hover: false }
+  };
+  window.dfbPanelReset = function (k) { if (slots[k]) slots[k].t = 0; };
+  Object.keys(slots).forEach(function (k) {
+    var s = slots[k];
+    if (!s.sec) return;
+    s.ring = s.sec.querySelector('.panel-ring .f');
+    s.sec.addEventListener('mouseenter', function () { s.hover = true; });
+    s.sec.addEventListener('mouseleave', function () { s.hover = false; });
+  });
+  setInterval(function () {
+    if (document.hidden) return;
+    Object.keys(slots).forEach(function (k) {
+      var s = slots[k];
+      if (!s.sec || s.hover) return;
+      s.t += 100;
+      if (s.ring) s.ring.style.strokeDashoffset = String(1 - Math.min(1, s.t / s.ms));
+      if (s.t >= s.ms) { s.t = 0; s.next(); }
+    });
+  }, 100);
+})();
 
 Promise.all([
   fetch('/assets/data/quotes.json').then(function (r) { return r.json(); }),
@@ -1879,445 +2176,653 @@ Promise.all([
 
   
   <!-- Visitor Assistant -->
-  <div id="assistant-bubble" role="button" tabindex="0" aria-label="Open chat assistant" aria-expanded="false" onclick="toggleAssistant()" title="Chat">
-    <span id="bubble-icon">🤵🏻</span>
-    <div id="thought-bubble">Need help?</div>
+  <div id="assistant-bubble" role="button" tabindex="0" aria-label="Open chat assistant" aria-expanded="false" aria-controls="assistant-panel" title="Chat">
+    <span class="asst-dot-ring" aria-hidden="true"></span>
+    <span id="bubble-icon" aria-hidden="true">🤵🏻</span>
+    <span class="asst-badge" aria-hidden="true"></span>
+    <div id="thought-bubble" aria-hidden="true">Need help?</div>
   </div>
 
-  <div id="assistant-panel">
+  <div id="assistant-panel" role="dialog" aria-label="Jarvis assistant">
     <div class="asst-header">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="asst-dot"></div>
+      <div class="asst-hd">
+        <div class="asst-hd-av" aria-hidden="true">🤵🏻<span class="asst-dot"></span></div>
         <div>
           <div class="asst-title">Jarvis</div>
           <div class="asst-sub">Researcher's Assistant</div>
         </div>
       </div>
-      <button onclick="toggleAssistant()" aria-label="Close assistant"
-        style="background:none;border:none;color:var(--dfb-muted);cursor:pointer;font-size:1rem;">✕</button>
+      <button type="button" class="asst-close" id="asst-close" aria-label="Close assistant">✕</button>
     </div>
-    <div class="asst-body" id="asst-body"></div>
+    <div class="asst-body" id="asst-body" aria-live="polite"></div>
   </div>
 
   <style>
     .skip-link { position: absolute; left: -9999px; top: 0; z-index: 100000; padding: 8px 14px; background: var(--dfb-surface); color: var(--dfb-accent-2); border-radius: 0 0 6px 0; }
     .skip-link:focus { left: 0; }
 
+    /* ── Bubble ── */
     #assistant-bubble {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: var(--dfb-surface);
+      background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--dfb-accent-2) 22%, var(--dfb-surface)), var(--dfb-surface) 70%);
       border: 1px solid var(--dfb-accent-2-hover);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 9998;
-      font-size: 1.4rem;
-      transition: all 0.2s;
-      box-shadow: 0 0 15px color-mix(in srgb, var(--dfb-accent-2) 15%, transparent);
+      font-size: 1.5rem;
+      box-shadow:
+        0 10px 26px -10px color-mix(in srgb, var(--dfb-accent-2) 55%, transparent),
+        0 0 0 4px color-mix(in srgb, var(--dfb-accent-2) 6%, transparent);
+      transition: transform .35s cubic-bezier(.3, 1.5, .5, 1), box-shadow .3s, border-color .3s;
+      animation: asstFloat 4.5s ease-in-out infinite;
     }
-
     #assistant-bubble:hover {
-      border-color: color-mix(in srgb, var(--dfb-accent-2) 80%, transparent);
-      box-shadow: 0 0 20px color-mix(in srgb, var(--dfb-accent-2) 28%, transparent);
+      transform: translateY(-3px) scale(1.06);
+      border-color: var(--dfb-accent-2);
+      box-shadow:
+        0 14px 30px -10px color-mix(in srgb, var(--dfb-accent-2) 70%, transparent),
+        0 0 0 6px color-mix(in srgb, var(--dfb-accent-2) 10%, transparent);
+    }
+    #assistant-bubble:focus-visible { outline: 2px solid var(--dfb-accent-2); outline-offset: 4px; }
+    #assistant-bubble.is-open { animation: none; }
+    @keyframes asstFloat {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: 0 -4px; }
     }
 
+    /* ping ring until the first open */
+    .asst-dot-ring {
+      position: absolute;
+      inset: -1px;
+      border-radius: 50%;
+      border: 1.5px solid var(--dfb-accent-2);
+      opacity: 0;
+      pointer-events: none;
+      animation: asstRing 3.2s ease-out infinite;
+    }
+    #assistant-bubble.seen .asst-dot-ring { display: none; }
+    @keyframes asstRing {
+      0%        { transform: scale(1);    opacity: .55; }
+      70%, 100% { transform: scale(1.55); opacity: 0; }
+    }
+
+    /* small online badge */
+    .asst-badge {
+      position: absolute;
+      right: 1px;
+      bottom: 3px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--dfb-accent-2);
+      box-shadow: 0 0 0 2px var(--dfb-surface);
+    }
+
+    #bubble-icon {
+      display: inline-block;
+      transition: transform .35s cubic-bezier(.3, 1.5, .5, 1);
+    }
+    #assistant-bubble.is-open #bubble-icon {
+      transform: rotate(90deg);
+      font-size: 1.1rem;
+      color: var(--dfb-bright);
+    }
+
+    /* "Need help?" tip */
+    #thought-bubble {
+      position: absolute;
+      bottom: 66px;
+      right: 0;
+      background: color-mix(in srgb, var(--dfb-surface) 92%, transparent);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border: 1px solid color-mix(in srgb, var(--dfb-accent-2) 35%, transparent);
+      border-radius: 12px 12px 4px 12px;
+      padding: 7px 12px;
+      font: 600 11.5px 'JetBrains Mono', monospace;
+      color: var(--dfb-accent-2);
+      white-space: nowrap;
+      box-shadow: 0 8px 20px -10px rgba(0, 0, 0, .6);
+      opacity: 0;
+      transform: translateY(6px) scale(.96);
+      transform-origin: bottom right;
+      pointer-events: none;
+      transition: opacity .35s, transform .35s cubic-bezier(.3, 1.4, .5, 1);
+    }
+    #thought-bubble.show { opacity: 1; transform: none; }
+    #thought-bubble::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      bottom: -5px;
+      width: 8px;
+      height: 8px;
+      background: inherit;
+      border-right: 1px solid color-mix(in srgb, var(--dfb-accent-2) 35%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--dfb-accent-2) 35%, transparent);
+      transform: rotate(45deg);
+    }
+
+    /* ── Panel ── */
     #assistant-panel {
       position: fixed;
-      bottom: 5.5rem;
+      bottom: 6.3rem;
       right: 2rem;
-      width: 320px;
-      background: var(--dfb-surface-2);
-      border: 1px solid var(--dfb-accent-border);
-      border-radius: 8px;
-      z-index: 9997;
-      display: none;
-      flex-direction: column;
-      font-family: 'JetBrains Mono', monospace;
-      overflow: hidden;
-    }
-
-    #assistant-panel.open {
+      width: 340px;
+      max-height: min(520px, calc(100vh - 8rem));
       display: flex;
+      flex-direction: column;
+      z-index: 9997;
+      overflow: hidden;
+      font-family: 'JetBrains Mono', monospace;
+      background: color-mix(in srgb, var(--dfb-surface-2) 88%, transparent);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      backdrop-filter: blur(14px) saturate(140%);
+      border: 1px solid var(--dfb-accent-border);
+      border-radius: 16px;
+      box-shadow:
+        0 24px 60px -20px rgba(0, 0, 0, .75),
+        0 0 0 1px color-mix(in srgb, var(--dfb-accent-2) 6%, transparent);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px) scale(.95);
+      transform-origin: bottom right;
+      transition: opacity .25s ease, transform .35s cubic-bezier(.3, 1.3, .5, 1), visibility 0s .35s;
+    }
+    #assistant-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition: opacity .25s ease, transform .35s cubic-bezier(.3, 1.3, .5, 1), visibility 0s;
     }
 
     .asst-header {
-      background: var(--dfb-surface);
-      border-bottom: 1px solid var(--dfb-border);
-      padding: 12px 16px;
+      position: relative;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid var(--dfb-border);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--dfb-accent-2) 12%, transparent), transparent 60%);
     }
-
+    .asst-header::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--dfb-accent-2), transparent);
+      opacity: .5;
+    }
+    .asst-hd { display: flex; align-items: center; gap: 10px; }
+    .asst-hd-av {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      background: var(--dfb-accent-2-dim);
+      border: 1px solid var(--dfb-accent-2-border);
+    }
     .asst-dot {
-      width: 8px;
-      height: 8px;
+      position: absolute;
+      right: -1px;
+      bottom: -1px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: var(--dfb-accent-2);
-      animation: asstPulse 2s infinite;
+      box-shadow: 0 0 0 2px var(--dfb-surface-2);
+      animation: asstPulse 2.4s ease-in-out infinite;
     }
-
     @keyframes asstPulse {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: 0.4
-      }
+      0%, 100% { box-shadow: 0 0 0 2px var(--dfb-surface-2), 0 0 0 2px color-mix(in srgb, var(--dfb-accent-2) 40%, transparent); }
+      50%      { box-shadow: 0 0 0 2px var(--dfb-surface-2), 0 0 0 6px color-mix(in srgb, var(--dfb-accent-2) 0%, transparent); }
     }
-
-    .asst-title {
-      font-size: 13px;
-      color: var(--dfb-bright);
-      font-weight: 600;
-    }
-
-    .asst-sub {
-      font-size: 11px;
+    .asst-title { font-size: 13.5px; color: var(--dfb-bright); font-weight: 700; letter-spacing: .02em; }
+    .asst-sub { font-size: 11px; color: var(--dfb-muted); }
+    .asst-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
       color: var(--dfb-muted);
+      cursor: pointer;
+      font-size: .9rem;
+      transition: background .2s, color .2s, border-color .2s, transform .3s;
     }
+    .asst-close:hover {
+      background: var(--dfb-accent-2-dim);
+      color: var(--dfb-bright);
+      border-color: var(--dfb-accent-2-border);
+      transform: rotate(90deg);
+    }
+    .asst-close:focus-visible { outline: 2px solid var(--dfb-accent-2); outline-offset: 2px; }
 
     .asst-body {
       padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      max-height: 380px;
+      gap: 12px;
+      min-height: 180px;
       overflow-y: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--dfb-accent-2-border) transparent;
     }
 
     .asst-msg {
       display: flex;
       gap: 8px;
       align-items: flex-start;
+      animation: asstIn .35s cubic-bezier(.2, .8, .2, 1) both;
     }
-
+    @keyframes asstIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: none; }
+    }
     .asst-avatar {
-      width: 38px;
-      height: 38px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: var(--dfb-accent-2-dim);
       border: 1px solid var(--dfb-accent-2-border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 17px;
+      font-size: 14px;
       color: var(--dfb-accent-2);
       flex-shrink: 0;
       font-weight: 700;
     }
-
+    .asst-user .asst-avatar { font-size: 9px; letter-spacing: .02em; }
     .asst-bubble {
       background: var(--dfb-surface);
       border: 1px solid var(--dfb-border);
-      border-radius: 0 8px 8px 8px;
-      padding: 9px 11px;
+      border-radius: 4px 12px 12px 12px;
+      padding: 10px 12px;
       font-size: 12px;
       color: var(--dfb-fg);
-      line-height: 1.6;
-      max-width: 240px;
+      line-height: 1.65;
+      max-width: 250px;
     }
-
-    .asst-user {
-      flex-direction: row-reverse;
-    }
-
+    .asst-user { flex-direction: row-reverse; }
     .asst-user .asst-bubble {
-      background: color-mix(in srgb, var(--dfb-accent-2) 8%, transparent);
-      border-color: color-mix(in srgb, var(--dfb-accent-2) 22%, transparent);
-      border-radius: 8px 0 8px 8px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--dfb-accent-2) 18%, transparent), color-mix(in srgb, var(--dfb-accent-2) 8%, transparent));
+      border-color: var(--dfb-accent-2-border);
+      border-radius: 12px 4px 12px 12px;
       color: var(--dfb-bright);
     }
 
-    .asst-opts {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      margin-top: 4px;
-    }
-
+    .asst-opts { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
     .asst-opt {
-      background: transparent;
+      position: relative;
+      background: color-mix(in srgb, var(--dfb-surface) 60%, transparent);
       border: 1px solid var(--dfb-accent-border);
-      border-radius: 4px;
-      padding: 7px 10px;
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
+      border-radius: 9px;
+      padding: 9px 30px 9px 11px;
+      min-height: 38px;
+      font: 600 11.5px 'JetBrains Mono', monospace;
       color: var(--dfb-accent-2);
       cursor: pointer;
       text-align: left;
-      transition: all 0.2s;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
+      transition: background .2s, border-color .2s, transform .2s, color .2s;
+      animation: asstIn .35s cubic-bezier(.2, .8, .2, 1) both;
     }
-
+    .asst-opt:nth-child(2) { animation-delay: .06s; }
+    .asst-opt:nth-child(3) { animation-delay: .12s; }
+    .asst-opt::after {
+      content: '→';
+      position: absolute;
+      right: 11px;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity .2s, transform .2s;
+    }
     .asst-opt:hover {
       background: var(--dfb-accent-2-dim);
       border-color: var(--dfb-accent-2-hover);
+      color: var(--dfb-bright);
+      transform: translateX(2px);
     }
+    .asst-opt:hover::after { opacity: 1; transform: none; }
+    .asst-opt[disabled] { animation: none; opacity: .4; cursor: default; transform: none; }
+    .asst-opt[disabled]::after { display: none; }
+    .asst-opt:focus-visible,
+    .asst-back:focus-visible,
+    .asst-link:focus-visible { outline: 2px solid var(--dfb-accent-2); outline-offset: 2px; }
 
     .asst-back {
-      font-size: 10px;
+      font: 600 10.5px 'JetBrains Mono', monospace;
       color: var(--dfb-muted);
       background: none;
-      border: none;
+      border: 0;
       cursor: pointer;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 0;
-      margin-top: 4px;
-      text-decoration: underline;
+      padding: 4px 0;
+      margin-top: 6px;
+      transition: color .2s;
     }
-
-    .asst-back:hover {
-      color: var(--dfb-accent-2);
-    }
+    .asst-back:hover { color: var(--dfb-accent-2); }
+    .asst-back[disabled] { opacity: .35; cursor: default; }
 
     .asst-link {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: color-mix(in srgb, var(--dfb-accent-2) 8%, transparent);
-      border: 1px solid color-mix(in srgb, var(--dfb-accent-2) 22%, transparent);
-      border-radius: 4px;
-      padding: 3px 9px;
-      color: var(--dfb-accent-2);
+      background: color-mix(in srgb, var(--dfb-accent-2) 10%, transparent);
+      border: 1px solid var(--dfb-accent-2-border);
+      border-radius: 999px;
+      padding: 4px 11px;
+      color: var(--dfb-accent-2) !important;
       font-size: 11px;
-      text-decoration: none;
-      margin: 2px 2px;
+      text-decoration: none !important;
+      margin: 3px 2px;
+      transition: background .2s, transform .2s;
     }
-
     .asst-link:hover {
-      background: color-mix(in srgb, var(--dfb-accent-2) 18%, transparent);
+      background: color-mix(in srgb, var(--dfb-accent-2) 22%, transparent);
+      color: var(--dfb-accent-2) !important;
+      transform: translateY(-1px);
     }
 
-    #thought-bubble {
-      position: absolute;
-      bottom: 58px;
-      right: 0;
+    /* typing dots */
+    .asst-typing {
+      display: flex;
+      gap: 4px;
+      width: max-content;
+      padding: 12px 14px;
       background: var(--dfb-surface);
-      border: 1px solid color-mix(in srgb, var(--dfb-accent-2) 32%, transparent);
-      border-radius: 12px 12px 12px 0;
-      padding: 6px 10px;
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--dfb-accent-2);
-      white-space: nowrap;
-      animation: thoughtPop 3s ease-in-out infinite;
+      border: 1px solid var(--dfb-border);
+      border-radius: 4px 12px 12px 12px;
     }
-
-    #thought-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 10px;
+    .asst-typing i {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: color-mix(in srgb, var(--dfb-accent-2) 32%, transparent);
+      background: var(--dfb-accent-2);
+      opacity: .35;
+      animation: asstType 1s infinite;
+    }
+    .asst-typing i:nth-child(2) { animation-delay: .15s; }
+    .asst-typing i:nth-child(3) { animation-delay: .3s; }
+    @keyframes asstType {
+      0%, 60%, 100% { opacity: .3; transform: none; }
+      30%           { opacity: 1;  transform: translateY(-3px); }
     }
 
-    @keyframes thoughtPop {
+    .asst-toast {
+      position: fixed;
+      bottom: 6.5rem;
+      right: 2rem;
+      background: var(--dfb-accent-2);
+      color: var(--dfb-onacc);
+      padding: 9px 14px;
+      border-radius: 9px;
+      font: 700 .78rem 'JetBrains Mono', monospace;
+      z-index: 99999;
+      box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--dfb-accent-2) 80%, transparent);
+      animation: asstIn .3s both;
+    }
 
-      0%,
-      100% {
-        opacity: 0;
-        transform: translateY(4px);
-      }
+    @media (max-width: 520px) {
+      #assistant-bubble { right: 1rem; bottom: 1rem; }
+      #assistant-panel { left: .75rem; right: .75rem; width: auto; bottom: 5.2rem; }
+      .asst-toast { right: 1rem; bottom: 5.5rem; }
+    }
 
-      20%,
-      80% {
-        opacity: 1;
-        transform: translateY(0);
+    @media (prefers-reduced-motion: reduce) {
+      #assistant-bubble, #assistant-bubble *, #assistant-panel, #assistant-panel *,
+      #assistant-panel *::before, #assistant-panel *::after, #thought-bubble, .asst-toast {
+        animation: none !important;
+        transition: none !important;
       }
     }
   </style>
 
   <script>
-    var asstOpen = false;
-    var asstStarted = false;
-
-    var asstFlows = {
-      start: {
-        bot: "How may I help you?",
-        options: [
-          { icon: "🏛️", label: "Protocol / Project", next: "protocol" },
-          { icon: "🔬", label: "Fellow Researcher", next: "researcher" },
-          { icon: "👀", label: "Just browsing", next: "browsing" }
-        ]
-      },
-      protocol: {
-        bot: "What are you looking for?",
-        options: [
-          { icon: "📋", label: "View Audit Reports", next: "audits" },
-          { icon: "💼", label: "Hire for an Audit", next: "hire" },
-          { icon: "📬", label: "Contact Details", next: "contact" }
-        ],
-        back: "start"
-      },
-      audits: {
-        bot: "My audit reports are publicly available on GitHub. Each report includes findings, severity ratings and recommendations.",
-        links: [
-          { label: "GitHub", url: "https://github.com/DeFiBreacher" },
-          { label: "Audits Page", url: "/audits/" }
-        ],
-        back: "protocol"
-      },
-      hire: {
-        bot: "Available for smart contract security reviews — EVM, Solana, DeFi. Reach out to discuss scope and timeline.",
-        links: [
-          { label: "Email", url: "mailto:defibreacher@gmail.com" },
-          { label: "Twitter DM", url: "https://x.com/DeFiBreacher" }
-        ],
-        back: "protocol"
-      },
-      contact: {
-        bot: "Here's where you can reach me:",
-        links: [
-          { label: "Email", url: "mailto:defibreacher@gmail.com" },
-          { label: "Twitter", url: "https://x.com/DeFiBreacher" },
-          { label: "Telegram", url: "https://t.me/DeFiBreacher" }
-        ],
-        back: "protocol"
-      },
-      researcher: {
-        bot: "Fellow researcher! What's up?",
-        options: [
-          { icon: "🤝", label: "Lets work together", next: "work" },
-          { icon: "💬", label: "Just connect", next: "connect" },
-          { icon: "📖", label: "Check my posts", next: "posts" }
-        ],
-        back: "start"
-      },
-      work: {
-        bot: "Let's collaborate! You can reach me here:",
-        links: [
-          { label: "Email", url: "mailto:defibreacher@gmail.com" },
-          { label: "Twitter", url: "https://x.com/DeFiBreacher" },
-          { label: "Telegram", url: "https://t.me/DeFiBreacher" }
-        ],
-        back: "researcher"
-      },
-      connect: {
-        bot: "Find me here — active on Twitter and Telegram.",
-        links: [
-          { label: "Twitter", url: "https://x.com/DeFiBreacher" },
-          { label: "Telegram", url: "https://t.me/DeFiBreacher" },
-          { label: "GitHub", url: "https://github.com/DeFiBreacher" }
-        ],
-        back: "researcher"
-      },
-      posts: {
-        bot: "I write about Web3 security, fitness, and tech.",
-        links: [
-          { label: "Blog", url: "/" },
-          { label: "Medium", url: "https://medium.com/@DeFiBreacher" }
-        ],
-        back: "researcher"
-      },
-      browsing: {
-        bot: "Here's a quick overview of what you'll find here.",
-        links: [
-          { label: "Audit Reports", url: "/audits/" },
-          { label: "Blog", url: "/" },
-          { label: "GitHub", url: "https://github.com/DeFiBreacher" },
-          { label: "Reading", url: "/reading/" },
-          { label: "CTF", url: "/ctf/" },
-          { label: "Bucket List", url: "/bucket-list/" },
-          { label: "Terminal", url: "/terminal/" },
-        ],
-        back: "start"
-      }
-    };
-
     (function () {
-      var b = document.getElementById('assistant-bubble');
-      b.addEventListener('keydown', function (ev) {
-        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleAssistant(); }
-      });
-    })();
-
-    function toggleAssistant() {
-      asstOpen = !asstOpen;
-      document.getElementById('assistant-bubble').setAttribute('aria-expanded', String(asstOpen));
-      var panel = document.getElementById('assistant-panel');
-      var icon = document.getElementById('bubble-icon');
-      if (asstOpen) {
-        panel.classList.add('open');
-        icon.textContent = '✕';
-        if (!asstStarted) { asstGoTo('start'); asstStarted = true; }
-      } else {
-        panel.classList.remove('open');
-        icon.textContent = '🤵🏻';
-      }
-      var thought = document.getElementById('thought-bubble');
-      if (asstOpen) {
-        thought.style.display = 'none';
-      } else {
-        thought.style.display = 'block';
-      }
-    }
-
-    function asstGoTo(flowKey) {
-      var flow = asstFlows[flowKey];
-      if (!flow) return;
-      var body = document.getElementById('asst-body');
-      body.innerHTML = '';
-      var msg = document.createElement('div');
-      msg.className = 'asst-msg';
-      var linksHtml = '';
-      if (flow.links) flow.links.forEach(function (l) {
-        if (l.url.indexOf('mailto:') === 0) {
-          var email = l.url.replace('mailto:', '');
-          linksHtml += '<a href="javascript:void(0)" class="asst-link" onclick="copyEmail(\'' + email + '\')">' + l.label + '</a>';
-        } else {
-          var ext = /^https?:/.test(l.url);
-          linksHtml += '<a href="' + l.url + '" class="asst-link"' + (ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + l.label + '</a>';
+      /* conversation flows: unchanged */
+      var asstFlows = {
+        start: {
+          bot: "How may I help you?",
+          options: [
+            { icon: "🏛️", label: "Protocol / Project", next: "protocol" },
+            { icon: "🔬", label: "Fellow Researcher", next: "researcher" },
+            { icon: "👀", label: "Just browsing", next: "browsing" }
+          ]
+        },
+        protocol: {
+          bot: "What are you looking for?",
+          options: [
+            { icon: "📋", label: "View Audit Reports", next: "audits" },
+            { icon: "💼", label: "Hire for an Audit", next: "hire" },
+            { icon: "📬", label: "Contact Details", next: "contact" }
+          ],
+          back: "start"
+        },
+        audits: {
+          bot: "My audit reports are publicly available on GitHub. Each report includes findings, severity ratings and recommendations.",
+          links: [
+            { label: "GitHub", url: "https://github.com/DeFiBreacher" },
+            { label: "Audits Page", url: "/audits/" }
+          ],
+          back: "protocol"
+        },
+        hire: {
+          bot: "Available for smart contract security reviews — EVM, Solana, DeFi. Reach out to discuss scope and timeline.",
+          links: [
+            { label: "Email", url: "mailto:defibreacher@gmail.com" },
+            { label: "Twitter DM", url: "https://x.com/DeFiBreacher" }
+          ],
+          back: "protocol"
+        },
+        contact: {
+          bot: "Here's where you can reach me:",
+          links: [
+            { label: "Email", url: "mailto:defibreacher@gmail.com" },
+            { label: "Twitter", url: "https://x.com/DeFiBreacher" },
+            { label: "Telegram", url: "https://t.me/DeFiBreacher" }
+          ],
+          back: "protocol"
+        },
+        researcher: {
+          bot: "Fellow researcher! What's up?",
+          options: [
+            { icon: "🤝", label: "Lets work together", next: "work" },
+            { icon: "💬", label: "Just connect", next: "connect" },
+            { icon: "📖", label: "Check my posts", next: "posts" }
+          ],
+          back: "start"
+        },
+        work: {
+          bot: "Let's collaborate! You can reach me here:",
+          links: [
+            { label: "Email", url: "mailto:defibreacher@gmail.com" },
+            { label: "Twitter", url: "https://x.com/DeFiBreacher" },
+            { label: "Telegram", url: "https://t.me/DeFiBreacher" }
+          ],
+          back: "researcher"
+        },
+        connect: {
+          bot: "Find me here — active on Twitter and Telegram.",
+          links: [
+            { label: "Twitter", url: "https://x.com/DeFiBreacher" },
+            { label: "Telegram", url: "https://t.me/DeFiBreacher" },
+            { label: "GitHub", url: "https://github.com/DeFiBreacher" }
+          ],
+          back: "researcher"
+        },
+        posts: {
+          bot: "I write about Web3 security, fitness, and tech.",
+          links: [
+            { label: "Blog", url: "/" },
+            { label: "Medium", url: "https://medium.com/@DeFiBreacher" }
+          ],
+          back: "researcher"
+        },
+        browsing: {
+          bot: "Here's a quick overview of what you'll find here.",
+          links: [
+            { label: "Audit Reports", url: "/audits/" },
+            { label: "Blog", url: "/" },
+            { label: "GitHub", url: "https://github.com/DeFiBreacher" },
+            { label: "Reading", url: "/reading/" },
+            { label: "CTF", url: "/ctf/" },
+            { label: "Bucket List", url: "/bucket-list/" },
+            { label: "Terminal", url: "/terminal/" }
+          ],
+          back: "start"
         }
-      });
-      var optsHtml = '';
-      if (flow.options) {
-        optsHtml = '<div class="asst-opts">';
-        flow.options.forEach(function (o) {
-          optsHtml += '<button class="asst-opt" onclick="asstChoose(\'' + o.next + '\',\'' + o.label + '\')">' + o.icon + ' ' + o.label + '</button>';
-        });
-        optsHtml += '</div>';
-      }
-      var backHtml = flow.back ? '<button class="asst-back" onclick="asstGoTo(\'' + flow.back + '\')">← go back</button>' : '';
-      msg.innerHTML = '<div class="asst-avatar">🤵🏻</div><div><div class="asst-bubble">' + flow.bot + (linksHtml ? '<br><br>' + linksHtml : '') + '</div>' + optsHtml + backHtml + '</div>';
-      body.appendChild(msg);
-      body.scrollTop = body.scrollHeight;
-    }
+      };
 
-    function asstChoose(flowKey, label) {
+      var bubble = document.getElementById('assistant-bubble');
+      var panel = document.getElementById('assistant-panel');
       var body = document.getElementById('asst-body');
-      body.innerHTML = '';
-      var msg = document.createElement('div');
-      msg.className = 'asst-msg asst-user';
-      msg.innerHTML = '<div class="asst-avatar">You</div><div class="asst-bubble">' + label + '</div>';
-      body.appendChild(msg);
-      body.scrollTop = body.scrollHeight;
-      setTimeout(function () { asstGoTo(flowKey); }, 300);
-    }
+      var icon = document.getElementById('bubble-icon');
+      var thought = document.getElementById('thought-bubble');
+      var closeBtn = document.getElementById('asst-close');
+      var asstOpen = false, asstStarted = false, typingTimer = null, thoughtCount = 0;
 
-    function copyEmail(email) {
-      navigator.clipboard.writeText(email).then(function () {
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function toggleAssistant(force) {
+        asstOpen = (typeof force === 'boolean') ? force : !asstOpen;
+        bubble.setAttribute('aria-expanded', String(asstOpen));
+        panel.classList.toggle('open', asstOpen);
+        bubble.classList.toggle('is-open', asstOpen);
+        icon.textContent = asstOpen ? '✕' : '🤵🏻';
+        if (asstOpen) {
+          bubble.classList.add('seen');
+          thought.classList.remove('show');
+          if (!asstStarted) { asstStarted = true; asstGoTo('start', true); }
+          setTimeout(function () {
+            var first = panel.querySelector('.asst-opt:not([disabled])');
+            if (first) first.focus({ preventScroll: true });
+          }, 450);
+        }
+      }
+      window.toggleAssistant = toggleAssistant;
+
+      function linksHtml(flow) {
+        if (!flow.links) return '';
+        return flow.links.map(function (l) {
+          if (l.url.indexOf('mailto:') === 0) {
+            return '<a href="#" class="asst-link" data-copy="' + esc(l.url.slice(7)) + '">' + esc(l.label) + '</a>';
+          }
+          var ext = /^https?:/.test(l.url);
+          return '<a href="' + esc(l.url) + '" class="asst-link"' + (ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + esc(l.label) + '</a>';
+        }).join('');
+      }
+
+      function botMsg(flow) {
+        var msg = document.createElement('div');
+        msg.className = 'asst-msg';
+        var lh = linksHtml(flow);
+        var oh = '';
+        if (flow.options) {
+          oh = '<div class="asst-opts">' + flow.options.map(function (o) {
+            return '<button type="button" class="asst-opt" data-next="' + o.next + '" data-label="' + esc(o.label) + '">' + o.icon + ' ' + esc(o.label) + '</button>';
+          }).join('') + '</div>';
+        }
+        var bh = flow.back ? '<button type="button" class="asst-back" data-back="' + flow.back + '">← go back</button>' : '';
+        msg.innerHTML = '<div class="asst-avatar" aria-hidden="true">🤵🏻</div><div><div class="asst-bubble">' + esc(flow.bot) + (lh ? '<br><br>' + lh : '') + '</div>' + oh + bh + '</div>';
+        return msg;
+      }
+
+      function scrollEnd() { body.scrollTop = body.scrollHeight; }
+
+      function lockOld() {
+        body.querySelectorAll('.asst-opt, .asst-back').forEach(function (b) { b.disabled = true; });
+      }
+
+      function asstGoTo(key, first) {
+        var flow = asstFlows[key];
+        if (!flow) return;
+        lockOld();
         var t = document.createElement('div');
-        t.innerText = '📋 Gmail copied!';
-        t.style.cssText = 'position:fixed;bottom:6rem;right:2rem;background:var(--dfb-accent-2);color:var(--dfb-onacc);padding:8px 14px;border-radius:4px;font-size:0.78rem;font-family:JetBrains Mono,monospace;z-index:99999;font-weight:600;';
-        document.body.appendChild(t);
-        setTimeout(function () { t.remove(); }, 2000);
+        t.className = 'asst-msg';
+        t.innerHTML = '<div class="asst-avatar" aria-hidden="true">🤵🏻</div><div class="asst-typing" aria-label="Jarvis is typing"><i></i><i></i><i></i></div>';
+        body.appendChild(t);
+        scrollEnd();
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function () {
+          t.remove();
+          body.appendChild(botMsg(flow));
+          scrollEnd();
+        }, first ? 450 : 650);
+      }
+
+      function asstChoose(key, label) {
+        lockOld();
+        var m = document.createElement('div');
+        m.className = 'asst-msg asst-user';
+        m.innerHTML = '<div class="asst-avatar" aria-hidden="true">You</div><div class="asst-bubble">' + esc(label) + '</div>';
+        body.appendChild(m);
+        scrollEnd();
+        setTimeout(function () { asstGoTo(key); }, 120);
+      }
+
+      function copyEmail(email) {
+        function done() {
+          var t = document.createElement('div');
+          t.className = 'asst-toast';
+          t.setAttribute('role', 'status');
+          t.textContent = '📋 Gmail copied!';
+          document.body.appendChild(t);
+          setTimeout(function () { t.remove(); }, 2000);
+        }
+        try { navigator.clipboard.writeText(email).then(done, done); } catch (e) { done(); }
+      }
+
+      body.addEventListener('click', function (e) {
+        var o = e.target.closest('.asst-opt');
+        if (o && !o.disabled) { asstChoose(o.dataset.next, o.dataset.label); return; }
+        var b = e.target.closest('.asst-back');
+        if (b && !b.disabled) { asstGoTo(b.dataset.back); return; }
+        var c = e.target.closest('[data-copy]');
+        if (c) { e.preventDefault(); copyEmail(c.dataset.copy); }
       });
-    }
+
+      bubble.addEventListener('click', function () { toggleAssistant(); });
+      bubble.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAssistant(); }
+      });
+      closeBtn.addEventListener('click', function () { toggleAssistant(false); bubble.focus(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && asstOpen) { toggleAssistant(false); bubble.focus(); }
+      });
+      document.addEventListener('click', function (e) {
+        if (asstOpen && !panel.contains(e.target) && !bubble.contains(e.target)) toggleAssistant(false);
+      });
+
+      /* "Need help?" shows 3 times, then stops; never after the chat was opened */
+      function cycleThought() {
+        if (asstOpen || bubble.classList.contains('seen') || thoughtCount >= 3) return;
+        thoughtCount++;
+        thought.classList.add('show');
+        setTimeout(function () { thought.classList.remove('show'); }, 3200);
+        setTimeout(cycleThought, 9000);
+      }
+      setTimeout(cycleThought, 2500);
+    })();
   </script>
 <!-- Konami Code Easter Egg -->
 <div id="konami-overlay" style="display:none;">
@@ -2695,6 +3200,61 @@ Promise.all([
   });
 </script>
 
+  <script>
+    /* Breacher Writes cards: tag each card with its category (from the label
+       on the card) so the Glass styles can colour it: tech, security, lifestyle. */
+    (function () {
+      function tagCards() {
+        document.querySelectorAll('#post-list .bw-card').forEach(function (card) {
+          if (card.dataset.cat) return;
+          var label = card.querySelector('.bw-cat');
+          if (label) card.dataset.cat = label.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tagCards);
+      else tagCards();
+    })();
+  </script>
+  <script>
+    /* Page title (AUDITS, READING, ...): letters power on one by one,
+       then glitch as they land and again every few seconds. */
+    (function () {
+      var el = document.querySelector('.dynamic-title');
+      if (!el || el.children.length || el.classList.contains('dt-ready')) return;
+      var txt = el.textContent.trim();
+      if (!txt) return;
+      function esc(c) { return c.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      var html = '<span class="dt-sweep" aria-hidden="true">' + esc(txt) + '</span>';
+      Array.prototype.forEach.call(txt, function (c, i) {
+        html += '<span class="dt-ch" aria-hidden="true" style="--i:' + i + '">' + (c === ' ' ? '&nbsp;' : esc(c)) + '</span>';
+      });
+      el.setAttribute('aria-label', txt);
+      el.setAttribute('data-text', txt);
+      el.innerHTML = html;
+      el.classList.add('dt-ready');
+
+      if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      function glitch() {
+        el.classList.remove('dt-glitch');
+        void el.offsetWidth;
+        el.classList.add('dt-glitch');
+        setTimeout(function () { el.classList.remove('dt-glitch'); }, 260);
+      }
+      function loop() {
+        setTimeout(function () {
+          if (!document.hidden) {
+            glitch();
+            if (Math.random() > 0.5) setTimeout(glitch, 280);
+          }
+          loop();
+        }, 3500 + Math.random() * 4000);
+      }
+      setTimeout(function () { el.classList.add('dt-on'); }, txt.length * 55 + 700);
+      setTimeout(glitch, txt.length * 55 + 720);
+      loop();
+    })();
+  </script>
   <script src="/assets/js/konami.js"></script>
   <script>document.body.style.visibility = 'visible';</script>
 </body>
