@@ -3,8 +3,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://defibreacher.github.io/</id>
   <title>DeFiBreacher</title>
-  <subtitle>Independent Web3 security researcher specializing in Solana smart contract audits. Public findings, vulnerability writeups, and PoCs across DeFi and Solana protocols.</subtitle>
-  <updated>2026-11-28T13:01:00+05:30</updated>
+  <subtitle>Web3 Security Researcher who focuses on blockchain security, smart contract auditing, vulnerability research, exploit analysis, protocol security, and DeFi. Building, breaking, analyzing, and securing systems across EVM and Solana ecosystems.</subtitle>
+  <updated>2026-11-28T13:20:05+05:30</updated>
   <author>
     <name>DeFiBreacher</name>
     <uri>https://defibreacher.github.io/</uri>
